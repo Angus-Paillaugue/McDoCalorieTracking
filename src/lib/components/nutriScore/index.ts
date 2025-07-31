@@ -1,4 +1,3 @@
-import NutriScore from "./nutriScore.svelte";
-
+import NutriScore from './nutriScore.svelte';
 
 export default NutriScore;

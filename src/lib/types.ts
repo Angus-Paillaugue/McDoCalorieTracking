@@ -1,10 +1,10 @@
-
-type ProductId = string;
-export const nutriScoreValues = ['A', 'B', 'C', 'D', 'E', 'Z'] as const;
+export const nutriScoreValues = ['A', 'B', 'C', 'D', 'E'] as const;
 
 export interface NutritionMapEntry {
 	name: string;
 	image: string;
+	id: string;
+	categories?: string[];
 	nutritionalValue: {
 		calories: number;
 		protein: number;
@@ -14,8 +14,8 @@ export interface NutritionMapEntry {
 		lipidsSaturated: number;
 		carbohydrates: number;
 		carbohydratesSugars: number;
-		nutriScore: typeof nutriScoreValues[number];
+		nutriScore?: (typeof nutriScoreValues)[number];
 	};
 }
 
-export type NutritionMap = Record<ProductId, NutritionMapEntry>;
+export type NutritionMap = NutritionMapEntry[];

@@ -1,98 +1,107 @@
-<script lang="ts">
-	import { NutriScore } from '$lib/components';
-	import type { NutritionMap } from '$lib/types';
-	import { cn } from '$lib/utils';
-	import { Minus, Plus, X } from 'lucide-svelte';
-	import { fly } from 'svelte/transition';
-
-  const { data } = $props();
-  const { map } = data;
-
-  interface SelectedProduct {
-    id: keyof NutritionMap;
-    quantity: number;
-  }
-
-  let selectedProducts = $state<SelectedProduct[]>([]);
-
-  function calculateTotalCalories(products: SelectedProduct[]): number {
-    return products.reduce((total, product) => {
-      const nutrition = map[product.id];
-      return total + nutrition.nutritionalValue.calories * product.quantity;
-    }, 0);
-  }
-
-  const formatNumber = (calories: number): string => {
-    return calories.toLocaleString('en-US', { maximumFractionDigits: 0 });
-  };
-
-  const getNbProducts = (products: SelectedProduct[]): number => {
-    return products.reduce((total, product) => total + product.quantity, 0);
-  };
-
-  let nbProducts = $derived(getNbProducts(selectedProducts));
+<script module lang="ts">
+	export interface SelectedProduct {
+		product: NutritionMapEntry;
+		quantity: number;
+	}
 </script>
 
+<script lang="ts">
+	import ProductCard from './productCard.svelte';
 
-<div class="grid grid-cols-2 max-w-[1000px] mx-auto p-4 gap-4 w-full">
-  {#each Object.entries(map) as [id, product]}
-    {@const selectedProduct = selectedProducts.find(p => p.id === id)}
-    {@const selected = selectedProduct !== undefined}
-    {@const quantity = selectedProduct?.quantity || 0}
-    <label for="mapEntry-{id}" class={cn("p-6 bg-card border border-card rounded-lg flex flex-col gap-2 transition-all ring-primary", selected ? "ring-2" : "ring-0")}>
-      <input
-        type="checkbox"
-        id="mapEntry-{id}"
-        class="sr-only"
-        value={id}
-        onchange={() => {
-          if (selected) {
-            selectedProducts = selectedProducts.filter(p => p.id !== id);
-          } else {
-            selectedProducts = [...selectedProducts, { id, quantity: 1 }];
-          }
-        }}
-      />
-      <h2 class="font-mono text-3xl font-bold">{product.name}</h2>
+	import Result from './result.svelte';
+	import type { NutritionMap, NutritionMapEntry } from '$lib/types';
+	import Filters from './filters.svelte';
+	import { sortingMethods } from './filters.svelte';
 
-      <div class="relative w-full grow flex flex-col items-center justify-center">
-        <img src="/assets/{product.image}" alt={product.name} />
-        <div class="absolute bottom-2 right-2">
-          <NutriScore value={product.nutritionalValue.nutriScore} />
-        </div>
-      </div>
+	const { data } = $props();
+	const { map } = data;
 
-      <div class="h-10">
-        {#if selected}
-          <div class="flex flex-row justify-between items-center">
-            <button class="rounded-full bg-primary text-secondary p-2 size-10" onclick={() => {
-              selectedProduct.quantity = Math.max(0, selectedProduct.quantity - 1);
-              if (selectedProduct.quantity === 0) {
-                selectedProducts = selectedProducts.filter(p => p.id !== id);
-              }
-            }}>
-              <Minus class="size-full" />
-            </button>
-            <div class="py-1 text-base bg-primary text-secondary w-10 text-nowrap overflow-hidden text-center rounded">{quantity}</div>
-            <button class="rounded-full bg-primary text-secondary p-2 size-10" onclick={() => {
-              selectedProduct.quantity += 1;
-            }}>
-              <Plus class="size-full" />
-            </button>
-          </div>
-        {/if}
-      </div>
-    </label>
-  {/each}
-</div>
+	let selectedProducts = $state<SelectedProduct[]>([]);
+	let filteredProducts = $state<NutritionMap>(map);
+	let sortMethod = $state<(typeof sortingMethods)[number]>(sortingMethods[0]);
 
-{#if nbProducts > 0}
-  <div class="p-4 fixed bottom-4 left-4 right-4" transition:fly={{ duration: 300, y: '100%' }}>
-    <div class="bg-primary rounded max-w-[1000px] transition-all hover:-translate-y-1 hover:scale-105 justify-between flex flex-row mx-auto w-full p-4">
-      <h1 class="text-secondary text-lg font-bold">
-        {nbProducts} product{nbProducts > 1 ? 's' : ''} selected
-      </h1>
-      <span class="text-secondary font-mono text-xl">{formatNumber(calculateTotalCalories(selectedProducts))} kCal</span>
-    </div>
-  </div>
-{/if}
+	const topLevelGroups = [
+		'beef',
+		'chicken',
+		'fish',
+		'pork',
+		'veggie',
+		'salad',
+		'fries',
+		'drink',
+		'McCoffee',
+		'ice cream',
+		'fruit',
+		'others'
+	] as const;
+
+	const getItemsInCategory = (
+		category: (typeof topLevelGroups)[number] | null,
+		products: NutritionMap
+	) => {
+		if (category === null) {
+			return products;
+		}
+		if (category === 'others') {
+			return products.filter(
+				(item) =>
+					!item.categories ||
+					!item.categories.some((cat) =>
+						topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
+					)
+			);
+		}
+		return products.filter((item) => item.categories?.includes(category));
+	};
+</script>
+
+{#snippet categoryOfProduct(
+	category: (typeof topLevelGroups)[number] | (typeof sortingMethods)[number] | null,
+	products: NutritionMap
+)}
+	{#if products.length > 0}
+		<div class="relative flex flex-col gap-2 md:ml-12">
+			<!-- Left bar -->
+			<div
+				class="absolute top-0 bottom-0 -left-14 w-10 bg-[image:radial-gradient(var(--pattern)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed max-md:hidden"
+				style="--pattern: color-mix(in oklab,var(--color-white) 15%,transparent);"
+			></div>
+			<div
+				class="from-background absolute top-0 -left-14 h-10 w-10 bg-gradient-to-b to-transparent max-md:hidden"
+			></div>
+			<div
+				class="from-background absolute bottom-0 -left-14 h-10 w-10 bg-gradient-to-t to-transparent max-md:hidden"
+			></div>
+
+			<!-- Content -->
+			{#if category}
+				<h1 class="font-mono text-base font-bold uppercase">{category}</h1>
+			{/if}
+			<div
+				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+			>
+				{#each products as product (product.id)}
+					<ProductCard {product} bind:selectedProducts />
+				{/each}
+			</div>
+		</div>
+	{/if}
+{/snippet}
+
+<main class="relative min-h-dvh">
+	<Filters products={map} bind:filteredProducts bind:sortMethod />
+
+	<div class="flex flex-col gap-10 p-2 md:p-4">
+		<!-- If no sorting is applied, show items in Top Level Groups -->
+		{#if sortMethod.key === 'default'}
+			{#each topLevelGroups as group (group)}
+				{@render categoryOfProduct(group, getItemsInCategory(group, filteredProducts))}
+			{/each}
+		{:else}
+			<!-- Else, just show a list of products -->
+			{@render categoryOfProduct(null, getItemsInCategory(null, filteredProducts))}
+		{/if}
+	</div>
+
+	<Result bind:selectedProducts />
+</main>

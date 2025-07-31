@@ -1,1052 +1,1226 @@
-{
-  "280": {
-    "name": "280™ Original",
-    "image": "280.webp",
-    "nutritionalValue": {
-      "calories": 772,
-      "lipids": 41,
-      "lipidsSaturated": 17,
-      "carbohydrates": 55,
-      "carbohydratesSugars": 17,
-      "fibers": 3.5,
-      "protein": 44,
-      "salt": 3.4,
-      "nutriScore": "D"
-    }
-  },
-  "cesarSalad": {
-    "name": "Salade César",
-    "image": "cesarSalad.webp",
-    "nutritionalValue": {
-      "calories": 402,
-      "protein": 25,
-      "salt": 1.7,
-      "fibers": 2.3,
-      "lipids": 21,
-      "lipidsSaturated": 8,
-      "carbohydrates": 27,
-      "carbohydratesSugars": 8.9,
-      "nutriScore": "B"
-    }
-  },
-  "veggieCesarSalad": {
-    "name": "Salade César Végétarienne",
-    "image": "veggieCesarSalad.webp",
-    "nutritionalValue": {
-      "calories": 390,
-      "protein": 15,
-      "salt": 0.95,
-      "fibers": 2.8,
-      "lipids": 20,
-      "lipidsSaturated": 9.1,
-      "carbohydrates": 35,
-      "carbohydratesSugars": 2.8,
-      "nutriScore": "B"
-    }
-  },
-  "smallSalad": {
-    "name": "Petite Salade",
-    "image": "smallSalad.webp",
-    "nutritionalValue": {
-      "calories": 7,
-      "protein": 0.7,
-      "salt": 0.04,
-      "fibers": 0.8,
-      "lipids": 0,
-      "lipidsSaturated": 0,
-      "carbohydrates": 0.7,
-      "carbohydratesSugars": 0.3,
-      "nutriScore": "A"
-    }
-  },
-  "smallRanchWrap": {
-    "name": "P’tit Wrap Ranch",
-    "image": "smallRanchWrap.webp",
-    "nutritionalValue": {
-      "calories": 319,
-      "protein": 11,
-      "salt": 1.3,
-      "fibers": 1.5,
-      "lipids": 16,
-      "lipidsSaturated": 3.4,
-      "carbohydrates": 32,
-      "carbohydratesSugars": 3.4,
-      "nutriScore": "B"
-    }
-  },
-  "smallFries": {
-    "name": "Petite Frites",
-    "image": "smallFries.webp",
-    "nutritionalValue": {
-      "calories": 231,
-      "protein": 2.7,
-      "salt": 0.38,
-      "fibers": 2.8,
-      "lipids": 11,
-      "lipidsSaturated": 1,
-      "carbohydrates": 29,
-      "carbohydratesSugars": 0.2,
-      "nutriScore": "B"
-    }
-  },
-  "sugarDonut": {
-    "name": "Donut Nature",
-    "image": "sugarDonut.webp",
-    "nutritionalValue": {
-      "calories": 286,
-      "protein": 4,
-      "salt": 0.41,
-      "fibers": 0.7,
-      "lipids": 17,
-      "lipidsSaturated": 7.8,
-      "carbohydrates": 29,
-      "carbohydratesSugars": 9.8,
-      "nutriScore": "E"
-    }
-  },
-  "crispy": {
-    "name": "McCrispy",
-    "image": "crispy.webp",
-    "nutritionalValue": {
-      "calories": 530,
-      "lipids": 22,
-      "lipidsSaturated": 2.6,
-      "carbohydrates": 54,
-      "carbohydratesSugars": 9.2,
-      "fibers": 4,
-      "protein": 27,
-      "salt": 2.4,
-      "nutriScore": "B"
-    }
-  },
-  "bigArch": {
-    "name": "Big Arch",
-    "image": "bigArch.webp",
-    "nutritionalValue": {
-      "calories": 1076,
-      "lipids": 68,
-      "lipidsSaturated": 24,
-      "carbohydrates": 55,
-      "carbohydratesSugars": 15,
-      "fibers": 4.2,
-      "protein": 59,
-      "salt": 4.3,
-      "nutriScore": "D"
-    }
-  },
-  "doubleCheeseBacon": {
-    "name": "Double Cheese Bacon",
-    "image": "doubleCheeseBacon.webp",
-    "nutritionalValue": {
-      "calories": 456,
-      "lipids": 24,
-      "lipidsSaturated": 11,
-      "carbohydrates": 31,
-      "carbohydratesSugars": 8.2,
-      "fibers": 2,
-      "protein": 28,
-      "salt": 2.3,
-      "nutriScore": "D"
-    }
-  },
-  "doubleBigTasty": {
-    "name": "Big Tasty™ - 2 Steaks Hachés",
-    "image": "doubleBigTasty.webp",
-    "nutritionalValue": {
-      "calories": 940,
-      "lipids": 58,
-      "lipidsSaturated": 21,
-      "carbohydrates": 44,
-      "carbohydratesSugars": 11,
-      "fibers": 3,
-      "protein": 59,
-      "salt": 2.8,
-      "nutriScore": "C"
-    }
-  },
-  "bigTasty": {
-    "name": "Big Tasty™ - 1 Steak Haché",
-    "image": "bigTasty.webp",
-    "nutritionalValue": {
-      "calories": 690,
-      "lipids": 40,
-      "lipidsSaturated": 13,
-      "carbohydrates": 44,
-      "carbohydratesSugars": 11,
-      "fibers": 3,
-      "protein": 37,
-      "salt": 2.4,
-      "nutriScore": "C"
-    }
-  },
-  "royalBacon": {
-    "name": "Royal™ Bacon",
-    "image": "royalBacon.webp",
-    "nutritionalValue": {
-      "calories": 490,
-      "lipids": 24,
-      "lipidsSaturated": 11,
-      "carbohydrates": 38,
-      "carbohydratesSugars": 9.3,
-      "fibers": 2.6,
-      "protein": 30,
-      "salt": 2.2,
-      "nutriScore": "D"
-    }
-  },
-  "eggBaconMuffin": {
-    "name": "Egg & Bacon McMuffin",
-    "image": "eggBaconMuffin.webp",
-    "nutritionalValue": {
-      "calories": 277,
-      "lipids": 11,
-      "lipidsSaturated": 4.6,
-      "carbohydrates": 27,
-      "carbohydratesSugars": 2.1,
-      "fibers": 1.9,
-      "protein": 17,
-      "salt": 1.2,
-      "nutriScore": "C"
-    }
-  },
-  "doubleCheese": {
-    "name": "Double Cheeseburger",
-    "image": "doubleCheese.webp",
-    "nutritionalValue": {
-      "calories": 442,
-      "lipids": 23,
-      "lipidsSaturated": 11,
-      "carbohydrates": 31,
-      "carbohydratesSugars": 8,
-      "fibers": 2.2,
-      "protein": 27,
-      "salt": 2.2,
-      "nutriScore": "D"
-    }
-  },
-  "royalDeluxe": {
-    "name": "Royal™ Deluxe",
-    "image": "royalDeluxe.webp",
-    "nutritionalValue": {
-      "calories": 545,
-      "lipids": 32,
-      "lipidsSaturated": 11,
-      "carbohydrates": 36,
-      "carbohydratesSugars": 7.3,
-      "fibers": 2.7,
-      "protein": 29,
-      "salt": 2,
-      "nutriScore": "C"
-    }
-  },
-  "nug20": {
-    "name": "Boîte de 20 Chicken McNuggets™",
-    "image": "nug20.webp",
-    "nutritionalValue": {
-      "calories": 872,
-      "lipids": 45,
-      "lipidsSaturated": 5,
-      "carbohydrates": 65,
-      "carbohydratesSugars": 1.4,
-      "fibers": 2.8,
-      "protein": 51,
-      "salt": 3.8,
-      "nutriScore": "C"
-    }
-  },
-  "royalCheese": {
-    "name": "Royal Cheese™",
-    "image": "royalCheese.webp",
-    "nutritionalValue": {
-      "calories": 525,
-      "lipids": 27,
-      "lipidsSaturated": 12,
-      "carbohydrates": 39,
-      "carbohydratesSugars": 10,
-      "fibers": 2.6,
-      "protein": 31,
-      "salt": 2.5,
-      "nutriScore": "D"
-    }
-  },
-  "cbo": {
-    "name": "CBO",
-    "image": "cbo.webp",
-    "nutritionalValue": {
-      "calories": 659,
-      "lipids": 35,
-      "lipidsSaturated": 8.2,
-      "carbohydrates": 57,
-      "carbohydratesSugars": 8.8,
-      "fibers": 3.8,
-      "protein": 27,
-      "salt": 2.8,
-      "nutriScore": "C"
-    }
-  },
-  "hamburger": {
-    "name": "Hamburger",
-    "image": "hamburger.webp",
-    "nutritionalValue": {
-      "calories": 253,
-      "lipids": 8.9,
-      "lipidsSaturated": 3.5,
-      "carbohydrates": 29,
-      "carbohydratesSugars": 6.6,
-      "fibers": 1000,
-      "protein": 2.1,
-      "salt": 1.2,
-      "nutriScore": "C"
-    }
-  },
-  "newYorkWrap": {
-    "name": "McWrap™ New York & Poulet Bacon",
-    "image": "newYorkWrap.webp",
-    "nutritionalValue": {
-      "calories": 552,
-      "lipids": 26,
-      "lipidsSaturated": 5.6,
-      "carbohydrates": 56,
-      "carbohydratesSugars": 4.1,
-      "fibers": 3.4,
-      "protein": 22,
-      "salt": 2.8,
-      "nutriScore": "C"
-    }
-  },
-  "eggCheese": {
-    "name": "Egg & Cheese McMuffin",
-    "image": "eggCheese.webp",
-    "nutritionalValue": {
-      "calories": 263,
-      "lipids": 10,
-      "lipidsSaturated": 4.2,
-      "carbohydrates": 27,
-      "carbohydratesSugars": 2.1,
-      "fibers": 1.9,
-      "protein": 16,
-      "salt": 1.1,
-      "nutriScore": "B"
-    }
-  },
-  "croque": {
-    "name": "Croque McDo",
-    "image": "croque.webp",
-    "nutritionalValue": {
-      "calories": 255,
-      "lipids": 9.7,
-      "lipidsSaturated": 2.8,
-      "carbohydrates": 28,
-      "carbohydratesSugars": 5.5,
-      "fibers": 1.7,
-      "protein": 13,
-      "salt": 1.6,
-      "nutriScore": "D"
-    }
-  },
-  "smallChicken": {
-    "name": "P'tit Chicken",
-    "image": "smallChicken.webp",
-    "nutritionalValue": {
-      "calories": 311,
-      "lipids": 13,
-      "lipidsSaturated": 1.6,
-      "carbohydrates": 35,
-      "carbohydratesSugars": 5.3,
-      "fibers": 3.1,
-      "protein": 12,
-      "salt": 1.4,
-      "nutriScore": "B"
-    }
-  },
-  "cheeseburger": {
-    "name": "Cheeseburger",
-    "image": "cheeseburger.webp",
-    "nutritionalValue": {
-      "calories": 300,
-      "lipids": 13,
-      "lipidsSaturated": 5.6,
-      "carbohydrates": 30,
-      "carbohydratesSugars": 7.4,
-      "fibers": 2.1,
-      "protein": 16,
-      "salt": 1.5,
-      "nutriScore": "D"
-    }
-  },
-  "mcChicken": {
-    "name": "McChicken",
-    "image": "mcChicken.webp",
-    "nutritionalValue": {
-      "calories": 434,
-      "lipids": 19,
-      "lipidsSaturated": 2.2,
-      "carbohydrates": 45,
-      "carbohydratesSugars": 6.3,
-      "fibers": 3.3,
-      "protein": 19,
-      "salt": 2,
-      "nutriScore": "B"
-    }
-  },
-  "mcFishMayo": {
-    "name": "McFish™ Mayo",
-    "image": "mcFishMayo.webp",
-    "nutritionalValue": {
-      "calories": 295,
-      "lipids": 11,
-      "lipidsSaturated": 1.2,
-      "carbohydrates": 35,
-      "carbohydratesSugars": 4.4,
-      "fibers": 2.1,
-      "protein": 13,
-      "salt": 1.2,
-      "nutriScore": "B"
-    }
-  },
-  "veggieWrap": {
-    "name": "McWrap® Veggie",
-    "image": "veggieWrap.webp",
-    "nutritionalValue": {
-      "calories": 495,
-      "lipids": 22,
-      "lipidsSaturated": 5.1,
-      "carbohydrates": 51,
-      "carbohydratesSugars": 5.5,
-      "fibers": 6.6,
-      "protein": 20,
-      "salt": 2.9,
-      "nutriScore": "B"
-    }
-  },
-  "filetFish": {
-    "name": "Filet-O-Fish",
-    "image": "filetFish.webp",
-    "nutritionalValue": {
-      "calories": 329,
-      "lipids": 14,
-      "lipidsSaturated": 2.4,
-      "carbohydrates": 36,
-      "carbohydratesSugars": 5.1,
-      "fibers": 2.2,
-      "protein": 15,
-      "salt": 1.4,
-      "nutriScore": "C"
-    }
-  },
-  "deluxeFiletFish": {
-    "name": "Filet-O-Fish™ Deluxe",
-    "image": "deluxeFiletFish.webp",
-    "nutritionalValue": {
-      "calories": 361,
-      "lipids": 16,
-      "lipidsSaturated": 3.7,
-      "carbohydrates": 37,
-      "carbohydratesSugars": 5.9,
-      "fibers": 2.5,
-      "protein": 16,
-      "salt": 1.6,
-      "nutriScore": "B"
-    }
-  },
-  "mcFish": {
-    "name": "McFish",
-    "image": "mcFish.webp",
-    "nutritionalValue": {
-      "calories": 284,
-      "lipids": 7.9,
-      "lipidsSaturated": 0.9,
-      "carbohydrates": 38,
-      "carbohydratesSugars": 7.8,
-      "fibers": 2.4,
-      "protein": 14,
-      "salt": 1.4,
-      "nutriScore": "B"
-    }
-  },
-  "mcVeggie": {
-    "name": "McVeggie",
-    "image": "mcVeggie.webp",
-    "nutritionalValue": {
-      "calories": 409,
-      "lipids": 16,
-      "lipidsSaturated": 1.9,
-      "carbohydrates": 46,
-      "carbohydratesSugars": 7.4,
-      "fibers": 6.5,
-      "protein": 17,
-      "salt": 2.3,
-      "nutriScore": "A"
-    }
-  },
-  "bigMac": {
-    "name": "Big Mac",
-    "image": "bigMac.webp",
-    "nutritionalValue": {
-      "calories": 530,
-      "lipids": 27,
-      "lipidsSaturated": 9.6,
-      "carbohydrates": 42,
-      "carbohydratesSugars": 7.8,
-      "fibers": 3.8,
-      "protein": 27,
-      "salt": 2.3,
-      "nutriScore": "C"
-    }
-  },
-  "maple": {
-    "name": "Maple BBQ Quarter Pounder",
-    "image": "maple.webp",
-    "nutritionalValue": {
-      "calories": 600,
-      "lipids": 35,
-      "lipidsSaturated": 14,
-      "carbohydrates": 37,
-      "carbohydratesSugars": 8.5,
-      "fibers": 2.6,
-      "protein": 33,
-      "salt": 2.5,
-      "nutriScore": "D"
-    }
-  },
-  "doubleMaple": {
-    "name": "Double Maple BBQ Quarter Pounder",
-    "image": "doubleMaple.webp",
-    "nutritionalValue": {
-      "calories": 825,
-      "lipids": 51,
-      "lipidsSaturated": 22,
-      "carbohydrates": 37,
-      "carbohydratesSugars": 8.9,
-      "fibers": 3,
-      "protein": 53,
-      "salt": 3,
-      "nutriScore": "D"
-    }
-  },
-  "steakhouse": {
-    "name": "Steakhouse",
-    "image": "steakhouse.webp",
-    "nutritionalValue": {
-      "calories": 881,
-      "lipids": 55,
-      "lipidsSaturated": 20,
-      "carbohydrates": 43,
-      "carbohydratesSugars": 8.5,
-      "fibers": 2.9,
-      "protein": 52,
-      "salt": 2.6,
-      "nutriScore": "D"
-    }
-  },
-  "teriyakiChicken": {
-    "name": "Teriyaki Chicken",
-    "image": "teriyakiChicken.webp",
-    "nutritionalValue": {
-      "calories": 468,
-      "lipids": 17,
-      "lipidsSaturated": 2.1,
-      "carbohydrates": 57,
-      "carbohydratesSugars": 14,
-      "fibers": 3.4,
-      "protein": 20,
-      "salt": 2.8,
-      "nutriScore": "B"
-    }
-  },
-  "shrimpFilet": {
-    "name": "Shrimp Filet",
-    "image": "shrimpFilet.webp",
-    "nutritionalValue": {
-      "calories": 443,
-      "lipids": 17,
-      "lipidsSaturated": 1.5,
-      "carbohydrates": 54,
-      "carbohydratesSugars": 10,
-      "fibers": 3.1,
-      "protein": 17,
-      "salt": 2.2,
-      "nutriScore": "B"
-    }
-  },
-  "appleJuice": {
-    "name": "Nectar De Pomme Bio",
-    "image": "appleJuice.webp",
-    "nutritionalValue": {
-      "calories": 56,
-      "lipids": 0.3,
-      "lipidsSaturated": 0,
-      "carbohydrates": 13,
-      "carbohydratesSugars": 12,
-      "fibers": 0.2,
-      "protein": 0.2,
-      "salt": 0.02,
-      "nutriScore": "D"
-    }
-  },
-  "hawai": {
-    "name": "Hawaï® Saveur Tropical",
-    "image": "hawai.webp",
-    "nutritionalValue": {
-      "calories": 178,
-      "lipids": 0,
-      "lipidsSaturated": 0,
-      "carbohydrates": 44,
-      "carbohydratesSugars": 44,
-      "fibers": 0,
-      "protein": 0,
-      "salt": 0,
-      "nutriScore": "E"
-    }
-  },
-  "capriSun": {
-    "name": "Capri-Sun® Tropical",
-    "image": "capriSun.webp",
-    "nutritionalValue": {
-      "calories": 43,
-      "lipids": 0,
-      "lipidsSaturated": 0,
-      "carbohydrates": 10,
-      "carbohydratesSugars": 10,
-      "fibers": 0,
-      "protein": 0,
-      "salt": 0.01,
-      "nutriScore": "C"
-    }
-  },
-  "macFlurryMango": {
-    "name": "McFlurry™ Mangue Bobba",
-    "image": "macFlurryMango.webp",
-    "nutritionalValue": {
-      "calories": 259,
-      "lipids": 5.4,
-      "lipidsSaturated": 3.6,
-      "carbohydrates": 47,
-      "carbohydratesSugars": 42,
-      "fibers": 0.5,
-      "protein": 5.4,
-      "salt": 0.21,
-      "nutriScore": "C"
-    }
-  },
-  "mcFloatSakura": {
-    "name": "McFloat® Sakura",
-    "image": "mcFloatSakura.webp",
-    "nutritionalValue": {
-      "calories": 98,
-      "lipids": 2.6,
-      "lipidsSaturated": 1.8,
-      "carbohydrates": 16,
-      "carbohydratesSugars": 14,
-      "fibers": 0,
-      "protein": 2.6,
-      "salt": 0.23,
-      "nutriScore": "D"
-    }
-  },
-  "sundaeMango": {
-    "name": "Sundae coulis mangue",
-    "image": "sundaeMango.webp",
-    "nutritionalValue": {
-      "calories": 221,
-      "lipids": 7.5,
-      "lipidsSaturated": 3.2,
-      "carbohydrates": 32,
-      "carbohydratesSugars": 28,
-      "fibers": 1.1,
-      "protein": 5.9,
-      "salt": 0.15,
-      "nutriScore": "C"
-    }
-  },
-  "smallVanillaIceCream": {
-    "name": "P'tit Glacé Saveur Vanille",
-    "image": "smallVanillaIceCream.webp",
-    "nutritionalValue": {
-      "calories": 68,
-      "lipids": 1.8,
-      "lipidsSaturated": 1.2,
-      "carbohydrates": 11,
-      "carbohydratesSugars": 10,
-      "fibers": 0,
-      "protein": 1.8,
-      "salt": 0.07,
-      "nutriScore": "C"
-    }
-  },
-  "smallVanillaShake": {
-    "name": "P'tit Milkshake Saveur Vanille",
-    "image": "smallVanillaShake.webp",
-    "nutritionalValue": {
-      "calories": 257,
-      "lipids": 5.7,
-      "lipidsSaturated": 3.9,
-      "carbohydrates": 46,
-      "carbohydratesSugars": 42,
-      "fibers": 0,
-      "protein": 5.5,
-      "salt": 0.22,
-      "nutriScore": "C"
-    }
-  },
-  "bigVanillaShake": {
-    "name": "Grand Milkshake Saveur Vanille",
-    "image": "bigVanillaShake.webp",
-    "nutritionalValue": {
-      "calories": 315,
-      "lipids": 6.2,
-      "lipidsSaturated": 4.2,
-      "carbohydrates": 56,
-      "carbohydratesSugars": 51,
-      "fibers": 0,
-      "protein": 8.7,
-      "salt": 0.3,
-      "nutriScore": "C"
-    }
-  },
-  "appleSlices": {
-    "name": "P'tite Pomme",
-    "image": "appleSlices.webp",
-    "nutritionalValue": {
-      "calories": 42,
-      "lipids": 0.2,
-      "lipidsSaturated": 0,
-      "carbohydrates": 9,
-      "carbohydratesSugars": 9,
-      "fibers": 1.6,
-      "protein": 0.2,
-      "salt": 0,
-      "nutriScore": "A"
-    }
-  },
-  "bigStrawberryShake": {
-    "name": "Grand Milkshake Saveur Fraise",
-    "image": "bigStrawberryShake.webp",
-    "nutritionalValue": {
-      "calories": 315,
-      "lipids": 6.2,
-      "lipidsSaturated": 4.2,
-      "carbohydrates": 56,
-      "carbohydratesSugars": 48,
-      "fibers": 0,
-      "protein": 8.8,
-      "salt": 0.31,
-      "nutriScore": "C"
-    }
-  },
-  "smallStrawberryShake": {
-    "name": "P'tit Milkshake Saveur Fraise",
-    "image": "smallStrawberryShake.webp",
-    "nutritionalValue": {
-      "calories": 254,
-      "lipids": 5.7,
-      "lipidsSaturated": 3.9,
-      "carbohydrates": 45,
-      "carbohydratesSugars": 39,
-      "fibers": 0,
-      "protein": 5.6,
-      "salt": 0.22,
-      "nutriScore": "C"
-    }
-  },
-  "applesauce": {
-    "name": "Berlingo' Fruits",
-    "image": "applesauce.webp",
-    "nutritionalValue": {
-      "calories": 46,
-      "lipids": 0.5,
-      "lipidsSaturated": 0.1,
-      "carbohydrates": 11,
-      "carbohydratesSugars": 11,
-      "fibers": 1.2,
-      "protein": 0.5,
-      "salt": 0,
-      "nutriScore": "A"
-    }
-  },
-  "chocolateMuffin": {
-    "name": "Muffin Saveur Chocolat Noisette",
-    "image": "chocolateMuffin.webp",
-    "nutritionalValue": {
-      "calories": 595,
-      "lipids": 33,
-      "lipidsSaturated": 5.7,
-      "carbohydrates": 64,
-      "carbohydratesSugars": 42,
-      "fibers": 3.8,
-      "protein": 8.1,
-      "salt": 1.1,
-      "nutriScore": "D"
-    }
-  },
-  "cucumbers": {
-    "name": "P'tits Concombres",
-    "image": "cucumbers.webp",
-    "nutritionalValue": {
-      "calories": 10,
-      "lipids": 0.3,
-      "lipidsSaturated": 0.1,
-      "carbohydrates": 1.9,
-      "carbohydratesSugars": 1,
-      "fibers": 0.3,
-      "protein": 0.4,
-      "salt": 0,
-      "nutriScore": "A"
-    }
-  },
-  "ananas": {
-    "name": "P'tit Ananas",
-    "image": "ananas.webp",
-    "nutritionalValue": {
-      "calories": 38,
-      "lipids": 0.2,
-      "lipidsSaturated": 0,
-      "carbohydrates": 7.8,
-      "carbohydratesSugars": 7.8,
-      "fibers": 1.5,
-      "protein": 0.5,
-      "salt": 0,
-      "nutriScore": "A"
-    }
-  },
-  "chocolateCookie": {
-    "name": "Cookie Fourré Choconuts",
-    "image": "chocolateCookie.webp",
-    "nutritionalValue": {
-      "calories": 380,
-      "lipids": 18,
-      "lipidsSaturated": 4.7,
-      "carbohydrates": 50,
-      "carbohydratesSugars": 30,
-      "fibers": 2.6,
-      "protein": 5,
-      "salt": 0.42,
-      "nutriScore": "D"
-    }
-  },
-  "macaroonsDuo": {
-    "name": "Duo De Macarons",
-    "image": "macaroonsDuo.webp",
-    "nutritionalValue": {
-      "calories": 171,
-      "lipids": 7.2,
-      "lipidsSaturated": 0.7,
-      "carbohydrates": 24,
-      "carbohydratesSugars": 22,
-      "fibers": 1.2,
-      "protein": 1,
-      "salt": 0.04,
-      "nutriScore": "D"
-    }
-  },
-  "mcChocoNuts": {
-    "name": "McChocoNuts Nappage Choconuts",
-    "image": "mcChocoNuts.webp",
-    "nutritionalValue": {
-      "calories": 397,
-      "lipids": 16,
-      "lipidsSaturated": 7.8,
-      "carbohydrates": 50,
-      "carbohydratesSugars": 22,
-      "fibers": 3.3,
-      "protein": 11,
-      "salt": 0.77,
-      "nutriScore": "D"
-    }
-  },
-  "brownie": {
-    "name": "Brownie Chocolat-Noisettes",
-    "image": "brownie.webp",
-    "nutritionalValue": {
-      "calories": 394,
-      "lipids": 24,
-      "lipidsSaturated": 11,
-      "carbohydrates": 37,
-      "carbohydratesSugars": 21,
-      "fibers": 3.5,
-      "protein": 4.8,
-      "salt": 0.31,
-      "nutriScore": "D"
-    }
-  },
-  "mediumPotatoes": {
-    "name": "Moyenne Portion de Deluxe Potatoes",
-    "image": "mediumPotatoes.webp",
-    "nutritionalValue": {
-      "calories": 227,
-      "lipids": 12,
-      "lipidsSaturated": 1.1,
-      "carbohydrates": 26,
-      "carbohydratesSugars": 0,
-      "fibers": 3.3,
-      "protein": 2.8,
-      "salt": 0.72,
-      "nutriScore": "B"
-    }
-  },
-  "bigPotatoes": {
-    "name": "Grande Portion de Deluxe Potatoes",
-    "image": "bigPotatoes.webp",
-    "nutritionalValue": {
-      "calories": 330,
-      "lipids": 17,
-      "lipidsSaturated": 1.6,
-      "carbohydrates": 37,
-      "carbohydratesSugars": 0,
-      "fibers": 4.8,
-      "protein": 4,
-      "salt": 1,
-      "nutriScore": "B"
-    }
-  },
-  "cheesePotatoes": {
-    "name": "Potatoes Double Cheddar Fondu",
-    "image": "cheesePotatoes.webp",
-    "nutritionalValue": {
-      "calories": 467,
-      "lipids": 24,
-      "lipidsSaturated": 6.7,
-      "carbohydrates": 49,
-      "carbohydratesSugars": 0.6,
-      "fibers": 5.6,
-      "protein": 11,
-      "salt": 2.8,
-      "nutriScore": "C"
-    }
-  },
-  "baconPotatoes": {
-    "name": "Potatoes Cheddar Fondu - Bacon",
-    "image": "baconPotatoes.webp",
-    "nutritionalValue": {
-      "calories": 467,
-      "lipids": 24,
-      "lipidsSaturated": 5.7,
-      "carbohydrates": 49,
-      "carbohydratesSugars": 0.6,
-      "fibers": 5.6,
-      "protein": 11,
-      "salt": 2.4,
-      "nutriScore": "C"
-    }
-  },
-  "blueberryMuffin": {
-    "name": "Muffin Aux Myrtilles",
-    "image": "blueberryMuffin.webp",
-    "nutritionalValue": {
-      "calories": 480,
-      "lipids": 22,
-      "lipidsSaturated": 11,
-      "carbohydrates": 63,
-      "carbohydratesSugars": 35,
-      "fibers": 1,
-      "protein": 6.1,
-      "salt": 1.1,
-      "nutriScore": "E"
-    }
-  },
-  "chocolateDonut": {
-    "name": "Donut Saveur Chocolat",
-    "image": "chocolateDonut.webp",
-    "nutritionalValue": {
-      "calories": 363,
-      "lipids": 24,
-      "lipidsSaturated": 11,
-      "carbohydrates": 32,
-      "carbohydratesSugars": 15,
-      "fibers": 1.2,
-      "protein": 3.9,
-      "salt": 0.62,
-      "nutriScore": "E"
-    }
-  },
-  "quebecFries": {
-    "name": "Frites à la Québécoise",
-    "image": "quebecFries.webp",
-    "nutritionalValue": {
-      "calories": 603,
-      "lipids": 31,
-      "lipidsSaturated": 7.3,
-      "carbohydrates": 66,
-      "carbohydratesSugars": 3,
-      "fibers": 5.9,
-      "protein": 12,
-      "salt": 1.8,
-      "nutriScore": "C"
-    }
-  },
-  "mediumFries": {
-    "name": "Moyenne Portion de Frites",
-    "image": "mediumFries.webp",
-    "nutritionalValue": {
-      "calories": 328,
-      "lipids": 16,
-      "lipidsSaturated": 1.5,
-      "carbohydrates": 41,
-      "carbohydratesSugars": 0.3,
-      "fibers": 4,
-      "protein": 3.9,
-      "salt": 0.53,
-      "nutriScore": "B"
-    }
-  },
-  "bigFries": {
-    "name": "Grande Portion de Frites",
-    "image": "bigFries.webp",
-    "nutritionalValue": {
-      "calories": 434,
-      "lipids": 21,
-      "lipidsSaturated": 2,
-      "carbohydrates": 54,
-      "carbohydratesSugars": 0.5,
-      "fibers": 5.3,
-      "protein": 5.1,
-      "salt": 0.71,
-      "nutriScore": "B"
-    }
-  },
-  "chedarFries": {
-    "name": "McFlavor® Fries Double Cheddar Fondu",
-    "image": "chedarFries.webp",
-    "nutritionalValue": {
-      "calories": 0,
-      "lipids": 0,
-      "lipidsSaturated": 0,
-      "carbohydrates": 0,
-      "carbohydratesSugars": 0,
-      "fibers": 0,
-      "protein": 0,
-      "salt": 0,
-      "nutriScore": "Z"
-    }
-  },
-  "baconFries": {
-    "name": "McFlavor® Fries Cheddar Fondu - Bacon",
-    "image": "baconFries.webp",
-    "nutritionalValue": {
-      "calories": 0,
-      "lipids": 0,
-      "lipidsSaturated": 0,
-      "carbohydrates": 0,
-      "carbohydratesSugars": 0,
-      "fibers": 0,
-      "protein": 0,
-      "salt": 0,
-      "nutriScore": "Z"
-    }
-  },
-  "NAME": {
-    "name": "NAME",
-    "image": "NAME.webp",
-    "nutritionalValue": {
-      "calories": 1000,
-      "lipids": 1000,
-      "lipidsSaturated": 1000,
-      "carbohydrates": 1000,
-      "carbohydratesSugars": 1000,
-      "fibers": 1000,
-      "protein": 1000,
-      "salt": 1000,
-      "nutriScore": "C"
-    }
-  }
-}
+[
+	{
+		"id": "280",
+		"name": "280™ Original",
+		"image": "280.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 772,
+			"lipids": 41,
+			"lipidsSaturated": 17,
+			"carbohydrates": 55,
+			"carbohydratesSugars": 17,
+			"fibers": 3.5,
+			"protein": 44,
+			"salt": 3.4,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "cesarSalad",
+		"name": "Salade César",
+		"image": "cesarSalad.webp",
+		"categories": ["salad", "chicken"],
+		"nutritionalValue": {
+			"calories": 402,
+			"protein": 25,
+			"salt": 1.7,
+			"fibers": 2.3,
+			"lipids": 21,
+			"lipidsSaturated": 8,
+			"carbohydrates": 27,
+			"carbohydratesSugars": 8.9,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "veggieCesarSalad",
+		"name": "Salade César Végétarienne",
+		"image": "veggieCesarSalad.webp",
+		"categories": ["salad", "veggie"],
+		"nutritionalValue": {
+			"calories": 390,
+			"protein": 15,
+			"salt": 0.95,
+			"fibers": 2.8,
+			"lipids": 20,
+			"lipidsSaturated": 9.1,
+			"carbohydrates": 35,
+			"carbohydratesSugars": 2.8,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "smallSalad",
+		"name": "Petite Salade",
+		"image": "smallSalad.webp",
+		"categories": ["salad", "veggie"],
+		"nutritionalValue": {
+			"calories": 7,
+			"protein": 0.7,
+			"salt": 0.04,
+			"fibers": 0.8,
+			"lipids": 0,
+			"lipidsSaturated": 0,
+			"carbohydrates": 0.7,
+			"carbohydratesSugars": 0.3,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "smallRanchWrap",
+		"name": "P’tit Wrap Ranch",
+		"categories": ["wrap", "chicken"],
+		"image": "smallRanchWrap.webp",
+		"nutritionalValue": {
+			"calories": 319,
+			"protein": 11,
+			"salt": 1.3,
+			"fibers": 1.5,
+			"lipids": 16,
+			"lipidsSaturated": 3.4,
+			"carbohydrates": 32,
+			"carbohydratesSugars": 3.4,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "smallFries",
+		"name": "Petite Frites",
+		"categories": ["fries"],
+		"image": "smallFries.webp",
+		"nutritionalValue": {
+			"calories": 231,
+			"protein": 2.7,
+			"salt": 0.38,
+			"fibers": 2.8,
+			"lipids": 11,
+			"lipidsSaturated": 1,
+			"carbohydrates": 29,
+			"carbohydratesSugars": 0.2,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "sugarDonut",
+		"name": "Donut Nature",
+		"categories": ["McCoffee", "desert"],
+		"image": "sugarDonut.webp",
+		"nutritionalValue": {
+			"calories": 286,
+			"protein": 4,
+			"salt": 0.41,
+			"fibers": 0.7,
+			"lipids": 17,
+			"lipidsSaturated": 7.8,
+			"carbohydrates": 29,
+			"carbohydratesSugars": 9.8,
+			"nutriScore": "E"
+		}
+	},
+	{
+		"id": "crispy",
+		"name": "McCrispy",
+		"image": "crispy.webp",
+		"categories": ["burger", "chicken"],
+		"nutritionalValue": {
+			"calories": 530,
+			"lipids": 22,
+			"lipidsSaturated": 2.6,
+			"carbohydrates": 54,
+			"carbohydratesSugars": 9.2,
+			"fibers": 4,
+			"protein": 27,
+			"salt": 2.4,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "bigArch",
+		"name": "Big Arch",
+		"image": "bigArch.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 1076,
+			"lipids": 68,
+			"lipidsSaturated": 24,
+			"carbohydrates": 55,
+			"carbohydratesSugars": 15,
+			"fibers": 4.2,
+			"protein": 59,
+			"salt": 4.3,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "doubleCheeseBacon",
+		"name": "Double Cheese Bacon",
+		"image": "doubleCheeseBacon.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 456,
+			"lipids": 24,
+			"lipidsSaturated": 11,
+			"carbohydrates": 31,
+			"carbohydratesSugars": 8.2,
+			"fibers": 2,
+			"protein": 28,
+			"salt": 2.3,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "doubleBigTasty",
+		"name": "Big Tasty™ - 2 Steaks Hachés",
+		"image": "doubleBigTasty.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 940,
+			"lipids": 58,
+			"lipidsSaturated": 21,
+			"carbohydrates": 44,
+			"carbohydratesSugars": 11,
+			"fibers": 3,
+			"protein": 59,
+			"salt": 2.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "bigTasty",
+		"name": "Big Tasty™ - 1 Steak Haché",
+		"image": "bigTasty.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 690,
+			"lipids": 40,
+			"lipidsSaturated": 13,
+			"carbohydrates": 44,
+			"carbohydratesSugars": 11,
+			"fibers": 3,
+			"protein": 37,
+			"salt": 2.4,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "royalBacon",
+		"name": "Royal™ Bacon",
+		"image": "royalBacon.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 490,
+			"lipids": 24,
+			"lipidsSaturated": 11,
+			"carbohydrates": 38,
+			"carbohydratesSugars": 9.3,
+			"fibers": 2.6,
+			"protein": 30,
+			"salt": 2.2,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "eggBaconMuffin",
+		"name": "Egg & Bacon McMuffin",
+		"categories": ["egg"],
+		"image": "eggBaconMuffin.webp",
+		"nutritionalValue": {
+			"calories": 277,
+			"lipids": 11,
+			"lipidsSaturated": 4.6,
+			"carbohydrates": 27,
+			"carbohydratesSugars": 2.1,
+			"fibers": 1.9,
+			"protein": 17,
+			"salt": 1.2,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "doubleCheese",
+		"name": "Double Cheeseburger",
+		"image": "doubleCheese.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 442,
+			"lipids": 23,
+			"lipidsSaturated": 11,
+			"carbohydrates": 31,
+			"carbohydratesSugars": 8,
+			"fibers": 2.2,
+			"protein": 27,
+			"salt": 2.2,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "royalDeluxe",
+		"name": "Royal™ Deluxe",
+		"image": "royalDeluxe.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 545,
+			"lipids": 32,
+			"lipidsSaturated": 11,
+			"carbohydrates": 36,
+			"carbohydratesSugars": 7.3,
+			"fibers": 2.7,
+			"protein": 29,
+			"salt": 2,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "nug20",
+		"name": "Boîte de 20 Chicken McNuggets™",
+		"categories": ["nuggets", "chicken"],
+		"image": "nug20.webp",
+		"nutritionalValue": {
+			"calories": 872,
+			"lipids": 45,
+			"lipidsSaturated": 5,
+			"carbohydrates": 65,
+			"carbohydratesSugars": 1.4,
+			"fibers": 2.8,
+			"protein": 51,
+			"salt": 3.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "nug9",
+		"name": "Boîte de 9 Chicken McNuggets™",
+		"categories": ["nuggets", "chicken"],
+		"image": "nug9.webp",
+		"nutritionalValue": {
+			"calories": 392.4,
+			"lipids": 20.25,
+			"lipidsSaturated": 2.25,
+			"carbohydrates": 29.25,
+			"carbohydratesSugars": 0.63,
+			"fibers": 1.26,
+			"protein": 22.95,
+			"salt": 1.71,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "nug6",
+		"name": "Boîte de 6 Chicken McNuggets™",
+		"categories": ["nuggets", "chicken"],
+		"image": "nug6.webp",
+		"nutritionalValue": {
+			"calories": 261.6,
+			"lipids": 13.5,
+			"lipidsSaturated": 1.5,
+			"carbohydrates": 19.5,
+			"carbohydratesSugars": 0.42,
+			"fibers": 0.84,
+			"protein": 15.3,
+			"salt": 1.14,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "nug4",
+		"name": "Boîte de 4 Chicken McNuggets™",
+		"categories": ["nuggets", "chicken"],
+		"image": "nug4.webp",
+		"nutritionalValue": {
+			"calories": 174.4,
+			"lipids": 9,
+			"lipidsSaturated": 1,
+			"carbohydrates": 13,
+			"carbohydratesSugars": 0.28,
+			"fibers": 0.56,
+			"protein": 10.2,
+			"salt": 0.76,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "royalCheese",
+		"name": "Royal Cheese™",
+		"image": "royalCheese.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 525,
+			"lipids": 27,
+			"lipidsSaturated": 12,
+			"carbohydrates": 39,
+			"carbohydratesSugars": 10,
+			"fibers": 2.6,
+			"protein": 31,
+			"salt": 2.5,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "cbo",
+		"name": "CBO",
+		"image": "cbo.webp",
+		"categories": ["burger", "chicken"],
+		"nutritionalValue": {
+			"calories": 659,
+			"lipids": 35,
+			"lipidsSaturated": 8.2,
+			"carbohydrates": 57,
+			"carbohydratesSugars": 8.8,
+			"fibers": 3.8,
+			"protein": 27,
+			"salt": 2.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "hamburger",
+		"name": "Hamburger",
+		"image": "hamburger.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 253,
+			"lipids": 8.9,
+			"lipidsSaturated": 3.5,
+			"carbohydrates": 29,
+			"carbohydratesSugars": 6.6,
+			"fibers": 1000,
+			"protein": 2.1,
+			"salt": 1.2,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "newYorkWrap",
+		"name": "McWrap™ New York & Poulet Bacon",
+		"categories": ["wrap", "chicken"],
+		"image": "newYorkWrap.webp",
+		"nutritionalValue": {
+			"calories": 552,
+			"lipids": 26,
+			"lipidsSaturated": 5.6,
+			"carbohydrates": 56,
+			"carbohydratesSugars": 4.1,
+			"fibers": 3.4,
+			"protein": 22,
+			"salt": 2.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "eggCheese",
+		"name": "Egg & Cheese McMuffin",
+		"categories": ["egg"],
+		"image": "eggCheese.webp",
+		"nutritionalValue": {
+			"calories": 263,
+			"lipids": 10,
+			"lipidsSaturated": 4.2,
+			"carbohydrates": 27,
+			"carbohydratesSugars": 2.1,
+			"fibers": 1.9,
+			"protein": 16,
+			"salt": 1.1,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "croque",
+		"name": "Croque McDo",
+		"image": "croque.webp",
+		"categories": ["pork", "burger"],
+		"nutritionalValue": {
+			"calories": 255,
+			"lipids": 9.7,
+			"lipidsSaturated": 2.8,
+			"carbohydrates": 28,
+			"carbohydratesSugars": 5.5,
+			"fibers": 1.7,
+			"protein": 13,
+			"salt": 1.6,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "smallChicken",
+		"name": "P'tit Chicken",
+		"image": "smallChicken.webp",
+		"categories": ["burger", "chicken"],
+		"nutritionalValue": {
+			"calories": 311,
+			"lipids": 13,
+			"lipidsSaturated": 1.6,
+			"carbohydrates": 35,
+			"carbohydratesSugars": 5.3,
+			"fibers": 3.1,
+			"protein": 12,
+			"salt": 1.4,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "cheeseburger",
+		"name": "Cheeseburger",
+		"image": "cheeseburger.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 300,
+			"lipids": 13,
+			"lipidsSaturated": 5.6,
+			"carbohydrates": 30,
+			"carbohydratesSugars": 7.4,
+			"fibers": 2.1,
+			"protein": 16,
+			"salt": 1.5,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "mcChicken",
+		"name": "McChicken",
+		"image": "mcChicken.webp",
+		"categories": ["burger", "chicken"],
+		"nutritionalValue": {
+			"calories": 434,
+			"lipids": 19,
+			"lipidsSaturated": 2.2,
+			"carbohydrates": 45,
+			"carbohydratesSugars": 6.3,
+			"fibers": 3.3,
+			"protein": 19,
+			"salt": 2,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "mcFishMayo",
+		"name": "McFish™ Mayo",
+		"image": "mcFishMayo.webp",
+		"categories": ["burger", "fish"],
+		"nutritionalValue": {
+			"calories": 295,
+			"lipids": 11,
+			"lipidsSaturated": 1.2,
+			"carbohydrates": 35,
+			"carbohydratesSugars": 4.4,
+			"fibers": 2.1,
+			"protein": 13,
+			"salt": 1.2,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "veggieWrap",
+		"name": "McWrap® Veggie",
+		"categories": ["wrap", "veggie"],
+		"image": "veggieWrap.webp",
+		"nutritionalValue": {
+			"calories": 495,
+			"lipids": 22,
+			"lipidsSaturated": 5.1,
+			"carbohydrates": 51,
+			"carbohydratesSugars": 5.5,
+			"fibers": 6.6,
+			"protein": 20,
+			"salt": 2.9,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "filetFish",
+		"name": "Filet-O-Fish",
+		"image": "filetFish.webp",
+		"categories": ["burger", "fish"],
+		"nutritionalValue": {
+			"calories": 329,
+			"lipids": 14,
+			"lipidsSaturated": 2.4,
+			"carbohydrates": 36,
+			"carbohydratesSugars": 5.1,
+			"fibers": 2.2,
+			"protein": 15,
+			"salt": 1.4,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "deluxeFiletFish",
+		"name": "Filet-O-Fish™ Deluxe",
+		"image": "deluxeFiletFish.webp",
+		"categories": ["burger", "fish"],
+		"nutritionalValue": {
+			"calories": 361,
+			"lipids": 16,
+			"lipidsSaturated": 3.7,
+			"carbohydrates": 37,
+			"carbohydratesSugars": 5.9,
+			"fibers": 2.5,
+			"protein": 16,
+			"salt": 1.6,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "mcFish",
+		"name": "McFish",
+		"image": "mcFish.webp",
+		"categories": ["burger", "fish"],
+		"nutritionalValue": {
+			"calories": 284,
+			"lipids": 7.9,
+			"lipidsSaturated": 0.9,
+			"carbohydrates": 38,
+			"carbohydratesSugars": 7.8,
+			"fibers": 2.4,
+			"protein": 14,
+			"salt": 1.4,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "mcVeggie",
+		"name": "McVeggie",
+		"image": "mcVeggie.webp",
+		"categories": ["burger", "veggie"],
+		"nutritionalValue": {
+			"calories": 409,
+			"lipids": 16,
+			"lipidsSaturated": 1.9,
+			"carbohydrates": 46,
+			"carbohydratesSugars": 7.4,
+			"fibers": 6.5,
+			"protein": 17,
+			"salt": 2.3,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "bigMac",
+		"name": "Big Mac",
+		"image": "bigMac.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 530,
+			"lipids": 27,
+			"lipidsSaturated": 9.6,
+			"carbohydrates": 42,
+			"carbohydratesSugars": 7.8,
+			"fibers": 3.8,
+			"protein": 27,
+			"salt": 2.3,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "maple",
+		"name": "Maple BBQ Quarter Pounder",
+		"image": "maple.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 600,
+			"lipids": 35,
+			"lipidsSaturated": 14,
+			"carbohydrates": 37,
+			"carbohydratesSugars": 8.5,
+			"fibers": 2.6,
+			"protein": 33,
+			"salt": 2.5,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "doubleMaple",
+		"name": "Double Maple BBQ Quarter Pounder",
+		"image": "doubleMaple.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 825,
+			"lipids": 51,
+			"lipidsSaturated": 22,
+			"carbohydrates": 37,
+			"carbohydratesSugars": 8.9,
+			"fibers": 3,
+			"protein": 53,
+			"salt": 3,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "steakhouse",
+		"name": "Steakhouse",
+		"image": "steakhouse.webp",
+		"categories": ["burger", "beef"],
+		"nutritionalValue": {
+			"calories": 881,
+			"lipids": 55,
+			"lipidsSaturated": 20,
+			"carbohydrates": 43,
+			"carbohydratesSugars": 8.5,
+			"fibers": 2.9,
+			"protein": 52,
+			"salt": 2.6,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "teriyakiChicken",
+		"name": "Teriyaki Chicken",
+		"image": "teriyakiChicken.webp",
+		"categories": ["burger", "chicken"],
+		"nutritionalValue": {
+			"calories": 468,
+			"lipids": 17,
+			"lipidsSaturated": 2.1,
+			"carbohydrates": 57,
+			"carbohydratesSugars": 14,
+			"fibers": 3.4,
+			"protein": 20,
+			"salt": 2.8,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "shrimpFilet",
+		"name": "Shrimp Filet",
+		"image": "shrimpFilet.webp",
+		"categories": ["burger", "fish"],
+		"nutritionalValue": {
+			"calories": 443,
+			"lipids": 17,
+			"lipidsSaturated": 1.5,
+			"carbohydrates": 54,
+			"carbohydratesSugars": 10,
+			"fibers": 3.1,
+			"protein": 17,
+			"salt": 2.2,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "appleJuice",
+		"name": "Nectar De Pomme Bio",
+		"categories": ["drink"],
+		"image": "appleJuice.webp",
+		"nutritionalValue": {
+			"calories": 56,
+			"lipids": 0.3,
+			"lipidsSaturated": 0,
+			"carbohydrates": 13,
+			"carbohydratesSugars": 12,
+			"fibers": 0.2,
+			"protein": 0.2,
+			"salt": 0.02,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "hawai",
+		"name": "Hawaï® Saveur Tropical",
+		"categories": ["drink"],
+		"image": "hawai.webp",
+		"nutritionalValue": {
+			"calories": 178,
+			"lipids": 0,
+			"lipidsSaturated": 0,
+			"carbohydrates": 44,
+			"carbohydratesSugars": 44,
+			"fibers": 0,
+			"protein": 0,
+			"salt": 0,
+			"nutriScore": "E"
+		}
+	},
+	{
+		"id": "capriSun",
+		"name": "Capri-Sun® Tropical",
+		"categories": ["drink"],
+		"image": "capriSun.webp",
+		"nutritionalValue": {
+			"calories": 43,
+			"lipids": 0,
+			"lipidsSaturated": 0,
+			"carbohydrates": 10,
+			"carbohydratesSugars": 10,
+			"fibers": 0,
+			"protein": 0,
+			"salt": 0.01,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "macFlurryMango",
+		"name": "McFlurry™ Mangue Bobba",
+		"categories": ["ice cream"],
+		"image": "macFlurryMango.webp",
+		"nutritionalValue": {
+			"calories": 259,
+			"lipids": 5.4,
+			"lipidsSaturated": 3.6,
+			"carbohydrates": 47,
+			"carbohydratesSugars": 42,
+			"fibers": 0.5,
+			"protein": 5.4,
+			"salt": 0.21,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "mcFloatSakura",
+		"name": "McFloat® Sakura",
+		"categories": ["drink"],
+		"image": "mcFloatSakura.webp",
+		"nutritionalValue": {
+			"calories": 98,
+			"lipids": 2.6,
+			"lipidsSaturated": 1.8,
+			"carbohydrates": 16,
+			"carbohydratesSugars": 14,
+			"fibers": 0,
+			"protein": 2.6,
+			"salt": 0.23,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "sundaeMango",
+		"name": "Sundae coulis mangue",
+		"categories": ["ice cream"],
+		"image": "sundaeMango.webp",
+		"nutritionalValue": {
+			"calories": 221,
+			"lipids": 7.5,
+			"lipidsSaturated": 3.2,
+			"carbohydrates": 32,
+			"carbohydratesSugars": 28,
+			"fibers": 1.1,
+			"protein": 5.9,
+			"salt": 0.15,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "smallVanillaIceCream",
+		"name": "P'tit Glacé Saveur Vanille",
+		"categories": ["ice cream"],
+		"image": "smallVanillaIceCream.webp",
+		"nutritionalValue": {
+			"calories": 68,
+			"lipids": 1.8,
+			"lipidsSaturated": 1.2,
+			"carbohydrates": 11,
+			"carbohydratesSugars": 10,
+			"fibers": 0,
+			"protein": 1.8,
+			"salt": 0.07,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "smallVanillaShake",
+		"name": "P'tit Milkshake Saveur Vanille",
+		"categories": ["milk shake", "ice cream"],
+		"image": "smallVanillaShake.webp",
+		"nutritionalValue": {
+			"calories": 257,
+			"lipids": 5.7,
+			"lipidsSaturated": 3.9,
+			"carbohydrates": 46,
+			"carbohydratesSugars": 42,
+			"fibers": 0,
+			"protein": 5.5,
+			"salt": 0.22,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "bigVanillaShake",
+		"name": "Grand Milkshake Saveur Vanille",
+		"categories": ["milk shake", "ice cream"],
+		"image": "bigVanillaShake.webp",
+		"nutritionalValue": {
+			"calories": 315,
+			"lipids": 6.2,
+			"lipidsSaturated": 4.2,
+			"carbohydrates": 56,
+			"carbohydratesSugars": 51,
+			"fibers": 0,
+			"protein": 8.7,
+			"salt": 0.3,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "appleSlices",
+		"name": "P'tite Pomme",
+		"categories": ["fruit", "desert"],
+		"image": "appleSlices.webp",
+		"nutritionalValue": {
+			"calories": 42,
+			"lipids": 0.2,
+			"lipidsSaturated": 0,
+			"carbohydrates": 9,
+			"carbohydratesSugars": 9,
+			"fibers": 1.6,
+			"protein": 0.2,
+			"salt": 0,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "bigStrawberryShake",
+		"name": "Grand Milkshake Saveur Fraise",
+		"categories": ["milk shake", "ice cream"],
+		"image": "bigStrawberryShake.webp",
+		"nutritionalValue": {
+			"calories": 315,
+			"lipids": 6.2,
+			"lipidsSaturated": 4.2,
+			"carbohydrates": 56,
+			"carbohydratesSugars": 48,
+			"fibers": 0,
+			"protein": 8.8,
+			"salt": 0.31,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "smallStrawberryShake",
+		"name": "P'tit Milkshake Saveur Fraise",
+		"categories": ["milk shake", "ice cream"],
+		"image": "smallStrawberryShake.webp",
+		"nutritionalValue": {
+			"calories": 254,
+			"lipids": 5.7,
+			"lipidsSaturated": 3.9,
+			"carbohydrates": 45,
+			"carbohydratesSugars": 39,
+			"fibers": 0,
+			"protein": 5.6,
+			"salt": 0.22,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "applesauce",
+		"name": "Berlingo' Fruits",
+		"categories": ["desert", "fruit"],
+		"image": "applesauce.webp",
+		"nutritionalValue": {
+			"calories": 46,
+			"lipids": 0.5,
+			"lipidsSaturated": 0.1,
+			"carbohydrates": 11,
+			"carbohydratesSugars": 11,
+			"fibers": 1.2,
+			"protein": 0.5,
+			"salt": 0,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "chocolateMuffin",
+		"name": "Muffin Saveur Chocolat Noisette",
+		"categories": ["McCoffee", "desert"],
+		"image": "chocolateMuffin.webp",
+		"nutritionalValue": {
+			"calories": 595,
+			"lipids": 33,
+			"lipidsSaturated": 5.7,
+			"carbohydrates": 64,
+			"carbohydratesSugars": 42,
+			"fibers": 3.8,
+			"protein": 8.1,
+			"salt": 1.1,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "cucumbers",
+		"name": "P'tits Concombres",
+		"categories": ["desert", "fruit"],
+		"image": "cucumbers.webp",
+		"nutritionalValue": {
+			"calories": 10,
+			"lipids": 0.3,
+			"lipidsSaturated": 0.1,
+			"carbohydrates": 1.9,
+			"carbohydratesSugars": 1,
+			"fibers": 0.3,
+			"protein": 0.4,
+			"salt": 0,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "ananas",
+		"name": "P'tit Ananas",
+		"categories": ["desert", "fruit"],
+		"image": "ananas.webp",
+		"nutritionalValue": {
+			"calories": 38,
+			"lipids": 0.2,
+			"lipidsSaturated": 0,
+			"carbohydrates": 7.8,
+			"carbohydratesSugars": 7.8,
+			"fibers": 1.5,
+			"protein": 0.5,
+			"salt": 0,
+			"nutriScore": "A"
+		}
+	},
+	{
+		"id": "chocolateCookie",
+		"name": "Cookie Fourré Choconuts",
+		"categories": ["desert", "McCoffee"],
+		"image": "chocolateCookie.webp",
+		"nutritionalValue": {
+			"calories": 380,
+			"lipids": 18,
+			"lipidsSaturated": 4.7,
+			"carbohydrates": 50,
+			"carbohydratesSugars": 30,
+			"fibers": 2.6,
+			"protein": 5,
+			"salt": 0.42,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "macaroonsDuo",
+		"name": "Duo De Macarons",
+		"categories": ["desert", "McCoffee"],
+		"image": "macaroonsDuo.webp",
+		"nutritionalValue": {
+			"calories": 171,
+			"lipids": 7.2,
+			"lipidsSaturated": 0.7,
+			"carbohydrates": 24,
+			"carbohydratesSugars": 22,
+			"fibers": 1.2,
+			"protein": 1,
+			"salt": 0.04,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "mcChocoNuts",
+		"name": "McChocoNuts Nappage Choconuts",
+		"categories": ["desert", "McCoffee"],
+		"image": "mcChocoNuts.webp",
+		"nutritionalValue": {
+			"calories": 397,
+			"lipids": 16,
+			"lipidsSaturated": 7.8,
+			"carbohydrates": 50,
+			"carbohydratesSugars": 22,
+			"fibers": 3.3,
+			"protein": 11,
+			"salt": 0.77,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "brownie",
+		"name": "Brownie Chocolat-Noisettes",
+		"categories": ["desert", "McCoffee"],
+		"image": "brownie.webp",
+		"nutritionalValue": {
+			"calories": 394,
+			"lipids": 24,
+			"lipidsSaturated": 11,
+			"carbohydrates": 37,
+			"carbohydratesSugars": 21,
+			"fibers": 3.5,
+			"protein": 4.8,
+			"salt": 0.31,
+			"nutriScore": "D"
+		}
+	},
+	{
+		"id": "mediumPotatoes",
+		"name": "Moyenne Portion de Deluxe Potatoes",
+		"categories": ["fries"],
+		"image": "mediumPotatoes.webp",
+		"nutritionalValue": {
+			"calories": 227,
+			"lipids": 12,
+			"lipidsSaturated": 1.1,
+			"carbohydrates": 26,
+			"carbohydratesSugars": 0,
+			"fibers": 3.3,
+			"protein": 2.8,
+			"salt": 0.72,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "bigPotatoes",
+		"name": "Grande Portion de Deluxe Potatoes",
+		"categories": ["fries"],
+		"image": "bigPotatoes.webp",
+		"nutritionalValue": {
+			"calories": 330,
+			"lipids": 17,
+			"lipidsSaturated": 1.6,
+			"carbohydrates": 37,
+			"carbohydratesSugars": 0,
+			"fibers": 4.8,
+			"protein": 4,
+			"salt": 1,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "cheesePotatoes",
+		"name": "Potatoes Double Cheddar Fondu",
+		"categories": ["fries"],
+		"image": "cheesePotatoes.webp",
+		"nutritionalValue": {
+			"calories": 467,
+			"lipids": 24,
+			"lipidsSaturated": 6.7,
+			"carbohydrates": 49,
+			"carbohydratesSugars": 0.6,
+			"fibers": 5.6,
+			"protein": 11,
+			"salt": 2.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "baconPotatoes",
+		"name": "Potatoes Cheddar Fondu - Bacon",
+		"categories": ["fries"],
+		"image": "baconPotatoes.webp",
+		"nutritionalValue": {
+			"calories": 467,
+			"lipids": 24,
+			"lipidsSaturated": 5.7,
+			"carbohydrates": 49,
+			"carbohydratesSugars": 0.6,
+			"fibers": 5.6,
+			"protein": 11,
+			"salt": 2.4,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "blueberryMuffin",
+		"name": "Muffin Aux Myrtilles",
+		"categories": ["desert", "McCoffee"],
+		"image": "blueberryMuffin.webp",
+		"nutritionalValue": {
+			"calories": 480,
+			"lipids": 22,
+			"lipidsSaturated": 11,
+			"carbohydrates": 63,
+			"carbohydratesSugars": 35,
+			"fibers": 1,
+			"protein": 6.1,
+			"salt": 1.1,
+			"nutriScore": "E"
+		}
+	},
+	{
+		"id": "chocolateDonut",
+		"name": "Donut Saveur Chocolat",
+		"categories": ["desert", "McCoffee"],
+		"image": "chocolateDonut.webp",
+		"nutritionalValue": {
+			"calories": 363,
+			"lipids": 24,
+			"lipidsSaturated": 11,
+			"carbohydrates": 32,
+			"carbohydratesSugars": 15,
+			"fibers": 1.2,
+			"protein": 3.9,
+			"salt": 0.62,
+			"nutriScore": "E"
+		}
+	},
+	{
+		"id": "quebecFries",
+		"name": "Frites à la Québécoise",
+		"categories": ["fries"],
+		"image": "quebecFries.webp",
+		"nutritionalValue": {
+			"calories": 603,
+			"lipids": 31,
+			"lipidsSaturated": 7.3,
+			"carbohydrates": 66,
+			"carbohydratesSugars": 3,
+			"fibers": 5.9,
+			"protein": 12,
+			"salt": 1.8,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "mediumFries",
+		"name": "Moyenne Portion de Frites",
+		"categories": ["fries"],
+		"image": "mediumFries.webp",
+		"nutritionalValue": {
+			"calories": 328,
+			"lipids": 16,
+			"lipidsSaturated": 1.5,
+			"carbohydrates": 41,
+			"carbohydratesSugars": 0.3,
+			"fibers": 4,
+			"protein": 3.9,
+			"salt": 0.53,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "bigFries",
+		"name": "Grande Portion de Frites",
+		"categories": ["fries"],
+		"image": "bigFries.webp",
+		"nutritionalValue": {
+			"calories": 434,
+			"lipids": 21,
+			"lipidsSaturated": 2,
+			"carbohydrates": 54,
+			"carbohydratesSugars": 0.5,
+			"fibers": 5.3,
+			"protein": 5.1,
+			"salt": 0.71,
+			"nutriScore": "B"
+		}
+	},
+	{
+		"id": "chedarFries",
+		"name": "McFlavor® Fries Double Cheddar Fondu",
+		"categories": ["fries"],
+		"image": "chedarFries.webp",
+		"nutritionalValue": {
+			"calories": 0,
+			"lipids": 0,
+			"lipidsSaturated": 0,
+			"carbohydrates": 0,
+			"carbohydratesSugars": 0,
+			"fibers": 0,
+			"protein": 0,
+			"salt": 0,
+			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "baconFries",
+		"name": "McFlavor® Fries Cheddar Fondu - Bacon",
+		"categories": ["fries"],
+		"image": "baconFries.webp",
+		"nutritionalValue": {
+			"calories": 0,
+			"lipids": 0,
+			"lipidsSaturated": 0,
+			"carbohydrates": 0,
+			"carbohydratesSugars": 0,
+			"fibers": 0,
+			"protein": 0,
+			"salt": 0,
+			"nutriScore": "C"
+		}
+	}
+]

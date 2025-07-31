@@ -1,0 +1,123 @@
+<script lang="ts">
+	import { fly, slide } from 'svelte/transition';
+	import type { SelectedProduct } from './+page.svelte';
+	import type { NutritionMapEntry } from '$lib/types';
+	import { nutriScoreValues } from '$lib/types';
+	import { NutriScore } from '$lib/components';
+	import { prettyPrintNutritionalValueValue } from '$lib/utils';
+
+	interface Props {
+		selectedProducts: SelectedProduct[];
+	}
+
+	let { selectedProducts = $bindable([]) }: Props = $props();
+	let detailsOpen = $state(false);
+
+	function calculateTotalCalories(products: SelectedProduct[]): number {
+		return products.reduce((total, entry) => {
+			const nutrition = entry.product.nutritionalValue;
+			return total + (nutrition ? nutrition.calories * entry.quantity : 0);
+		}, 0);
+	}
+
+	const formatNumber = (calories: number): string => {
+		return calories.toLocaleString('en-US', { maximumFractionDigits: 0 });
+	};
+
+	const getNbProducts = (products: SelectedProduct[]): number => {
+		return products.reduce((total, product) => total + product.quantity, 0);
+	};
+
+	let nbProducts = $derived(getNbProducts(selectedProducts));
+
+	const onWindowKeyDown = (event: KeyboardEvent) => {
+		if (event.key === 'Escape' && detailsOpen) {
+			detailsOpen = false;
+		}
+	};
+
+	const nutritionalValueKey = (
+		key: keyof NutritionMapEntry['nutritionalValue']
+	): number | (typeof nutriScoreValues)[number] => {
+		const values = selectedProducts.map((entry) => entry.product.nutritionalValue?.[key]);
+		if (key === 'nutriScore') {
+			const scoreWeights = Object.fromEntries(
+				nutriScoreValues.map((v) => {
+					return [v, v.charCodeAt(0) - 65];
+				})
+			);
+			const mappedValues = values
+				.filter((v): v is (typeof nutriScoreValues)[number] => typeof v === 'string')
+				.map((v) => scoreWeights[v as keyof typeof scoreWeights] || 0);
+			const average = Math.round(
+				mappedValues.reduce((total, value) => total + value, 0) / mappedValues.length
+			);
+			return nutriScoreValues[average];
+		} else {
+			return Math.round(
+				values
+					.filter((v): v is number => typeof v === 'number')
+					.reduce((total, value) => total + value, 0)
+			);
+		}
+	};
+
+	const getAllNutritionalValuesKeys = (): (keyof NutritionMapEntry['nutritionalValue'])[] => {
+		return Object.keys(
+			selectedProducts[0]?.product.nutritionalValue || {}
+		) as (keyof NutritionMapEntry['nutritionalValue'])[];
+	};
+</script>
+
+<svelte:window onkeydown={onWindowKeyDown} />
+
+{#if nbProducts > 0 && detailsOpen}
+	<div class="bg-background fixed inset-0 z-40 p-4" transition:slide={{ duration: 300, axis: 'y' }}>
+		<div class="bg-card rounded-lg p-6">
+			<h1 class="mb-4 text-2xl font-bold">Selected Products</h1>
+			<ul class="space-y-4">
+				{#each selectedProducts as entry (entry.product.id)}
+					<li class="flex items-center justify-between">
+						<span>{entry.product.name} (x{entry.quantity})</span>
+						<span class="font-mono"
+							>{formatNumber(entry.product.nutritionalValue?.calories * entry.quantity || 0)} kCal</span
+						>
+					</li>
+				{/each}
+			</ul>
+			<div class="mt-4 text-lg font-bold">
+				Total Calories: {formatNumber(calculateTotalCalories(selectedProducts))} kCal
+			</div>
+
+			<h2>Other nutritional values :</h2>
+			<ul class="space-y-2">
+				{#each getAllNutritionalValuesKeys() as k (k)}
+					<li class="flex items-center justify-between">
+						<span class="capitalize">{k}</span>
+						<span class="font-mono">
+							{#if k == 'nutriScore'}
+								<NutriScore value={nutritionalValueKey(k) as (typeof nutriScoreValues)[number]} />
+							{:else}
+								{prettyPrintNutritionalValueValue(k, nutritionalValueKey(k))}
+							{/if}
+						</span>
+					</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
+{:else if nbProducts > 0}
+	<div class="fixed right-4 bottom-4 left-4 z-20 p-4" transition:fly={{ duration: 300, y: '100%' }}>
+		<button
+			onclick={() => (detailsOpen = true)}
+			class="bg-primary mx-auto flex w-full max-w-[1000px] flex-row justify-between rounded p-4 transition-all hover:-translate-y-1"
+		>
+			<h1 class="text-secondary text-lg font-bold">
+				{nbProducts} product{nbProducts > 1 ? 's' : ''} selected
+			</h1>
+			<span class="text-secondary font-mono text-xl"
+				>{formatNumber(calculateTotalCalories(selectedProducts))} kCal</span
+			>
+		</button>
+	</div>
+{/if}
