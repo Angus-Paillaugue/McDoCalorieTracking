@@ -275,7 +275,10 @@
 		"id": "nug20",
 		"name": "Boîte de 20 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
+		"groupLabel": "Nuggets",
 		"image": "nug20.webp",
+		"group": "nuggets",
+		"itemLabel": "x20",
 		"nutritionalValue": {
 			"calories": 872,
 			"lipids": 45,
@@ -293,6 +296,8 @@
 		"name": "Boîte de 9 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug9.webp",
+		"group": "nuggets",
+		"itemLabel": "x9",
 		"nutritionalValue": {
 			"calories": 392.4,
 			"lipids": 20.25,
@@ -310,6 +315,8 @@
 		"name": "Boîte de 6 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug6.webp",
+		"group": "nuggets",
+		"itemLabel": "x6",
 		"nutritionalValue": {
 			"calories": 261.6,
 			"lipids": 13.5,
@@ -327,6 +334,8 @@
 		"name": "Boîte de 4 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug4.webp",
+		"group": "nuggets",
+		"itemLabel": "x4",
 		"nutritionalValue": {
 			"calories": 174.4,
 			"lipids": 9,

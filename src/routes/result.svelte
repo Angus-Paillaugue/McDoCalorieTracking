@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly, slide } from 'svelte/transition';
 	import type { SelectedProduct } from './+page.svelte';
-	import type { NutritionMapEntry } from '$lib/types';
+	import type { NutritionMapEntry, Product } from '$lib/types';
 	import { nutriScoreValues } from '$lib/types';
 	import { NutriScore } from '$lib/components';
 	import { prettyPrintNutritionalValueValue } from '$lib/utils';
@@ -37,7 +37,7 @@
 	};
 
 	const nutritionalValueKey = (
-		key: keyof NutritionMapEntry['nutritionalValue']
+		key: keyof Product['nutritionalValue']
 	): number | (typeof nutriScoreValues)[number] => {
 		const values = selectedProducts.map((entry) => entry.product.nutritionalValue?.[key]);
 		if (key === 'nutriScore') {
@@ -62,10 +62,10 @@
 		}
 	};
 
-	const getAllNutritionalValuesKeys = (): (keyof NutritionMapEntry['nutritionalValue'])[] => {
+	const getAllNutritionalValuesKeys = (): (keyof Product['nutritionalValue'])[] => {
 		return Object.keys(
 			selectedProducts[0]?.product.nutritionalValue || {}
-		) as (keyof NutritionMapEntry['nutritionalValue'])[];
+		) as (keyof Product['nutritionalValue'])[];
 	};
 </script>
 

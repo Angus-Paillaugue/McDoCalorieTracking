@@ -1,6 +1,6 @@
 <script module lang="ts">
 	export interface SelectedProduct {
-		product: NutritionMapEntry;
+		product: Product;
 		quantity: number;
 	}
 </script>
@@ -9,13 +9,14 @@
 	import ProductCard from './productCard.svelte';
 
 	import Result from './result.svelte';
-	import type { NutritionMap, NutritionMapEntry } from '$lib/types';
+	import { isGroup, type NutritionMap, type Product } from '$lib/types';
 	import Filters from './filters.svelte';
 	import { sortingMethods } from './filters.svelte';
 
 	const { data } = $props();
 	const { map } = data;
 
+	let products = $state(map);
 	let selectedProducts = $state<SelectedProduct[]>([]);
 	let filteredProducts = $state<NutritionMap>(map);
 	let sortMethod = $state<(typeof sortingMethods)[number]>(sortingMethods[0]);
@@ -44,22 +45,22 @@
 		}
 		if (category === 'others') {
 			return products.filter(
-				(item) =>
-					!item.categories ||
+				(item) => !isGroup(item) &&
+					(!item.categories ||
 					!item.categories.some((cat) =>
 						topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
-					)
+					))
 			);
 		}
-		return products.filter((item) => item.categories?.includes(category));
+		return products.filter((item) => isGroup(item) ? item.items.some(i => i.categories.includes(category)) : item.categories.includes(category));
 	};
 </script>
 
 {#snippet categoryOfProduct(
 	category: (typeof topLevelGroups)[number] | (typeof sortingMethods)[number] | null,
-	products: NutritionMap
+	entries: NutritionMap
 )}
-	{#if products.length > 0}
+	{#if entries.length > 0}
 		<div class="relative flex flex-col gap-2 md:ml-12">
 			<!-- Left bar -->
 			<div
@@ -80,8 +81,8 @@
 			<div
 				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
 			>
-				{#each products as product (product.id)}
-					<ProductCard {product} bind:selectedProducts />
+				{#each entries as entry}
+					<ProductCard {entry} bind:selectedProducts />
 				{/each}
 			</div>
 		</div>
@@ -89,7 +90,7 @@
 {/snippet}
 
 <main class="relative min-h-dvh">
-	<Filters products={map} bind:filteredProducts bind:sortMethod />
+	<Filters bind:products bind:filteredProducts bind:sortMethod />
 
 	<div class="flex flex-col gap-10 p-2 md:p-4">
 		<!-- If no sorting is applied, show items in Top Level Groups -->
