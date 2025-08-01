@@ -1,22 +1,40 @@
 <script lang="ts">
 	import { NutriScore } from '$lib/components';
-	import type { NutritionMapEntry } from '$lib/types';
+	import { isGroup as isGroupFunc, type NutritionMap, type NutritionMapEntry } from '$lib/types';
 	import { cn, prettyPrintNutritionalValueKey, prettyPrintNutritionalValueValue } from '$lib/utils';
-	import { Info, Minus, Plus, X } from 'lucide-svelte';
+	import { Info, Kanban, Minus, Plus, X } from 'lucide-svelte';
 	import type { SelectedProduct } from './+page.svelte';
 	import { fly, scale } from 'svelte/transition';
 
 	interface Props {
-		product: NutritionMapEntry;
+		entry: NutritionMapEntry;
 		selectedProducts: SelectedProduct[];
 	}
 
-	let { product, selectedProducts = $bindable([]) }: Props = $props();
+	let { entry = $bindable(), selectedProducts = $bindable([]) }: Props = $props();
 
-	let selectedProduct = $derived(selectedProducts.find((p) => p.product.id === product.id));
+	let selectedProduct = $derived(
+		selectedProducts.find((p) =>
+		isGroupFunc(entry) ? entry.items.find((p2) => p2.id === p.product.id) : p.product.id === entry.id
+		)
+	);
 	let selected = $derived(selectedProduct !== undefined);
 	let quantity = $derived(selectedProduct?.quantity || 0);
 	let detailsOpen = $state(false);
+	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry)
+	// TODO: Fix the items index reseting when sorting
+
+	const changeGroupIndex = (index: number) => {
+		if (!isGroupFunc(entry)) return;
+		// Else, we need to update the selected items when changing the selected group index
+		selectedProducts = selectedProducts.map((p) => {
+			if (p.product.id === entry.items[entry.activeIndex].id) {
+				p.product = entry.items[index];
+			}
+			return p;
+		});
+		entry.activeIndex = index
+	}
 </script>
 
 <div
@@ -37,7 +55,7 @@
 			transition:fly={{ y: '-100%', duration: 300 }}
 		>
 			<div class="mt-auto p-6 pt-12">
-				{#each Object.entries(product.nutritionalValue) as [k, v] (k)}
+				{#each Object.entries(currentProduct.nutritionalValue).sort(([ka, _va], [kb, _vb]) => ka.localeCompare(kb)) as [k, v] (k)}
 					{#if k !== 'nutriScore' && v !== null && v !== undefined}
 						{@const prettyKey = prettyPrintNutritionalValueKey(k as any)}
 						{#if prettyKey}
@@ -56,7 +74,9 @@
 	<div class="flex h-full flex-col gap-2 p-6">
 		<!-- Header -->
 		<div class="z-20 flex flex-row justify-between gap-2">
-			<h2 class="font-sans text-xl font-bold">{product.name}</h2>
+			<h2 class="font-sans text-xl font-bold">
+				{isGroupFunc(entry) ? entry.label : currentProduct.name}
+			</h2>
 
 			<!-- Details button -->
 			<button
@@ -74,13 +94,16 @@
 				{/if}
 			</button>
 		</div>
+		{#if isGroupFunc(entry)}
+			<p class="text-muted font-mono text-base">{entry.items[entry.activeIndex].itemLabel}</p>
+		{/if}
 
 		<!-- Body -->
 		<div class="relative flex w-full grow flex-col items-center justify-center">
-			<img src="/assets/{product.image}" alt={product.name} />
-			{#if product.nutritionalValue.nutriScore}
+			<img src="/assets/{currentProduct.image}" alt={currentProduct.name} />
+			{#if currentProduct.nutritionalValue.nutriScore}
 				<div class="absolute right-2 bottom-4">
-					<NutriScore size="sm" value={product.nutritionalValue.nutriScore} />
+					<NutriScore size="sm" value={currentProduct.nutritionalValue.nutriScore} />
 				</div>
 			{/if}
 		</div>
@@ -95,38 +118,61 @@
 			)}
 		>
 			<div class="to-background h-20 w-full bg-gradient-to-b from-transparent"></div>
-			<div class="bg-background flex flex-row items-center justify-between p-6">
-				<button
-					disabled={quantity === 0}
-					class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
-					onclick={(e) => {
-						e.stopPropagation();
-						if (!selectedProduct) return;
-						selectedProduct.quantity = Math.max(0, quantity - 1);
-						if (selectedProduct.quantity === 0) {
-							selectedProducts = selectedProducts.filter((p) => p.product.id !== product.id);
-						}
-					}}
-				>
-					<Minus class="size-full" />
-				</button>
-				<div
-					class="bg-primary text-secondary w-10 overflow-hidden rounded py-1 text-center font-mono text-base text-nowrap"
-				>
-					{quantity}
+			<div class="bg-background flex flex-col gap-4 p-6">
+				<!-- Group index selector -->
+				{#if isGroupFunc(entry)}
+					<div
+						class="border-border grid border border-r-0"
+						style="grid-template-columns: repeat({entry.items.length}, 1fr);"
+					>
+						{#each entry.items.map((i) => i.itemLabel) as label, index (label)}
+							<button
+								class={cn(
+									'border-border border-r py-2 font-mono text-base uppercase transition-all',
+									entry.activeIndex === index ? 'bg-primary text-secondary' : 'text-muted'
+								)}
+								onclick={() => changeGroupIndex(index)}
+							>
+								{label}
+							</button>
+						{/each}
+					</div>
+				{/if}
+				<div class="flex flex-row items-center justify-between">
+					<button
+						disabled={quantity === 0}
+						class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
+						onclick={(e) => {
+							e.stopPropagation();
+							if (!selectedProduct) return;
+							selectedProduct.quantity = Math.max(0, quantity - 1);
+							if (selectedProduct.quantity === 0) {
+								selectedProducts = selectedProducts.filter(
+									(p) => !isGroupFunc(entry) && p.product.id !== entry.id
+								);
+							}
+						}}
+					>
+						<Minus class="size-full" />
+					</button>
+					<div
+						class="bg-primary text-secondary w-10 overflow-hidden rounded py-1 text-center font-mono text-base text-nowrap"
+					>
+						{quantity}
+					</div>
+					<button
+						class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
+						onclick={() => {
+							if (selectedProduct) {
+								selectedProduct.quantity += 1;
+								return;
+							}
+							selectedProducts = [...selectedProducts, { product: currentProduct, quantity: 1 }];
+						}}
+					>
+						<Plus class="size-full" />
+					</button>
 				</div>
-				<button
-					class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
-					onclick={() => {
-						if (selectedProduct) {
-							selectedProduct.quantity += 1;
-							return;
-						}
-						selectedProducts = [...selectedProducts, { product, quantity: 1 }];
-					}}
-				>
-					<Plus class="size-full" />
-				</button>
 			</div>
 		</div>
 	</div>

@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import { nutriScoreValues, type NutritionMap } from '$lib/types';
+	import { isGroup, nutriScoreValues, type NutritionMap } from '$lib/types';
 	import { cn, levenshtein } from '$lib/utils';
 	import { ArrowDown, ArrowUp, ArrowUpDown, Check, Search, X } from 'lucide-svelte';
 	import type { SvelteHTMLElements } from 'svelte/elements';
@@ -29,7 +29,7 @@
 	}
 
 	let {
-		products,
+		products = $bindable([]),
 		filteredProducts = $bindable([]),
 		activeCategory = $bindable(null),
 		sortMethod = $bindable(sortingMethods[0]),
@@ -53,9 +53,14 @@
 
 	function extractCategories(products: NutritionMap): string[] {
 		const categoriesSet = new SvelteSet<string>();
-		for (const product of Object.values(products)) {
-			if (product.categories) {
-				product.categories.forEach((category) => categoriesSet.add(category));
+		for (const entry of Object.values(products)) {
+			if (isGroup(entry)) {
+				const extractedCategories = entry.items.flatMap(i => i.categories);
+				for(const cat of extractedCategories) {
+					categoriesSet.add(cat);
+				}
+			}else if (entry.categories) {
+				entry.categories.forEach((category) => categoriesSet.add(category));
 			}
 		}
 		return Array.from(categoriesSet).sort((a, b) => a.localeCompare(b));
@@ -63,7 +68,7 @@
 
 	const filterByCategory = (category: string | null, products: NutritionMap) => {
 		if (category) {
-			products = products.filter((product) => product.categories?.includes(category));
+			products = products.filter((product) => isGroup(product) ? product.items.some(i => i.categories.includes(category)) : product.categories.includes(category));
 		}
 		return products;
 	};
@@ -77,7 +82,21 @@
 		if (method.key === 'default') {
 			return products;
 		} else if (method.key === 'name') {
-			products = Object.values(products).sort((a, b) => a.name.localeCompare(b.name));
+			products = Object.values(products).sort((a, b) => {
+				let aKey: string;
+				let bKey: string;
+				if(isGroup(a)) {
+					aKey = a.key.toLowerCase();
+				}else {
+					aKey = a.name.toLowerCase();
+				}
+				if (isGroup(b)) {
+					bKey = b.key.toLowerCase();
+				}else {
+					bKey = b.name.toLowerCase();
+				}
+				return aKey.localeCompare(bKey);
+			});
 		} else if (method.key === 'nutriScore') {
 			const scoreWeights = Object.fromEntries(
 				nutriScoreValues.map((v) => {
@@ -86,15 +105,15 @@
 			);
 			products = Object.values(products).sort((a, b) => {
 				const aScore =
-					scoreWeights[a.nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
 				const bScore =
-					scoreWeights[b.nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
 				return aScore - bScore;
 			});
 		} else {
 			products = Object.values(products).sort((a, b) => {
-				const aValue = a.nutritionalValue?.[method.key] || 0;
-				const bValue = b.nutritionalValue?.[method.key] || 0;
+				const aValue = (isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue?.[method.key] || 0;
+				const bValue = (isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue?.[method.key] || 0;
 				return aValue - bValue;
 			});
 		}
@@ -144,7 +163,8 @@
 
 		return products
 			.map((product) => {
-				const normalizedTitle = product.name.toLowerCase();
+				const name = isGroup(product) ? product.items[0]?.name || product.key : product.name;
+				const normalizedTitle = name.toLowerCase();
 				const exactMatchIndex = normalizedTitle.indexOf(normalizedSearch);
 				const distance = levenshtein(normalizedSearch, normalizedTitle);
 

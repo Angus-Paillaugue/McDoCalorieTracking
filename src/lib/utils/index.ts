@@ -1,4 +1,4 @@
-import type { NutritionMapEntry } from '$lib/types';
+import type { Product } from '$lib/types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -29,7 +29,7 @@ export const prettyPrintNutritionalValueKey = (
 	return method.label;
 };
 
-const prettyPrintUnitsTable: Record<keyof NutritionMapEntry['nutritionalValue'], string> = {
+const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> = {
 	calories: 'kCal',
 	protein: 'g',
 	salt: 'g',
@@ -42,11 +42,12 @@ const prettyPrintUnitsTable: Record<keyof NutritionMapEntry['nutritionalValue'],
 };
 export const prettyPrintNutritionalValueValue = (
 	key: string,
-	value: NutritionMapEntry['nutritionalValue'][keyof NutritionMapEntry['nutritionalValue']]
+	value: Product['nutritionalValue'][keyof Product['nutritionalValue']]
 ) => {
+	const prettyVal = typeof value === 'number' ? value.toFixed(1) : value;
 	return key in prettyPrintUnitsTable
-		? `${value} ${prettyPrintUnitsTable[key as keyof typeof prettyPrintUnitsTable]}`
-		: value;
+		? `${prettyVal} ${prettyPrintUnitsTable[key as keyof typeof prettyPrintUnitsTable]}`
+		: prettyVal;
 };
 
 export function levenshtein(a: string, b: string): number {

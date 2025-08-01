@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { fly, slide } from 'svelte/transition';
 	import type { SelectedProduct } from './+page.svelte';
-	import type { NutritionMapEntry } from '$lib/types';
-	import { nutriScoreValues } from '$lib/types';
-	import { NutriScore } from '$lib/components';
-	import { prettyPrintNutritionalValueValue } from '$lib/utils';
+	import { prettyPrintNutritionalValueKey, prettyPrintNutritionalValueValue } from '$lib/utils';
 
 	interface Props {
 		selectedProducts: SelectedProduct[];
@@ -35,38 +32,6 @@
 			detailsOpen = false;
 		}
 	};
-
-	const nutritionalValueKey = (
-		key: keyof NutritionMapEntry['nutritionalValue']
-	): number | (typeof nutriScoreValues)[number] => {
-		const values = selectedProducts.map((entry) => entry.product.nutritionalValue?.[key]);
-		if (key === 'nutriScore') {
-			const scoreWeights = Object.fromEntries(
-				nutriScoreValues.map((v) => {
-					return [v, v.charCodeAt(0) - 65];
-				})
-			);
-			const mappedValues = values
-				.filter((v): v is (typeof nutriScoreValues)[number] => typeof v === 'string')
-				.map((v) => scoreWeights[v as keyof typeof scoreWeights] || 0);
-			const average = Math.round(
-				mappedValues.reduce((total, value) => total + value, 0) / mappedValues.length
-			);
-			return nutriScoreValues[average];
-		} else {
-			return Math.round(
-				values
-					.filter((v): v is number => typeof v === 'number')
-					.reduce((total, value) => total + value, 0)
-			);
-		}
-	};
-
-	const getAllNutritionalValuesKeys = (): (keyof NutritionMapEntry['nutritionalValue'])[] => {
-		return Object.keys(
-			selectedProducts[0]?.product.nutritionalValue || {}
-		) as (keyof NutritionMapEntry['nutritionalValue'])[];
-	};
 </script>
 
 <svelte:window onkeydown={onWindowKeyDown} />
@@ -90,20 +55,19 @@
 			</div>
 
 			<h2>Other nutritional values :</h2>
-			<ul class="space-y-2">
-				{#each getAllNutritionalValuesKeys() as k (k)}
-					<li class="flex items-center justify-between">
-						<span class="capitalize">{k}</span>
-						<span class="font-mono">
-							{#if k == 'nutriScore'}
-								<NutriScore value={nutritionalValueKey(k) as (typeof nutriScoreValues)[number]} />
-							{:else}
-								{prettyPrintNutritionalValueValue(k, nutritionalValueKey(k))}
-							{/if}
-						</span>
-					</li>
+			<div class="mt-auto p-6 pt-12">
+				{#each Object.entries(selectedProducts[0]?.product.nutritionalValue).sort(([ka, _va], [kb, _vb]) => ka.localeCompare(kb)) as [k, v] (k)}
+					{#if k !== 'nutriScore' && v !== null && v !== undefined}
+						{@const prettyKey = prettyPrintNutritionalValueKey(k as any)}
+						{#if prettyKey}
+							<div class="flex flex-row items-center justify-between gap-1">
+								<span class="capitalize">{prettyKey}</span>
+								<span class="font-mono">{prettyPrintNutritionalValueValue(k, v)}</span>
+							</div>
+						{/if}
+					{/if}
 				{/each}
-			</ul>
+			</div>
 		</div>
 	</div>
 {:else if nbProducts > 0}

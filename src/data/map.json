@@ -275,7 +275,10 @@
 		"id": "nug20",
 		"name": "Boîte de 20 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
+		"groupLabel": "Nuggets",
 		"image": "nug20.webp",
+		"group": "nuggets",
+		"itemLabel": "x20",
 		"nutritionalValue": {
 			"calories": 872,
 			"lipids": 45,
@@ -293,6 +296,8 @@
 		"name": "Boîte de 9 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug9.webp",
+		"group": "nuggets",
+		"itemLabel": "x9",
 		"nutritionalValue": {
 			"calories": 392.4,
 			"lipids": 20.25,
@@ -310,6 +315,8 @@
 		"name": "Boîte de 6 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug6.webp",
+		"group": "nuggets",
+		"itemLabel": "x6",
 		"nutritionalValue": {
 			"calories": 261.6,
 			"lipids": 13.5,
@@ -327,6 +334,8 @@
 		"name": "Boîte de 4 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
 		"image": "nug4.webp",
+		"group": "nuggets",
+		"itemLabel": "x4",
 		"nutritionalValue": {
 			"calories": 174.4,
 			"lipids": 9,
@@ -384,7 +393,7 @@
 			"lipidsSaturated": 3.5,
 			"carbohydrates": 29,
 			"carbohydratesSugars": 6.6,
-			"fibers": 1000,
+			"fibers": 2.1,
 			"protein": 2.1,
 			"salt": 1.2,
 			"nutriScore": "C"
@@ -1221,6 +1230,23 @@
 			"protein": 0,
 			"salt": 0,
 			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "bioABoire",
+		"name": "Le Bio à Boire",
+		"categories": ["desert", "drink"],
+		"image": "bioABoire.webp",
+		"nutritionalValue": {
+			"calories": 59,
+			"lipids": 1.5,
+			"lipidsSaturated": 1,
+			"carbohydrates": 8.6,
+			"carbohydratesSugars": 8.5,
+			"fibers": 0,
+			"protein": 2.6,
+			"salt": 0,
+			"nutriScore": "B"
 		}
 	}
 ]
