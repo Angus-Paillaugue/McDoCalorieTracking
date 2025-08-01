@@ -33,6 +33,6 @@ export type NutritionMapEntry = Product | ProductCardProductGroup;
 export type NutritionMap = NutritionMapEntry[];
 
 
-export const isGroup = (item: NutritionMapEntry): item is ProductCardProductGroup => {
-	return 'items' in item && 'key' in item;
+export const isGroup = (item: NutritionMapEntry | undefined): item is ProductCardProductGroup => {
+	return item !== undefined && 'items' in item && 'key' in item && 'label' in item && 'activeIndex' in item;
 }

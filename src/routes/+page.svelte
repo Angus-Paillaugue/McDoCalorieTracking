@@ -81,8 +81,8 @@
 			<div
 				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
 			>
-				{#each entries as entry}
-					<ProductCard {entry} bind:selectedProducts />
+				{#each entries as _entry, i}
+					<ProductCard bind:entry={entries[i]} bind:selectedProducts />
 				{/each}
 			</div>
 		</div>

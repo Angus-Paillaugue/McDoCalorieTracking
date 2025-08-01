@@ -2,7 +2,7 @@
 	import { NutriScore } from '$lib/components';
 	import { isGroup as isGroupFunc, type NutritionMap, type NutritionMapEntry } from '$lib/types';
 	import { cn, prettyPrintNutritionalValueKey, prettyPrintNutritionalValueValue } from '$lib/utils';
-	import { Info, Minus, Plus, X } from 'lucide-svelte';
+	import { Info, Kanban, Minus, Plus, X } from 'lucide-svelte';
 	import type { SelectedProduct } from './+page.svelte';
 	import { fly, scale } from 'svelte/transition';
 
@@ -11,32 +11,28 @@
 		selectedProducts: SelectedProduct[];
 	}
 
-	let { entry, selectedProducts = $bindable([]) }: Props = $props();
+	let { entry = $bindable(), selectedProducts = $bindable([]) }: Props = $props();
 
-	const isGroup = isGroupFunc(entry);
 	let selectedProduct = $derived(
 		selectedProducts.find((p) =>
-			isGroup ? entry.items.find((p2) => p2.id === p.product.id) : p.product.id === entry.id
+		isGroupFunc(entry) ? entry.items.find((p2) => p2.id === p.product.id) : p.product.id === entry.id
 		)
 	);
 	let selected = $derived(selectedProduct !== undefined);
 	let quantity = $derived(selectedProduct?.quantity || 0);
 	let detailsOpen = $state(false);
-	let selectedGroupIndex = $state(0);
-	let currentProduct = $derived(isGroup ? entry.items[selectedGroupIndex] : entry);
-	// TODO: Fix the sorting problem with groups
+	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry)
 	// TODO: Fix the items index reseting when sorting
 
 	const changeGroupIndex = (index: number) => {
-		if (!isGroup) return;
+		if (!isGroupFunc(entry)) return;
 		// Else, we need to update the selected items when changing the selected group index
 		selectedProducts = selectedProducts.map((p) => {
-			if (p.product.id === entry.items[selectedGroupIndex].id) {
+			if (p.product.id === entry.items[entry.activeIndex].id) {
 				p.product = entry.items[index];
 			}
 			return p;
 		});
-		selectedGroupIndex = index;
 		entry.activeIndex = index
 	}
 </script>
@@ -59,7 +55,7 @@
 			transition:fly={{ y: '-100%', duration: 300 }}
 		>
 			<div class="mt-auto p-6 pt-12">
-				{#each Object.entries(currentProduct.nutritionalValue) as [k, v] (k)}
+				{#each Object.entries(currentProduct.nutritionalValue).sort(([ka, _va], [kb, _vb]) => ka.localeCompare(kb)) as [k, v] (k)}
 					{#if k !== 'nutriScore' && v !== null && v !== undefined}
 						{@const prettyKey = prettyPrintNutritionalValueKey(k as any)}
 						{#if prettyKey}
@@ -79,7 +75,7 @@
 		<!-- Header -->
 		<div class="z-20 flex flex-row justify-between gap-2">
 			<h2 class="font-sans text-xl font-bold">
-				{isGroup ? entry.label : currentProduct.name}
+				{isGroupFunc(entry) ? entry.label : currentProduct.name}
 			</h2>
 
 			<!-- Details button -->
@@ -98,8 +94,8 @@
 				{/if}
 			</button>
 		</div>
-		{#if isGroup}
-			<p class="text-muted font-mono text-base">{entry.items[selectedGroupIndex].itemLabel}</p>
+		{#if isGroupFunc(entry)}
+			<p class="text-muted font-mono text-base">{entry.items[entry.activeIndex].itemLabel}</p>
 		{/if}
 
 		<!-- Body -->
@@ -124,7 +120,7 @@
 			<div class="to-background h-20 w-full bg-gradient-to-b from-transparent"></div>
 			<div class="bg-background flex flex-col gap-4 p-6">
 				<!-- Group index selector -->
-				{#if isGroup}
+				{#if isGroupFunc(entry)}
 					<div
 						class="border-border grid border border-r-0"
 						style="grid-template-columns: repeat({entry.items.length}, 1fr);"
@@ -133,7 +129,7 @@
 							<button
 								class={cn(
 									'border-border border-r py-2 font-mono text-base uppercase transition-all',
-									selectedGroupIndex === index ? 'bg-primary text-secondary' : 'text-muted'
+									entry.activeIndex === index ? 'bg-primary text-secondary' : 'text-muted'
 								)}
 								onclick={() => changeGroupIndex(index)}
 							>
@@ -152,7 +148,7 @@
 							selectedProduct.quantity = Math.max(0, quantity - 1);
 							if (selectedProduct.quantity === 0) {
 								selectedProducts = selectedProducts.filter(
-									(p) => !isGroup && p.product.id !== entry.id
+									(p) => !isGroupFunc(entry) && p.product.id !== entry.id
 								);
 							}
 						}}

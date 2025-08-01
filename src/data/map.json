@@ -393,7 +393,7 @@
 			"lipidsSaturated": 3.5,
 			"carbohydrates": 29,
 			"carbohydratesSugars": 6.6,
-			"fibers": 1000,
+			"fibers": 2.1,
 			"protein": 2.1,
 			"salt": 1.2,
 			"nutriScore": "C"
@@ -1230,6 +1230,23 @@
 			"protein": 0,
 			"salt": 0,
 			"nutriScore": "C"
+		}
+	},
+	{
+		"id": "bioABoire",
+		"name": "Le Bio à Boire",
+		"categories": ["desert", "drink"],
+		"image": "bioABoire.webp",
+		"nutritionalValue": {
+			"calories": 59,
+			"lipids": 1.5,
+			"lipidsSaturated": 1,
+			"carbohydrates": 8.6,
+			"carbohydratesSugars": 8.5,
+			"fibers": 0,
+			"protein": 2.6,
+			"salt": 0,
+			"nutriScore": "B"
 		}
 	}
 ]
