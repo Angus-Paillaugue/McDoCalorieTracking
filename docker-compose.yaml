@@ -3,8 +3,6 @@ services:
     build: .
     image: anguspllg/mcdocalorietracker:latest
     container_name: mcdo-calorie-tracker-web
-    env_file:
-      - .env
     environment:
       - ORIGIN=http://localhost:4173
     ports:
