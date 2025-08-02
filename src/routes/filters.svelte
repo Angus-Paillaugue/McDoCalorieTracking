@@ -55,11 +55,11 @@
 		const categoriesSet = new SvelteSet<string>();
 		for (const entry of Object.values(products)) {
 			if (isGroup(entry)) {
-				const extractedCategories = entry.items.flatMap(i => i.categories);
-				for(const cat of extractedCategories) {
+				const extractedCategories = entry.items.flatMap((i) => i.categories);
+				for (const cat of extractedCategories) {
 					categoriesSet.add(cat);
 				}
-			}else if (entry.categories) {
+			} else if (entry.categories) {
 				entry.categories.forEach((category) => categoriesSet.add(category));
 			}
 		}
@@ -68,7 +68,11 @@
 
 	const filterByCategory = (category: string | null, products: NutritionMap) => {
 		if (category) {
-			products = products.filter((product) => isGroup(product) ? product.items.some(i => i.categories.includes(category)) : product.categories.includes(category));
+			products = products.filter((product) =>
+				isGroup(product)
+					? product.items.some((i) => i.categories.includes(category))
+					: product.categories.includes(category)
+			);
 		}
 		return products;
 	};
@@ -85,14 +89,14 @@
 			products = Object.values(products).sort((a, b) => {
 				let aKey: string;
 				let bKey: string;
-				if(isGroup(a)) {
+				if (isGroup(a)) {
 					aKey = a.key.toLowerCase();
-				}else {
+				} else {
 					aKey = a.name.toLowerCase();
 				}
 				if (isGroup(b)) {
 					bKey = b.key.toLowerCase();
-				}else {
+				} else {
 					bKey = b.name.toLowerCase();
 				}
 				return aKey.localeCompare(bKey);
@@ -105,15 +109,23 @@
 			);
 			products = Object.values(products).sort((a, b) => {
 				const aScore =
-					scoreWeights[(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[
+						(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue
+							.nutriScore as keyof typeof scoreWeights
+					] || 0;
 				const bScore =
-					scoreWeights[(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[
+						(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue
+							.nutriScore as keyof typeof scoreWeights
+					] || 0;
 				return aScore - bScore;
 			});
 		} else {
 			products = Object.values(products).sort((a, b) => {
-				const aValue = (isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue?.[method.key] || 0;
-				const bValue = (isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue?.[method.key] || 0;
+				const aValue =
+					(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue?.[method.key] || 0;
+				const bValue =
+					(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue?.[method.key] || 0;
 				return aValue - bValue;
 			});
 		}
@@ -215,11 +227,9 @@
 	</div>
 {/if}
 
-<div class="h-12 md:h-18"></div>
-
 <div
 	class={cn(
-		'border-border bg-background fixed top-0 right-0 left-0 z-30 flex h-12 shrink-0 flex-row items-center gap-2 border-b px-2 md:h-18 md:px-4',
+		'border-border bg-background flex h-12 shrink-0 flex-row items-center gap-2 border-b px-2 md:h-18 md:px-4',
 		className
 	)}
 	{...restProps}
@@ -237,12 +247,12 @@
 		</div>
 	</div>
 
-	<button onclick={openSearchBar} class="size-6 p-1">
+	<button onclick={openSearchBar} class="size-6 shrink-0 p-1">
 		<Search class="size-full" />
 		<div class="sr-only">Rechercher</div>
 	</button>
 
-	<div class="relative size-6">
+	<div class="relative size-6 shrink-0">
 		<button onclick={() => (sortDropdownOpen = !sortDropdownOpen)} class="size-full p-1">
 			<ArrowUpDown class="size-full" />
 			<div class="sr-only">Trier par</div>

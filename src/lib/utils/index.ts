@@ -41,13 +41,11 @@ const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> =
 	nutriScore: '' // NutriScore does not have a unit
 };
 export const prettyPrintNutritionalValueValue = (
-	key: string,
+	key: keyof typeof prettyPrintUnitsTable,
 	value: Product['nutritionalValue'][keyof Product['nutritionalValue']]
 ) => {
 	const prettyVal = typeof value === 'number' ? value.toFixed(1) : value;
-	return key in prettyPrintUnitsTable
-		? `${prettyVal} ${prettyPrintUnitsTable[key as keyof typeof prettyPrintUnitsTable]}`
-		: prettyVal;
+	return key in prettyPrintUnitsTable ? `${prettyVal} ${prettyPrintUnitsTable[key]}` : prettyVal;
 };
 
 export function levenshtein(a: string, b: string): number {
