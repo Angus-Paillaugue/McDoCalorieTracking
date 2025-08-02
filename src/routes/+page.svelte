@@ -45,14 +45,19 @@
 		}
 		if (category === 'others') {
 			return products.filter(
-				(item) => !isGroup(item) &&
+				(item) =>
+					!isGroup(item) &&
 					(!item.categories ||
-					!item.categories.some((cat) =>
-						topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
-					))
+						!item.categories.some((cat) =>
+							topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
+						))
 			);
 		}
-		return products.filter((item) => isGroup(item) ? item.items.some(i => i.categories.includes(category)) : item.categories.includes(category));
+		return products.filter((item) =>
+			isGroup(item)
+				? item.items.some((i) => i.categories.includes(category))
+				: item.categories.includes(category)
+		);
 	};
 </script>
 
@@ -89,10 +94,10 @@
 	{/if}
 {/snippet}
 
-<main class="relative min-h-dvh">
+<main class="relative flex h-dvh flex-col">
 	<Filters bind:products bind:filteredProducts bind:sortMethod />
 
-	<div class="flex flex-col gap-10 p-2 md:p-4">
+	<div class="flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
 		<!-- If no sorting is applied, show items in Top Level Groups -->
 		{#if sortMethod.key === 'default'}
 			{#each topLevelGroups as group (group)}

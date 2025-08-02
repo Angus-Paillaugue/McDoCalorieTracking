@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { NutriScore } from '$lib/components';
-	import { isGroup as isGroupFunc, type NutritionMap, type NutritionMapEntry } from '$lib/types';
+	import { isGroup as isGroupFunc, type NutritionMapEntry } from '$lib/types';
 	import { cn, prettyPrintNutritionalValueKey, prettyPrintNutritionalValueValue } from '$lib/utils';
-	import { Info, Kanban, Minus, Plus, X } from 'lucide-svelte';
+	import { Info, Minus, Plus, X } from 'lucide-svelte';
 	import type { SelectedProduct } from './+page.svelte';
 	import { fly, scale } from 'svelte/transition';
 
@@ -15,13 +15,15 @@
 
 	let selectedProduct = $derived(
 		selectedProducts.find((p) =>
-		isGroupFunc(entry) ? entry.items.find((p2) => p2.id === p.product.id) : p.product.id === entry.id
+			isGroupFunc(entry)
+				? entry.items.find((p2) => p2.id === p.product.id)
+				: p.product.id === entry.id
 		)
 	);
 	let selected = $derived(selectedProduct !== undefined);
 	let quantity = $derived(selectedProduct?.quantity || 0);
 	let detailsOpen = $state(false);
-	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry)
+	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry);
 	// TODO: Fix the items index reseting when sorting
 
 	const changeGroupIndex = (index: number) => {
@@ -33,8 +35,8 @@
 			}
 			return p;
 		});
-		entry.activeIndex = index
-	}
+		entry.activeIndex = index;
+	};
 </script>
 
 <div
@@ -55,13 +57,13 @@
 			transition:fly={{ y: '-100%', duration: 300 }}
 		>
 			<div class="mt-auto p-6 pt-12">
-				{#each Object.entries(currentProduct.nutritionalValue).sort(([ka, _va], [kb, _vb]) => ka.localeCompare(kb)) as [k, v] (k)}
+				{#each Object.entries(currentProduct.nutritionalValue).sort( ([ka, _va], [kb, _vb]) => ka.localeCompare(kb) ) as [k, v] (k)}
 					{#if k !== 'nutriScore' && v !== null && v !== undefined}
 						{@const prettyKey = prettyPrintNutritionalValueKey(k as any)}
 						{#if prettyKey}
 							<div class="flex flex-row items-center justify-between gap-1">
 								<span class="capitalize">{prettyKey}</span>
-								<span class="font-mono">{prettyPrintNutritionalValueValue(k, v)}</span>
+								<span class="font-mono">{prettyPrintNutritionalValueValue(k as any, v)}</span>
 							</div>
 						{/if}
 					{/if}
