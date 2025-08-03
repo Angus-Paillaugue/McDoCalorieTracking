@@ -1,6 +1,8 @@
 import type { Product } from '$lib/types';
 import { clsx, type ClassValue } from 'clsx';
+import { get } from 'svelte/store';
 import { twMerge } from 'tailwind-merge';
+import { origin } from '$lib/i18n';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -8,25 +10,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export const noop = (...args: unknown[]) => {
 	void args;
-};
-
-const nutritionalValuePrettyPrintTable = [
-	{ key: 'name', label: 'Name' },
-	{ key: 'calories', label: 'Calories' },
-	{ key: 'protein', label: 'Protein' },
-	{ key: 'lipids', label: 'Lipids' },
-	{ key: 'carbohydrates', label: 'Carbohydrates' },
-	{ key: 'fibers', label: 'Fibers' },
-	{ key: 'salt', label: 'Salt' },
-	{ key: 'nutriScore', label: 'Nutri score' }
-] as const;
-
-export const prettyPrintNutritionalValueKey = (
-	key: (typeof nutritionalValuePrettyPrintTable)[number]['key']
-) => {
-	const method = nutritionalValuePrettyPrintTable.find((m) => m.key === key);
-	if (!method) return null;
-	return method.label;
 };
 
 const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> = {
@@ -41,13 +24,11 @@ const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> =
 	nutriScore: '' // NutriScore does not have a unit
 };
 export const prettyPrintNutritionalValueValue = (
-	key: string,
+	key: keyof typeof prettyPrintUnitsTable,
 	value: Product['nutritionalValue'][keyof Product['nutritionalValue']]
 ) => {
 	const prettyVal = typeof value === 'number' ? value.toFixed(1) : value;
-	return key in prettyPrintUnitsTable
-		? `${prettyVal} ${prettyPrintUnitsTable[key as keyof typeof prettyPrintUnitsTable]}`
-		: prettyVal;
+	return key in prettyPrintUnitsTable ? `${prettyVal} ${prettyPrintUnitsTable[key]}` : prettyVal;
 };
 
 export function levenshtein(a: string, b: string): number {
@@ -83,4 +64,15 @@ export function levenshtein(a: string, b: string): number {
 		}
 	}
 	return matrix[bn][an];
+}
+
+export function urlStartsWith(url: string, path: string | string[] | RegExp, o?: string): boolean {
+	if (!url || !path) return false;
+	const pathname = new URL(url, o || get(origin)).pathname;
+	if (Array.isArray(path)) return path.some((p) => urlStartsWith(pathname, p));
+	if (path instanceof RegExp) return path.test(pathname);
+	// For the `/` path
+	if (path.length === 1) return pathname.at(-1) === path;
+
+	return pathname.startsWith(path);
 }

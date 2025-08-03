@@ -11,7 +11,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"prepare": "husky"
+		"prepare": "husky",
+		"i18n:check": "bun scripts/checkTranslations.ts"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte,json,css,md}": "prettier --write"
@@ -42,6 +43,8 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-node": "^5.2.13",
+		"@types/chalk": "^2.2.4",
+		"chalk": "^5.4.1",
 		"clsx": "^2.1.1",
 		"gsap": "^3.13.0",
 		"lucide-svelte": "^0.528.0",

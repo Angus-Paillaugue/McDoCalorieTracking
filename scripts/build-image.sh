@@ -1,4 +1,4 @@
-#!/usr/env bash
+#!/usr/bin/env bash
 
 # Build the Docker image for the application
 docker build -t anguspllg/mcdocalorietracker:latest .

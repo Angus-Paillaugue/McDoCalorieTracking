@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # Get the .env variables if they exist, else trow an error
 here=$(dirname "$0")

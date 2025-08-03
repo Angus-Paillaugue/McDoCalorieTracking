@@ -8,7 +8,6 @@ export interface ProductCardProductGroup {
 }
 
 export interface Product {
-	name: string;
 	image: string;
 	id: string;
 	categories: string[];
@@ -25,14 +24,18 @@ export interface Product {
 	};
 	group?: string;
 	itemLabel?: string;
-	groupLabel?: string;
 }
 
 export type NutritionMapEntry = Product | ProductCardProductGroup;
 
 export type NutritionMap = NutritionMapEntry[];
 
-
 export const isGroup = (item: NutritionMapEntry | undefined): item is ProductCardProductGroup => {
-	return item !== undefined && 'items' in item && 'key' in item && 'label' in item && 'activeIndex' in item;
-}
+	return (
+		item !== undefined &&
+		'items' in item &&
+		'key' in item &&
+		'label' in item &&
+		'activeIndex' in item
+	);
+};

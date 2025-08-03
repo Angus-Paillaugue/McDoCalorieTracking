@@ -1,14 +1,14 @@
 <script module>
 	export const sortingMethods = [
-		{ key: 'default', label: 'Default' },
-		{ key: 'name', label: 'Name' },
-		{ key: 'calories', label: 'Calories' },
-		{ key: 'protein', label: 'Protein' },
-		{ key: 'lipids', label: 'Lipids' },
-		{ key: 'carbohydrates', label: 'Carbohydrates' },
-		{ key: 'fibers', label: 'Fibers' },
-		{ key: 'salt', label: 'Salt' },
-		{ key: 'nutriScore', label: 'Nutri score' }
+		'default',
+		'name',
+		'calories',
+		'protein',
+		'lipids',
+		'carbohydrates',
+		'fibers',
+		'salt',
+		'nutriScore'
 	] as const;
 </script>
 
@@ -19,6 +19,7 @@
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { fly, scale, slide } from 'svelte/transition';
+	import { t, translate } from '$lib/i18n';
 
 	interface Props {
 		products: NutritionMap;
@@ -55,11 +56,11 @@
 		const categoriesSet = new SvelteSet<string>();
 		for (const entry of Object.values(products)) {
 			if (isGroup(entry)) {
-				const extractedCategories = entry.items.flatMap(i => i.categories);
-				for(const cat of extractedCategories) {
+				const extractedCategories = entry.items.flatMap((i) => i.categories);
+				for (const cat of extractedCategories) {
 					categoriesSet.add(cat);
 				}
-			}else if (entry.categories) {
+			} else if (entry.categories) {
 				entry.categories.forEach((category) => categoriesSet.add(category));
 			}
 		}
@@ -68,7 +69,11 @@
 
 	const filterByCategory = (category: string | null, products: NutritionMap) => {
 		if (category) {
-			products = products.filter((product) => isGroup(product) ? product.items.some(i => i.categories.includes(category)) : product.categories.includes(category));
+			products = products.filter((product) =>
+				isGroup(product)
+					? product.items.some((i) => i.categories.includes(category))
+					: product.categories.includes(category)
+			);
 		}
 		return products;
 	};
@@ -79,25 +84,25 @@
 		reverse: boolean
 	) => {
 		// Sort the products based on the selected method
-		if (method.key === 'default') {
+		if (method === 'default') {
 			return products;
-		} else if (method.key === 'name') {
+		} else if (method === 'name') {
 			products = Object.values(products).sort((a, b) => {
 				let aKey: string;
 				let bKey: string;
-				if(isGroup(a)) {
+				if (isGroup(a)) {
 					aKey = a.key.toLowerCase();
-				}else {
-					aKey = a.name.toLowerCase();
+				} else {
+					aKey = translate(`products.${a.id}`).toLowerCase();
 				}
 				if (isGroup(b)) {
 					bKey = b.key.toLowerCase();
-				}else {
-					bKey = b.name.toLowerCase();
+				} else {
+					bKey = translate(`products.${b.id}`).toLowerCase();
 				}
 				return aKey.localeCompare(bKey);
 			});
-		} else if (method.key === 'nutriScore') {
+		} else if (method === 'nutriScore') {
 			const scoreWeights = Object.fromEntries(
 				nutriScoreValues.map((v) => {
 					return [v, v.charCodeAt(0) - 65];
@@ -105,15 +110,21 @@
 			);
 			products = Object.values(products).sort((a, b) => {
 				const aScore =
-					scoreWeights[(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[
+						(isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue
+							.nutriScore as keyof typeof scoreWeights
+					] || 0;
 				const bScore =
-					scoreWeights[(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue.nutriScore as keyof typeof scoreWeights] || 0;
+					scoreWeights[
+						(isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue
+							.nutriScore as keyof typeof scoreWeights
+					] || 0;
 				return aScore - bScore;
 			});
 		} else {
 			products = Object.values(products).sort((a, b) => {
-				const aValue = (isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue?.[method.key] || 0;
-				const bValue = (isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue?.[method.key] || 0;
+				const aValue = (isGroup(a) ? a.items[a.activeIndex] : a).nutritionalValue?.[method] || 0;
+				const bValue = (isGroup(b) ? b.items[b.activeIndex] : b).nutritionalValue?.[method] || 0;
 				return aValue - bValue;
 			});
 		}
@@ -163,7 +174,9 @@
 
 		return products
 			.map((product) => {
-				const name = isGroup(product) ? product.items[0]?.name || product.key : product.name;
+				const name = isGroup(product)
+					? translate(`products.${product.items[0].id}`) || product.key
+					: translate(`products.${product.id}`);
 				const normalizedTitle = name.toLowerCase();
 				const exactMatchIndex = normalizedTitle.indexOf(normalizedSearch);
 				const distance = levenshtein(normalizedSearch, normalizedTitle);
@@ -193,7 +206,7 @@
 				onblur={() => {
 					if (searchValue === '') searchBarOpen = false;
 				}}
-				placeholder="Rechercher un produit"
+				placeholder={$t('search.placeholder')}
 				bind:this={searchBarInput}
 				bind:value={searchValue}
 			/>
@@ -215,11 +228,9 @@
 	</div>
 {/if}
 
-<div class="h-12 md:h-18"></div>
-
 <div
 	class={cn(
-		'border-border bg-background fixed top-0 right-0 left-0 z-30 flex h-12 shrink-0 flex-row items-center gap-2 border-b px-2 md:h-18 md:px-4',
+		'border-border bg-background flex h-12 shrink-0 flex-row items-center gap-2 border-b px-2 md:h-18 md:px-4',
 		className
 	)}
 	{...restProps}
@@ -231,21 +242,21 @@
 				<button
 					data-selected={isSelected}
 					class="selected:bg-primary selected:text-secondary border-border selected:rounded-none cursor-pointer rounded-2xl border px-4 py-1 font-mono text-sm text-nowrap capitalize transition-all"
-					onclick={() => toggleCategory(c)}>{c}</button
+					onclick={() => toggleCategory(c)}>{$t(`filter.categories.${c}`)}</button
 				>
 			{/each}
 		</div>
 	</div>
 
-	<button onclick={openSearchBar} class="size-6 p-1">
+	<button onclick={openSearchBar} class="size-6 shrink-0 p-1">
 		<Search class="size-full" />
-		<div class="sr-only">Rechercher</div>
+		<div class="sr-only">{$t('search.label')}</div>
 	</button>
 
-	<div class="relative size-6">
+	<div class="relative size-6 shrink-0">
 		<button onclick={() => (sortDropdownOpen = !sortDropdownOpen)} class="size-full p-1">
 			<ArrowUpDown class="size-full" />
-			<div class="sr-only">Trier par</div>
+			<div class="sr-only">{$t('sorting.label')}</div>
 		</button>
 
 		{#if sortDropdownOpen}
@@ -259,11 +270,11 @@
 				class="bg-background border-border absolute top-full right-0 z-40 flex min-w-[250px] flex-col overflow-hidden rounded border"
 				transition:slide={{ axis: 'y', duration: 200 }}
 			>
-				{#each sortingMethods as method (method.key)}
+				{#each sortingMethods as method (method)}
 					<button
 						class="p-1"
 						onclick={() => {
-							if (sortMethod && sortMethod.key === method.key) {
+							if (sortMethod && sortMethod === method) {
 								reverseSort = !reverseSort;
 							} else {
 								reverseSort = false;
@@ -276,7 +287,7 @@
 							class="hover:bg-secondary flex cursor-pointer flex-row items-center justify-between gap-6 rounded px-3 py-1 text-start text-base capitalize transition-colors"
 						>
 							<div class="flex flex-row items-center gap-2">
-								{#if sortMethod && sortMethod.key === method.key && method.key !== 'default'}
+								{#if sortMethod && sortMethod === method && method !== 'default'}
 									<span class="size-4">
 										{#if reverseSort}
 											<ArrowUp class="size-full" />
@@ -285,9 +296,11 @@
 										{/if}
 									</span>
 								{/if}
-								{method.label}
+								{['default', 'name'].includes(method)
+									? $t(`sorting.methods.${method}`)
+									: $t(`nutritionalValuesLabels.${method}`)}
 							</div>
-							{#if sortMethod && sortMethod.key === method.key}
+							{#if sortMethod && sortMethod === method}
 								<Check class="text-primary size-4" />
 							{/if}
 						</div>

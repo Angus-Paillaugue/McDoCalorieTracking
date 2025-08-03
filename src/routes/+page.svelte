@@ -7,11 +7,12 @@
 
 <script lang="ts">
 	import ProductCard from './productCard.svelte';
-
 	import Result from './result.svelte';
+	import LangSwitcher from './langSwitcher.svelte';
 	import { isGroup, type NutritionMap, type Product } from '$lib/types';
 	import Filters from './filters.svelte';
 	import { sortingMethods } from './filters.svelte';
+	import { t } from '$lib/i18n';
 
 	const { data } = $props();
 	const { map } = data;
@@ -20,6 +21,7 @@
 	let selectedProducts = $state<SelectedProduct[]>([]);
 	let filteredProducts = $state<NutritionMap>(map);
 	let sortMethod = $state<(typeof sortingMethods)[number]>(sortingMethods[0]);
+	let resultOpen = $state(false);
 
 	const topLevelGroups = [
 		'beef',
@@ -45,14 +47,19 @@
 		}
 		if (category === 'others') {
 			return products.filter(
-				(item) => !isGroup(item) &&
+				(item) =>
+					!isGroup(item) &&
 					(!item.categories ||
-					!item.categories.some((cat) =>
-						topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
-					))
+						!item.categories.some((cat) =>
+							topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
+						))
 			);
 		}
-		return products.filter((item) => isGroup(item) ? item.items.some(i => i.categories.includes(category)) : item.categories.includes(category));
+		return products.filter((item) =>
+			isGroup(item)
+				? item.items.some((i) => i.categories.includes(category))
+				: item.categories.includes(category)
+		);
 	};
 </script>
 
@@ -76,7 +83,9 @@
 
 			<!-- Content -->
 			{#if category}
-				<h1 class="font-mono text-base font-bold uppercase">{category}</h1>
+				<h1 class="font-mono text-base font-bold uppercase">
+					{$t(`filter.categories.${category}`)}
+				</h1>
 			{/if}
 			<div
 				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
@@ -89,12 +98,12 @@
 	{/if}
 {/snippet}
 
-<main class="relative min-h-dvh">
+<main class="relative flex h-dvh flex-col">
 	<Filters bind:products bind:filteredProducts bind:sortMethod />
 
-	<div class="flex flex-col gap-10 p-2 md:p-4">
+	<div class="flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
 		<!-- If no sorting is applied, show items in Top Level Groups -->
-		{#if sortMethod.key === 'default'}
+		{#if sortMethod === 'default'}
 			{#each topLevelGroups as group (group)}
 				{@render categoryOfProduct(group, getItemsInCategory(group, filteredProducts))}
 			{/each}
@@ -104,5 +113,7 @@
 		{/if}
 	</div>
 
-	<Result bind:selectedProducts />
+	<LangSwitcher bind:resultOpen />
+
+	<Result bind:selectedProducts bind:infoOpen={resultOpen} />
 </main>

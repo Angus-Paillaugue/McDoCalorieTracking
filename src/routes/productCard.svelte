@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { NutriScore } from '$lib/components';
-	import { isGroup as isGroupFunc, type NutritionMap, type NutritionMapEntry } from '$lib/types';
-	import { cn, prettyPrintNutritionalValueKey, prettyPrintNutritionalValueValue } from '$lib/utils';
-	import { Info, Kanban, Minus, Plus, X } from 'lucide-svelte';
+	import { isGroup as isGroupFunc, type NutritionMapEntry } from '$lib/types';
+	import { cn, prettyPrintNutritionalValueValue } from '$lib/utils';
+	import { Info, Minus, Plus, X } from 'lucide-svelte';
 	import type { SelectedProduct } from './+page.svelte';
 	import { fly, scale } from 'svelte/transition';
+	import { t } from '$lib/i18n';
 
 	interface Props {
 		entry: NutritionMapEntry;
@@ -15,14 +16,16 @@
 
 	let selectedProduct = $derived(
 		selectedProducts.find((p) =>
-		isGroupFunc(entry) ? entry.items.find((p2) => p2.id === p.product.id) : p.product.id === entry.id
+			isGroupFunc(entry)
+				? entry.items.find((p2) => p2.id === p.product.id)
+				: p.product.id === entry.id
 		)
 	);
 	let selected = $derived(selectedProduct !== undefined);
 	let quantity = $derived(selectedProduct?.quantity || 0);
 	let detailsOpen = $state(false);
-	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry)
-	// TODO: Fix the items index reseting when sorting
+	let focused = $state(false);
+	let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry);
 
 	const changeGroupIndex = (index: number) => {
 		if (!isGroupFunc(entry)) return;
@@ -33,13 +36,28 @@
 			}
 			return p;
 		});
-		entry.activeIndex = index
-	}
+		entry.activeIndex = index;
+	};
+
+	const onWindowClick = (e: MouseEvent) => {
+		if (e.target instanceof HTMLElement && e.target.closest('.productCard')) return;
+		focused = false;
+	};
 </script>
 
+<svelte:window onclick={onWindowClick} />
+
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_positive_tabindex -->
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <div
+	onclick={() => (focused = true)}
+	onfocus={() => (focused = true)}
+	onblur={() => (focused = false)}
+	tabindex="0"
 	class={cn(
-		'border-card ring-primary group/card relative overflow-hidden rounded-lg border transition-all',
+		'border-card productCard ring-primary group/card relative overflow-hidden rounded-lg border transition-all',
 		selected ? 'ring-2' : 'ring-0',
 		detailsOpen && 'scale-[102%] rotate-2'
 	)}
@@ -55,15 +73,12 @@
 			transition:fly={{ y: '-100%', duration: 300 }}
 		>
 			<div class="mt-auto p-6 pt-12">
-				{#each Object.entries(currentProduct.nutritionalValue).sort(([ka, _va], [kb, _vb]) => ka.localeCompare(kb)) as [k, v] (k)}
+				{#each Object.entries(currentProduct.nutritionalValue).sort( ([ka, _va], [kb, _vb]) => ka.localeCompare(kb) ) as [k, v] (k)}
 					{#if k !== 'nutriScore' && v !== null && v !== undefined}
-						{@const prettyKey = prettyPrintNutritionalValueKey(k as any)}
-						{#if prettyKey}
-							<div class="flex flex-row items-center justify-between gap-1">
-								<span class="capitalize">{prettyKey}</span>
-								<span class="font-mono">{prettyPrintNutritionalValueValue(k, v)}</span>
-							</div>
-						{/if}
+						<div class="flex flex-row items-center justify-between gap-1">
+							<span class="capitalize">{$t(`nutritionalValuesLabels.${k}`)}</span>
+							<span class="font-mono">{prettyPrintNutritionalValueValue(k as any, v)}</span>
+						</div>
 					{/if}
 				{/each}
 			</div>
@@ -75,7 +90,7 @@
 		<!-- Header -->
 		<div class="z-20 flex flex-row justify-between gap-2">
 			<h2 class="font-sans text-xl font-bold">
-				{isGroupFunc(entry) ? entry.label : currentProduct.name}
+				{$t(`products.${isGroupFunc(entry) ? entry.label : currentProduct.id}`)}
 			</h2>
 
 			<!-- Details button -->
@@ -100,7 +115,10 @@
 
 		<!-- Body -->
 		<div class="relative flex w-full grow flex-col items-center justify-center">
-			<img src="/assets/{currentProduct.image}" alt={currentProduct.name} />
+			<img
+				src="/assets/{currentProduct.image}"
+				alt={$t(`products.${isGroupFunc(entry) ? entry.label : currentProduct.id}`)}
+			/>
 			{#if currentProduct.nutritionalValue.nutriScore}
 				<div class="absolute right-2 bottom-4">
 					<NutriScore size="sm" value={currentProduct.nutritionalValue.nutriScore} />
@@ -114,7 +132,9 @@
 		<div
 			class={cn(
 				'flex flex-col transition-all',
-				quantity === 0 ? 'translate-y-full group-hover/card:translate-y-0' : ''
+				quantity === 0 &&
+					'translate-y-full group-focus-within/card:translate-y-0 group-hover/card:translate-y-0',
+				focused && 'translate-y-0'
 			)}
 		>
 			<div class="to-background h-20 w-full bg-gradient-to-b from-transparent"></div>
@@ -177,3 +197,10 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.productCard:active .card-quantity-selector,
+	.productCard:focus-within .card-quantity-selector {
+		transform: translateY(0);
+	}
+</style>
