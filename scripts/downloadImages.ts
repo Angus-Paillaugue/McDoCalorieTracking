@@ -1,5 +1,5 @@
 import { exists, readFile, writeFile, mkdir, readdir, unlink } from 'fs/promises';
-import type { NutritionMap } from '../src/lib/types';
+import type { Product } from '../src/lib/types';
 import { join } from 'path';
 import sharp from 'sharp';
 
@@ -12,7 +12,7 @@ const DOWNLOAD_PATH = join(HERE, '../static/assets/');
 async function loadMap() {
 	if (!exists(MAP_PATH)) throw new Error(`Map file not found at path: ${MAP_PATH}`);
 	const fileContent = await readFile(MAP_PATH, 'utf-8');
-	const json: NutritionMap = JSON.parse(fileContent);
+	const json: Product[] = JSON.parse(fileContent);
 	return json;
 }
 
