@@ -275,6 +275,7 @@
 		"id": "nug20",
 		"name": "Boîte de 20 Chicken McNuggets™",
 		"categories": ["nuggets", "chicken"],
+		"groupLabel": "Nuggets",
 		"image": "nug20.webp",
 		"group": "nuggets",
 		"itemLabel": "x20",
