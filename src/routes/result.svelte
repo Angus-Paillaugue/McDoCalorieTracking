@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import type { SelectedProduct } from './+page.svelte';
-	import { prettyPrintNutritionalValueValue } from '$lib/utils';
+	import { cn, nutritionalValueKeys, prettyPrintNutritionalValueValue } from '$lib/utils';
 	import { ChevronUp } from 'lucide-svelte';
 	import { t } from '$lib/i18n';
-	import { writable } from 'svelte/store';
+	import type { Product } from '$lib/types';
 
 	interface Props {
 		selectedProducts: SelectedProduct[];
@@ -15,13 +15,25 @@
 	let open = $state(false);
 
 	$effect(() => {
-		infoOpen = nbProducts > 0 && !open;
+		open = selectedProducts.length > 0 && open;
+		infoOpen = nbProducts > 0;
 	});
 
 	function calculateTotalCalories(products: SelectedProduct[]): number {
 		return products.reduce((total, entry) => {
 			const nutrition = entry.product.nutritionalValue;
 			return total + (nutrition ? nutrition.calories * entry.quantity : 0);
+		}, 0);
+	}
+
+	function calculateTotalNutritionalValue(
+		products: SelectedProduct[],
+		key: keyof Exclude<Product['nutritionalValue'], undefined>
+	): number {
+		return products.reduce((total, entry) => {
+			const nutrition = entry.product.nutritionalValue;
+			const value = nutrition?.[key];
+			return total + (typeof value === 'number' ? value * entry.quantity : 0);
 		}, 0);
 	}
 
@@ -73,7 +85,7 @@
 				<b
 					>{prettyPrintNutritionalValueValue(
 						'calories',
-						calculateTotalCalories(selectedProducts)
+						calculateTotalNutritionalValue(selectedProducts, 'calories')
 					)}</b
 				>
 			</div>
@@ -88,24 +100,32 @@
 	</div>
 {/snippet}
 
-{#if nbProducts > 0 && open}
+{#if open}
 	<div
-		class="bg-background fixed inset-0 z-40 overflow-y-auto"
+		class="bg-background fixed top-0 right-0 bottom-16 left-0 z-40 overflow-y-auto"
 		transition:slide={{ duration: 300, axis: 'y' }}
 	>
 		<div class="mx-auto grid w-full max-w-[1000px] grid-cols-1 gap-6 p-4 lg:grid-cols-2">
 			{@render receipt(selectedProducts)}
 
-			<div class="bg-card mx-auto flex w-full flex-col gap-2 rounded-lg p-4">
+			<div class="bg-card mx-auto flex h-fit w-full flex-col gap-2 rounded-lg p-4">
 				<h2 class="font-mono text-base font-bold uppercase">
 					{$t('total.otherNutritionalValues')}
 				</h2>
 				<ul class="list-none space-y-2">
-					{#each Object.entries(selectedProducts[0]?.product.nutritionalValue).sort( ([ka, _va], [kb, _vb]) => ka.localeCompare(kb) ) as [k, v] (k)}
-						{#if k !== 'nutriScore' && v !== null && v !== undefined}
+					{#each nutritionalValueKeys as k (k)}
+						{#if k !== 'nutriScore'}
 							<li class="flex flex-row items-center justify-between gap-1">
 								<span class="capitalize">{$t(`nutritionalValuesLabels.${k}`)}</span>
-								<span class="font-mono">{prettyPrintNutritionalValueValue(k as any, v)}</span>
+								<span class="font-mono"
+									>{prettyPrintNutritionalValueValue(
+										k as keyof Product['nutritionalValue'],
+										calculateTotalNutritionalValue(
+											selectedProducts,
+											k as keyof Exclude<Product['nutritionalValue'], undefined>
+										)
+									)}</span
+								>
 							</li>
 						{/if}
 					{/each}
@@ -113,9 +133,11 @@
 			</div>
 		</div>
 	</div>
-{:else if infoOpen}
+{/if}
+
+{#if infoOpen}
 	<div
-		class="border-border text-primary flex w-full shrink-0 flex-row items-center justify-between border-t p-4"
+		class="border-border text-primary flex h-16 w-full shrink-0 flex-row items-center justify-between border-t px-4"
 		transition:slide={{ duration: 300, axis: 'y' }}
 	>
 		<h1 class="text-lg font-bold">
@@ -127,10 +149,10 @@
 			>
 
 			<button
-				onclick={() => (open = true)}
-				class="bg-primary hover:bg-secondary hover:text-primary text-secondary size-8 rounded-none p-1 transition-all hover:rounded-2xl"
+				onclick={() => (open = !open)}
+				class="bg-primary text-secondary size-8 rounded-2xl p-1 transition-all active:rounded-sm"
 			>
-				<ChevronUp class="size-full" />
+				<ChevronUp class={cn('size-full transition-all', open && 'rotate-180')} />
 			</button>
 		</div>
 	</div>

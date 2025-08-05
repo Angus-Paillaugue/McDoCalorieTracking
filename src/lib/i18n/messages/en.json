@@ -1,4 +1,10 @@
 {
+	"seo": {
+		"homePage": {
+			"title": "McDonald's Nutrition Facts",
+			"description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
+		}
+	},
 	"nutritionalValuesLabels": {
 		"calories": "Calories",
 		"protein": "Protéines",

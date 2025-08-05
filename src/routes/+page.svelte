@@ -63,6 +63,16 @@
 	};
 </script>
 
+<svelte:head>
+	<title>{$t('seo.homePage.title')}</title>
+	<meta name="description" content={$t('seo.homePage.description')} />
+	<meta property="og:title" content={$t('seo.homePage.title')} />
+	<meta property="og:description" content={$t('seo.homePage.description')} />
+	<meta property="og:type" content="website" />
+	<meta name="twitter:title" content={$t('seo.homePage.title')} />
+	<meta name="twitter:description" content={$t('seo.homePage.description')} />
+</svelte:head>
+
 {#snippet categoryOfProduct(
 	category: (typeof topLevelGroups)[number] | (typeof sortingMethods)[number] | null,
 	entries: NutritionMap
@@ -88,7 +98,7 @@
 				</h1>
 			{/if}
 			<div
-				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+				class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
 			>
 				{#each entries as _entry, i}
 					<ProductCard bind:entry={entries[i]} bind:selectedProducts />
@@ -101,7 +111,7 @@
 <main class="relative flex h-dvh flex-col">
 	<Filters bind:products bind:filteredProducts bind:sortMethod />
 
-	<div class="flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
+	<div class="group/grid flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
 		<!-- If no sorting is applied, show items in Top Level Groups -->
 		{#if sortMethod === 'default'}
 			{#each topLevelGroups as group (group)}

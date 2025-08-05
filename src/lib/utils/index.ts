@@ -12,6 +12,18 @@ export const noop = (...args: unknown[]) => {
 	void args;
 };
 
+export const nutritionalValueKeys: (keyof Product['nutritionalValue'])[] = [
+	'calories',
+	'protein',
+	'salt',
+	'fibers',
+	'lipids',
+	'lipidsSaturated',
+	'carbohydrates',
+	'carbohydratesSugars',
+	'nutriScore'
+] as const satisfies (keyof Product['nutritionalValue'])[];
+
 const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> = {
 	calories: 'kCal',
 	protein: 'g',
@@ -24,7 +36,7 @@ const prettyPrintUnitsTable: Record<keyof Product['nutritionalValue'], string> =
 	nutriScore: '' // NutriScore does not have a unit
 };
 export const prettyPrintNutritionalValueValue = (
-	key: keyof typeof prettyPrintUnitsTable,
+	key: (typeof nutritionalValueKeys)[number],
 	value: Product['nutritionalValue'][keyof Product['nutritionalValue']]
 ) => {
 	const prettyVal = typeof value === 'number' ? value.toFixed(1) : value;
