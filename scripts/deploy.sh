@@ -16,7 +16,7 @@ ssh -i "$SSH_KEY_PATH" "$SSH_USER@$SSH_HOST" << EOF
   cd "$SSH_PROJECT_DIR" || exit
   docker compose pull
   git pull origin main
-  docker compose down
-  docker compose up -d
+    docker compose down
+    docker compose up -d
   echo "Deployment completed successfully."
 EOF
