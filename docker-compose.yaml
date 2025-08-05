@@ -8,3 +8,30 @@ services:
       - ORIGIN=http://localhost:4173
     ports:
       - '4173:3000'
+
+  db:
+    image: postgres
+    container_name: mcdo-calorie-tracker-db
+    network_mode: host
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data:Z
+      - ./sql:/docker-entrypoint-initdb.d:Z
+
+  redis:
+    container_name: mcdo-calorie-tracker-redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
