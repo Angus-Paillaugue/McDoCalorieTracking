@@ -22,14 +22,14 @@ export class UserDAO {
 
   static async createUser(username: User['username'], passwordHash: string): Promise<User> {
     if (await UserDAO.userExists(username)) {
-      throw new Error('User with this username already exists');
+      throw new Error('errors.auth.usernameTaken');
     }
     const result = await pool.query(
       'INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING *',
       [username, passwordHash]
     );
     if (result.rows.length === 0) {
-      throw new Error('Failed to create user');
+      throw new Error('errors.auth.createUser');
     }
     return UserDAO.convertToUser(result.rows[0]);
   }
@@ -47,7 +47,7 @@ export class UserDAO {
 
     const userResult = await pool.query<UserTable>('SELECT * FROM users WHERE id = $1', [id]);
     if (userResult.rows.length === 0) {
-      throw new Error('User not found');
+      throw new Error('errors.auth.userNotFound');
     }
     const user = UserDAO.convertToUser(userResult.rows[0]);
     user.meals = await MealDAO.getAllUserMeals(user);
@@ -62,7 +62,7 @@ export class UserDAO {
       username,
     ]);
     if (userResult.rows.length === 0) {
-      throw new Error('User not found');
+      throw new Error('errors.auth.badUsername');
     }
     const user = UserDAO.convertToUser(userResult.rows[0]);
     user.meals = await MealDAO.getAllUserMeals(user);

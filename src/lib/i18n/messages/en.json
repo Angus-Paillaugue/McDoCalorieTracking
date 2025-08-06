@@ -5,11 +5,18 @@
       "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
     },
     "homePage": {
-      "title": "Home",
-      "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
+      "title": "Home"
     },
     "meals": {
       "title": "My Meals"
+    },
+    "auth": {
+      "logIn": {
+        "title": "Log In"
+      },
+      "signUp": {
+        "title": "Sign Up"
+      }
     }
   },
   "nutritionalValuesLabels": {
@@ -71,5 +78,29 @@
       "meals": "My Meals",
       "logOut": "Log Out"
     }
+  },
+  "errors": {
+    "createMeal": "An error occurred while creating the meal. Please try again.",
+    "auth": {
+      "badUsername": "No user found with this username",
+      "invalidCredentials": "Invalid credentials. Please try again.",
+      "createUser": "Failed to create user",
+      "usernameTaken": "This username is already taken. Please choose another one.",
+      "userDoesNotExist": "User does not exist.",
+      "userNotFound": "User not found."
+    },
+    "meal": {
+      "mealNotFound": "Meal not found.",
+      "mealDoesNotBelongToUser": "This meal does not belong to the user."
+    },
+    "product": {
+      "create": "Failed to create product",
+      "groupNotFound": "Product group not found",
+      "notFound": "Product not found",
+      "notInAGroup": "Product is not in a group"
+    }
+  },
+  "successes": {
+    "createMeal": "Meal created successfully!"
   }
 }

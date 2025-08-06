@@ -4,3 +4,4 @@ export { default as Select } from './Select';
 export { default as Counter } from './Counter';
 export { default as ProductCard } from './ProductCard';
 export { default as SEO } from './SEO';
+export { default as Toaster } from './Toast';

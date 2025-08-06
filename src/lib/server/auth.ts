@@ -14,10 +14,9 @@ async function auth(token: string): Promise<User | null> {
         if (err) return reject(err);
         try {
           const user = await UserDAO.getUserById(decoded as string);
-          if (!user) return reject('User not found');
           resolve(user);
         } catch (error) {
-          console.error('Error finding user:', error);
+          console.error('User not found:', error);
           reject('User not found');
         }
       });

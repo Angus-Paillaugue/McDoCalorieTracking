@@ -29,7 +29,7 @@ export class MealDAO {
     user: User
   ): Promise<Meal['id']> {
     if (!(await UserDAO.userExists(user.username))) {
-      throw new Error('User does not exists');
+      throw new Error('errors.auth.userDoesNotExist');
     }
     const mealRes = await pool.query<MealTable>(
       'INSERT INTO meal (user_id) VALUES ($1) RETURNING id',
@@ -71,7 +71,7 @@ export class MealDAO {
 
   static async getMealById(id: Meal['id'], user: User): Promise<Meal> {
     if (!MealDAO.mealBelongToUser(id, user)) {
-      throw new Error('Meal does not belong to user');
+      throw new Error('errors.meal.mealDoesNotBelongToUser');
     }
     const cachedMeal = await PgCaching.get<Meal>(`meal:${id}`);
     if (cachedMeal) {
@@ -83,7 +83,7 @@ export class MealDAO {
       id,
     ]);
     if (mealResult.rows.length === 0) {
-      throw new Error('Meal not found');
+      throw new Error('errors.meal.mealNotFound');
     }
     const mealItemsResult = await pool.query<MealItemTable>(
       'SELECT product_id, quantity from meal_item WHERE meal_id = $1',
@@ -115,7 +115,7 @@ export class MealDAO {
     }
     const result = await pool.query<MealTable>('SELECT user_id FROM meal WHERE id = $1', [id]);
     if (result.rows.length === 0) {
-      throw new Error('Meal not found');
+      throw new Error('errors.meal.mealNotFound');
     }
     return result.rows[0].user_id === user.id;
   }
@@ -123,7 +123,7 @@ export class MealDAO {
   static async deleteMeal(id: Meal['id'], user: User): Promise<void> {
     const cachedMeal = await PgCaching.get<Meal>(`meal:${id}`);
     if (!MealDAO.mealBelongToUser(id, user)) {
-      throw new Error('Meal does not belong to user');
+      throw new Error('errors.meal.mealDoesNotBelongToUser');
     }
     if (cachedMeal) {
       await PgCaching.del(`meal:${id}`);

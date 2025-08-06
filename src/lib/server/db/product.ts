@@ -43,7 +43,7 @@ export class ProductDAO {
       ]
     );
     if (result.rows.length === 0) {
-      throw new Error('Failed to create product');
+      throw new Error('errors.product.create');
     }
   }
 
@@ -79,7 +79,7 @@ export class ProductDAO {
     return groups;
   }
 
-  static async getProductGroupById(id: ProductCardProductGroup['key']) {
+  static async getProductGroupById(id: ProductCardProductGroup['id']) {
     const cachedGroup = await PgCaching.get(`productGroup:${id}`);
     if (cachedGroup) return cachedGroup;
     if (await ProductDAO.isProductInAGroup(id)) {
@@ -88,18 +88,18 @@ export class ProductDAO {
       await PgCaching.set(`productGroup:${id}`, group);
       return group;
     }
-    throw new Error('Product group not found');
+    throw new Error('errors.product.groupNotFound');
   }
 
   static async getProductById(
-    id: Product['id'] | ProductCardProductGroup['key']
+    id: Product['id'] | ProductCardProductGroup['id']
   ): Promise<NutritionMapEntry> {
     const cachedProduct = await PgCaching.get<Product>(`product:${id}`);
     if (cachedProduct) return cachedProduct;
 
     const result = await pool.query('SELECT * FROM product WHERE id = $1', [id]);
     if (result.rows.length === 0) {
-      throw new Error('Product not found');
+      throw new Error('errors.product.notFound');
     }
     const product = ProductDAO.convertToProduct(result.rows[0]);
     product.categories = await ProductDAO.getProductCategories(product.id);
@@ -146,7 +146,7 @@ export class ProductDAO {
     ]);
     const groupId = result.rows[0]?.group_id;
     if (!groupId) {
-      throw new Error('Product is not in a group');
+      throw new Error('errors.product.notInAGroup');
     }
     await PgCaching.set(`product:${productId}:groupId`, groupId);
     return groupId;
@@ -160,17 +160,17 @@ export class ProductDAO {
       groupId,
     ]);
     if (groupLabelRes.rows.length === 0) {
-      throw new Error('Group not found');
+      throw new Error('errors.product.groupNotFound');
     }
     const groupLabel = groupLabelRes.rows[0].label as string;
     const result = await pool.query('SELECT product_id FROM belong_to_group WHERE group_id = $1', [
       groupId,
     ]);
     if (result.rows.length === 0) {
-      throw new Error('Group not found');
+      throw new Error('errors.product.groupNotFound');
     }
     const group: ProductCardProductGroup = {
-      key: groupId,
+      id: groupId,
       label: groupLabel,
       activeIndex: 0,
       items: [],

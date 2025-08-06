@@ -1,14 +1,23 @@
 <script lang="ts">
+  import { SEO } from '$lib/components';
+  import { Toaster } from '$lib/components/Toast/toast';
+  import { t } from '$lib/i18n';
   import type { PageProps } from './$types';
 
   let { form }: PageProps = $props();
+
+  $effect(() => {
+    if (form?.error && form?.action === 'logIn') {
+      console.error('Log-in error:', $t(form.error));
+      Toaster.error($t(form.error));
+    }
+  });
 </script>
+
+<SEO title={$t('seo.auth.logIn.title')} />
 
 <form action="?/logIn" method="POST" class="flex flex-col gap-4">
   <input type="text" name="username" />
   <input type="password" name="password" />
   <button>Submit</button>
-  {#if form?.error && form?.action === 'logIn'}
-    <p>{form.error}</p>
-  {/if}
 </form>

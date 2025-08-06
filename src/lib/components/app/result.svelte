@@ -1,3 +1,8 @@
+<script lang="ts" module>
+  import { writable } from 'svelte/store';
+  export const infoOpen = writable(false);
+</script>
+
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { cn } from '$lib/utils';
@@ -5,17 +10,18 @@
   import { t } from '$lib/i18n';
   import type { Product, MealItem } from '$lib/types';
   import { NutritionalValuesUtils } from '$lib/utils/nutrition';
+  import { Toaster } from '$lib/components/Toast/toast';
 
   interface Props {
     selectedProducts: MealItem[];
   }
 
   let { selectedProducts = $bindable([]) }: Props = $props();
-  let open = $state(false);
   let isSavingMeal = $state(false);
+  let open = $state(false);
 
   $effect(() => {
-    open = selectedProducts.length > 0 && open;
+    $infoOpen = selectedProducts.length > 0;
   });
 
   function calculateTotalCalories(products: MealItem[]): number {
@@ -34,7 +40,6 @@
   };
 
   let nbProducts = $derived(getNbProducts(selectedProducts));
-  let infoOpen = $derived(nbProducts > 0);
 
   const onWindowKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && open) {
@@ -54,11 +59,9 @@
     });
 
     if (response.ok) {
-      // Handle success, e.g., show a success message or redirect
-      console.log('Meal created successfully');
+      Toaster.success($t('successes.createMeal'));
     } else {
-      // Handle error, e.g., show an error message
-      console.error('Failed to create meal');
+      Toaster.error($t('errors.createMeal'));
     }
     isSavingMeal = false;
   }
@@ -157,7 +160,7 @@
   </div>
 {/if}
 
-{#if infoOpen}
+{#if $infoOpen}
   <div
     class="border-border text-primary flex h-16 w-full shrink-0 flex-row items-center justify-between border-t px-4"
     transition:slide={{ duration: 300, axis: 'y' }}

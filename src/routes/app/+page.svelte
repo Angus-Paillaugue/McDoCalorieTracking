@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ProductCard, SEO } from '$lib/components';
-  import Result from './result.svelte';
+  import Result from '$lib/components/app/result.svelte';
   import { isGroup, type ProductList, type MealItem } from '$lib/types';
   import Filters from './filters.svelte';
   import { sortingMethods } from './filters.svelte';
