@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-  import { isGroup, nutriScoreValues, type NutritionMap } from '$lib/types';
+  import { isGroup, nutriScoreValues, type ProductList } from '$lib/types';
   import { cn, levenshtein } from '$lib/utils';
   import { ArrowDown, ArrowUp, ArrowUpDown, Check, Search, X } from 'lucide-svelte';
   import type { SvelteHTMLElements } from 'svelte/elements';
@@ -22,8 +22,8 @@
   import { t, translate } from '$lib/i18n';
 
   interface Props {
-    products: NutritionMap;
-    filteredProducts: NutritionMap;
+    products: ProductList;
+    filteredProducts: ProductList;
     activeCategory?: string | null;
     sortMethod?: (typeof sortingMethods)[number];
     reverseSort?: boolean;
@@ -52,7 +52,7 @@
     );
   });
 
-  function extractCategories(products: NutritionMap): string[] {
+  function extractCategories(products: ProductList): string[] {
     const categoriesSet = new SvelteSet<string>();
     for (const entry of Object.values(products)) {
       if (isGroup(entry)) {
@@ -67,7 +67,7 @@
     return Array.from(categoriesSet).sort((a, b) => a.localeCompare(b));
   }
 
-  const filterByCategory = (category: string | null, products: NutritionMap) => {
+  const filterByCategory = (category: string | null, products: ProductList) => {
     if (category) {
       products = products.filter((product) =>
         isGroup(product)
@@ -80,7 +80,7 @@
 
   const sortBy = (
     method: (typeof sortingMethods)[number],
-    products: NutritionMap,
+    products: ProductList,
     reverse: boolean
   ) => {
     // Sort the products based on the selected method
@@ -91,12 +91,12 @@
         let aKey: string;
         let bKey: string;
         if (isGroup(a)) {
-          aKey = a.key.toLowerCase();
+          aKey = a.id.toLowerCase();
         } else {
           aKey = translate(`products.${a.id}`).toLowerCase();
         }
         if (isGroup(b)) {
-          bKey = b.key.toLowerCase();
+          bKey = b.id.toLowerCase();
         } else {
           bKey = translate(`products.${b.id}`).toLowerCase();
         }
@@ -156,7 +156,7 @@
   };
 
   const handleSearch = () => {
-    let res: NutritionMap = [];
+    let res: ProductList = [];
     if (searchValue !== '') {
       res = filterSearch(searchValue, products);
     } else {
@@ -166,7 +166,7 @@
     filteredProducts = sortBy(sortMethod, filterByCategory(activeCategory, res), reverseSort);
   };
 
-  const filterSearch = (query: string, products: NutritionMap): NutritionMap => {
+  const filterSearch = (query: string, products: ProductList): ProductList => {
     if (!query) return products;
 
     const normalizedSearch = query.trim().toLowerCase();
@@ -174,9 +174,7 @@
 
     return products
       .map((product) => {
-        const name = isGroup(product)
-          ? translate(`products.${product.items[0].id}`) || product.key
-          : translate(`products.${product.id}`);
+        const name = isGroup(product) ? product.items[product.activeIndex].name : product.name;
         const normalizedTitle = name.toLowerCase();
         const exactMatchIndex = normalizedTitle.indexOf(normalizedSearch);
         const distance = levenshtein(normalizedSearch, normalizedTitle);

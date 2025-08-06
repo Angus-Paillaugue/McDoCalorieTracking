@@ -11,14 +11,14 @@ export class ProductDAO {
       categories: row.categories ?? [],
       itemLabel: row.item_label ?? null,
       nutritionalValue: {
-        calories: row.calories,
-        protein: row.protein,
-        salt: row.salt,
-        fibers: row.fibers,
-        lipids: row.lipids,
-        lipidsSaturated: row.lipids_saturated,
-        carbohydrates: row.carbohydrates,
-        carbohydratesSugars: row.carbohydrates_sugars,
+        calories: parseInt(row.calories, 10) || 0,
+        protein: parseInt(row.protein, 10) || 0,
+        salt: parseInt(row.salt, 10) || 0,
+        fibers: parseInt(row.fibers, 10) || 0,
+        lipids: parseInt(row.lipids, 10) || 0,
+        lipidsSaturated: parseInt(row.lipids_saturated, 10) || 0,
+        carbohydrates: parseInt(row.carbohydrates, 10) || 0,
+        carbohydratesSugars: parseInt(row.carbohydrates_sugars, 10) || 0,
         nutriScore: row.nutri_score,
       },
     };
@@ -94,7 +94,7 @@ export class ProductDAO {
   static async getProductById(
     id: Product['id'] | ProductCardProductGroup['key']
   ): Promise<NutritionMapEntry> {
-    const cachedProduct = await PgCaching.get(`product:${id}`);
+    const cachedProduct = await PgCaching.get<Product>(`product:${id}`);
     if (cachedProduct) return cachedProduct;
 
     const result = await pool.query('SELECT * FROM product WHERE id = $1', [id]);
@@ -108,7 +108,7 @@ export class ProductDAO {
   }
 
   static async getProductCategories(id: Product['id']): Promise<string[]> {
-    const cachedCategories = await PgCaching.get(`product:${id}:categories`);
+    const cachedCategories = await PgCaching.get<string[]>(`product:${id}:categories`);
     if (cachedCategories) return cachedCategories;
 
     const result = await pool.query(
@@ -126,7 +126,7 @@ export class ProductDAO {
   }
 
   static async isProductInAGroup(productId: Product['id']): Promise<boolean> {
-    const cached = await PgCaching.get(`product:${productId}:inGroup`);
+    const cached = await PgCaching.get<boolean>(`product:${productId}:inGroup`);
     if (cached !== null) return cached;
 
     const result = await pool.query('SELECT COUNT(*) FROM belong_to_group WHERE product_id = $1', [
@@ -138,7 +138,7 @@ export class ProductDAO {
   }
 
   static async getProductGroupId(productId: Product['id']): Promise<string> {
-    const cachedGroupId = await PgCaching.get(`product:${productId}:groupId`);
+    const cachedGroupId = await PgCaching.get<string>(`product:${productId}:groupId`);
     if (cachedGroupId) return cachedGroupId;
 
     const result = await pool.query('SELECT group_id FROM belong_to_group WHERE product_id = $1', [
@@ -153,7 +153,7 @@ export class ProductDAO {
   }
 
   static async getProductGroup(groupId: string): Promise<ProductCardProductGroup> {
-    const cachedGroup = await PgCaching.get(`productGroup:${groupId}`);
+    const cachedGroup = await PgCaching.get<ProductCardProductGroup>(`productGroup:${groupId}`);
     if (cachedGroup) return cachedGroup;
 
     const groupLabelRes = await pool.query('SELECT label FROM product_group WHERE id = $1', [

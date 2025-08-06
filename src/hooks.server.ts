@@ -1,12 +1,40 @@
-import { type Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { defaultLocale, config as i18nConfig, locales, origin } from '$lib/i18n';
 import { urlStartsWith } from '$lib/utils';
+import { auth } from '$lib/server/auth';
 
-const NEED_AUTH_ROUTES: string[] = [];
+const NEED_AUTH_ROUTES: string[] = ['/app', '/api'];
 
 const authHandler: Handle = async ({ event, resolve }) => {
-  const { url } = event;
+  const { url, cookies, locals } = event;
+
+  const token =
+    cookies.get('token') ||
+    event.request.headers.get('Authorization')?.replace('Bearer ', '') ||
+    null;
+
+  // Check if the user is logged in, and if so, retrieve the user data
+  if (token) {
+    try {
+      const user = await auth(token);
+      if (user) {
+        locals.user = user;
+      } else {
+        cookies.delete('token', { path: '/' });
+        delete locals?.user;
+      }
+    } catch (error) {
+      console.error('Error verifying token:', error);
+      delete locals.user;
+      cookies.delete('token', { path: '/' });
+    }
+  }
+
+  if (!locals.user && urlStartsWith(url.pathname, NEED_AUTH_ROUTES)) {
+    // If the user is not logged in and tries to access a protected route, redirect to the login page
+    redirect(303, '/auth');
+  }
 
   const response = await resolve(event);
   response.headers.set(
@@ -46,4 +74,4 @@ export const i18nHandler: Handle = async ({ event, resolve }) => {
   });
 };
 
-export const handle = sequence(i18nHandler, authHandler);
+export const handle = sequence(authHandler, i18nHandler);

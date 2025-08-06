@@ -1,8 +1,15 @@
 {
   "seo": {
-    "homePage": {
-      "title": "McDonald's Nutrition Facts",
+    "titleSuffix": "McDonald's Nutrition Facts",
+    "defaults": {
       "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
+    },
+    "homePage": {
+      "title": "Home",
+      "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
+    },
+    "meals": {
+      "title": "My Meals"
     }
   },
   "nutritionalValuesLabels": {
@@ -17,113 +24,52 @@
     "nutriScore": "Nutri-Score"
   },
   "sorting": {
-    "label": "Trier par",
+    "label": "Sort by",
     "methods": {
-      "default": "Par défaut",
-      "name": "Nom"
+      "default": "Default",
+      "name": "Name"
     }
   },
   "search": {
-    "label": "Rechercher",
-    "placeholder": "Rechercher un produit"
+    "label": "Search",
+    "placeholder": "Search a product"
   },
   "total": {
     "label": "Total",
-    "otherNutritionalValues": "Autres valeurs nutritionnelles :",
+    "otherNutritionalValues": "Other nutritional values :",
     "nbSelectedProducts": "{{nbProducts}} product{{plural}} selected"
   },
   "filter": {
     "categories": {
-      "others": "Autres",
-      "beef": "Boeuf",
+      "others": "Others",
+      "beef": "Beef",
       "burger": "Burger",
-      "chicken": "Poulet",
+      "chicken": "Chicken",
       "desert": "Desert",
-      "drink": "Boisson",
-      "egg": "Oeuf",
-      "fish": "Poisson",
-      "fries": "Frites",
+      "drink": "Drink",
+      "egg": "Egg",
+      "fish": "Fish",
+      "fries": "Fries",
       "fruit": "Fruit",
-      "ice cream": "Glace",
+      "ice cream": "Ice cream",
       "McCoffee": "McCoffee",
       "milk shake": "Milk Shake",
       "nuggets": "Nuggets",
       "pork": "Porc",
       "salad": "Salads",
-      "veggie": "Végétarien",
+      "veggie": "Veggie",
       "wrap": "Wrap"
     }
   },
-  "products": {
-    "280": "280™ Original",
-    "cesarSalad": "Salade César",
-    "veggieCesarSalad": "Salade César Végétarienne",
-    "smallSalad": "Petite Salade",
-    "smallRanchWrap": "P’tit Wrap Ranch",
-    "smallFries": "Petite Frites",
-    "sugarDonut": "Donut Nature",
-    "crispy": "McCrispy",
-    "bigArch": "Big Arch",
-    "doubleCheeseBacon": "Double Cheese Bacon",
-    "doubleBigTasty": "Big Tasty™ - 2 Steaks Hachés",
-    "bigTasty": "Big Tasty™ - 1 Steak Haché",
-    "royalBacon": "Royal™ Bacon",
-    "eggBaconMuffin": "Egg & Bacon McMuffin",
-    "doubleCheese": "Double Cheeseburger",
-    "royalDeluxe": "Royal™ Deluxe",
-    "nuggets": "Nuggets",
-    "royalCheese": "Royal Cheese™",
-    "cbo": "CBO",
-    "hamburger": "Hamburger",
-    "newYorkWrap": "McWrap™ New York & Poulet Bacon",
-    "eggCheese": "Egg & Cheese McMuffin",
-    "croque": "Croque McDo",
-    "smallChicken": "P'tit Chicken",
-    "cheeseburger": "Cheeseburger",
-    "mcChicken": "McChicken",
-    "mcFishMayo": "McFish™ Mayo",
-    "veggieWrap": "McWrap® Veggie",
-    "filetFish": "Filet-O-Fish",
-    "deluxeFiletFish": "Filet-O-Fish™ Deluxe",
-    "mcFish": "McFish",
-    "mcVeggie": "McVeggie",
-    "bigMac": "Big Mac",
-    "maple": "Maple BBQ Quarter Pounder",
-    "doubleMaple": "Double Maple BBQ Quarter Pounder",
-    "steakhouse": "Steakhouse",
-    "teriyakiChicken": "Teriyaki Chicken",
-    "shrimpFilet": "Shrimp Filet",
-    "appleJuice": "Nectar De Pomme Bio",
-    "hawai": "Hawaï® Saveur Tropical",
-    "capriSun": "Capri-Sun® Tropical",
-    "macFlurryMango": "McFlurry™ Mangue Bobba",
-    "mcFloatSakura": "McFloat® Sakura",
-    "sundaeMango": "Sundae coulis mangue",
-    "smallVanillaIceCream": "P'tit Glacé Saveur Vanille",
-    "smallVanillaShake": "P'tit Milkshake Saveur Vanille",
-    "bigVanillaShake": "Grand Milkshake Saveur Vanille",
-    "appleSlices": "P'tite Pomme",
-    "bigStrawberryShake": "Grand Milkshake Saveur Fraise",
-    "smallStrawberryShake": "P'tit Milkshake Saveur Fraise",
-    "applesauce": "Berlingo' Fruits",
-    "chocolateMuffin": "Muffin Saveur Chocolat Noisette",
-    "cucumbers": "P'tits Concombres",
-    "ananas": "P'tit Ananas",
-    "chocolateCookie": "Cookie Fourré Choconuts",
-    "macaroonsDuo": "Duo De Macarons",
-    "mcChocoNuts": "McChocoNuts Nappage Choconuts",
-    "brownie": "Brownie Chocolat-Noisettes",
-    "mediumPotatoes": "Moyenne Portion de Deluxe Potatoes",
-    "bigPotatoes": "Grande Portion de Deluxe Potatoes",
-    "cheesePotatoes": "Potatoes Double Cheddar Fondu",
-    "baconPotatoes": "Potatoes Cheddar Fondu - Bacon",
-    "blueberryMuffin": "Muffin Aux Myrtilles",
-    "chocolateDonut": "Donut Saveur Chocolat",
-    "quebecFries": "Frites à la Québécoise",
-    "mediumFries": "Moyenne Portion de Frites",
-    "bigFries": "Grande Portion de Frites",
-    "chedarFries": "McFlavor® Fries Double Cheddar Fondu",
-    "baconFries": "McFlavor® Fries Cheddar Fondu - Bacon",
-    "bioABoire": "Le Bio à Boire"
+  "date": {
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "sidebar": {
+    "navEntries": {
+      "home": "Home",
+      "meals": "My Meals",
+      "logOut": "Log Out"
+    }
   }
 }

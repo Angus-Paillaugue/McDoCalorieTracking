@@ -31,9 +31,9 @@ async function applyMigration(name: string) {
 }
 
 async function main() {
-  const lastMigration = await getLastMigrationDate();
-  if (lastMigration) {
-    console.log(`Last migration: ${lastMigration}`);
+  const lastMigrationDate = await getLastMigrationDate();
+  if (lastMigrationDate) {
+    console.log(`Last migration: ${lastMigrationDate}`);
   } else {
     console.log('No previous migrations found.');
   }
@@ -48,7 +48,7 @@ async function main() {
     const timeStamp = file.match(/migration\.(\d+)\.sql/);
     if (!timeStamp) return false;
     const migrationTime = new Date(parseInt(timeStamp[1], 10));
-    return !lastMigration || migrationTime > lastMigration;
+    return !lastMigrationDate || migrationTime > lastMigrationDate;
   });
   console.log(`Available migrations: ${availableMigrations.length}`);
   console.log(`New migrations to apply: ${newMigrations.length}`);

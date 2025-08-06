@@ -30,7 +30,7 @@
     {@const active = v === value}
     <div
       class={cn(
-        'flex flex-col items-center justify-center text-center font-mono font-medium capitalize',
+        'flex flex-col items-center justify-center text-center font-mono font-medium capitalize select-none',
         ...Object.values(colors[v]),
         i === 0 && !active && 'rounded-l-lg',
         i === nutriScoreValues.length - 1 && 'rounded-r-lg',

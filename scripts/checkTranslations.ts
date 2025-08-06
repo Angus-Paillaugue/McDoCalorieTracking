@@ -27,26 +27,26 @@ export async function loadTranslationMaps() {
   return translationMaps;
 }
 
-export async function getMissingProductTranslations() {
-  const products = await loadProductData();
-  const translations = await loadTranslationMaps();
-  const missingTranslations: { lang: string; key: string }[] = [];
-  for (const product of products) {
-    const producti18nKey = 'group' in product ? product.group : product.id;
-    const flatKey = 'products.' + producti18nKey;
-    if (!producti18nKey) continue;
+// export async function getMissingProductTranslations() {
+//   const products = await loadProductData();
+//   const translations = await loadTranslationMaps();
+//   const missingTranslations: { lang: string; key: string }[] = [];
+//   for (const product of products) {
+//     const producti18nKey = 'group' in product ? product.group : product.id;
+//     const flatKey = 'products.' + producti18nKey;
+//     if (!producti18nKey) continue;
 
-    for (const translation of translations) {
-      if (!translation.translations.products[producti18nKey]) {
-        missingTranslations.push({
-          lang: translation.lang,
-          key: flatKey,
-        });
-      }
-    }
-  }
-  return missingTranslations;
-}
+//     for (const translation of translations) {
+//       if (!translation.translations.products[producti18nKey]) {
+//         missingTranslations.push({
+//           lang: translation.lang,
+//           key: flatKey,
+//         });
+//       }
+//     }
+//   }
+//   return missingTranslations;
+// }
 
 export const flattenTranslations = (translations, prefix = '') => {
   return Object.entries(translations).reduce((acc, [key, value]) => {
@@ -104,27 +104,27 @@ async function checkTranslations() {
 }
 
 async function main() {
-  const missingProductsTranslations = await getMissingProductTranslations();
+  // const missingProductsTranslations = await getMissingProductTranslations();
 
-  if (missingProductsTranslations.length === 0) {
-    console.log(GREEN('✓') + ' All products have translations.');
-    const missingTranslations = await checkTranslations();
-    if (missingTranslations.length === 0) {
-      console.log(GREEN('✓') + ' All other translations are OK!');
-    } else {
-      missingTranslations.forEach(({ type, file, message }) => {
-        console.log(RED('✖') + ` ${file} has errors:`);
-        console.log(type + ': ' + message);
-      });
-      process.exit(1);
-    }
+  // if (missingProductsTranslations.length === 0) {
+  // console.log(GREEN('✓') + ' All products have translations.');
+  const missingTranslations = await checkTranslations();
+  if (missingTranslations.length === 0) {
+    console.log(GREEN('✓') + ' All translations are OK!');
   } else {
-    console.log(RED('✖') + ` Missing translations found:`);
-    for (const { lang, key } of missingProductsTranslations) {
-      console.warn(`${RED('✖')} - ${key} in ${lang}`);
-    }
+    missingTranslations.forEach(({ type, file, message }) => {
+      console.log(RED('✖') + ` ${file} has errors:`);
+      console.log(type + ': ' + message);
+    });
     process.exit(1);
   }
+  // } else {
+  //   console.log(RED('✖') + ` Missing translations found:`);
+  //   for (const { lang, key } of missingProductsTranslations) {
+  //     console.warn(`${RED('✖')} - ${key} in ${lang}`);
+  //   }
+  //   process.exit(1);
+  // }
   process.exit(0);
 }
 

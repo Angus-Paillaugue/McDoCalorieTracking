@@ -1,19 +1,24 @@
 <script lang="ts">
   import { Counter, NutriScore } from '$lib/components';
-  import { isGroup as isGroupFunc, type NutritionMapEntry, type Product } from '$lib/types';
-  import { cn, prettyPrintNutritionalValueValue } from '$lib/utils';
+  import {
+    isGroup as isGroupFunc,
+    type NutritionMapEntry,
+    type Product,
+    type MealItem,
+  } from '$lib/types';
+  import { cn } from '$lib/utils';
   import { Info, Minus, Plus, X } from 'lucide-svelte';
-  import type { SelectedProduct } from './+page.svelte';
   import { fade, fly, scale } from 'svelte/transition';
   import { t } from '$lib/i18n';
-  import { onMount } from 'svelte';
+  import { NutritionalValuesUtils } from '$lib/utils/nutrition';
 
   interface Props {
     entry: NutritionMapEntry;
-    selectedProducts: SelectedProduct[];
+    selectedProducts?: MealItem[];
+    editable?: boolean;
   }
 
-  let { entry = $bindable(), selectedProducts = $bindable([]) }: Props = $props();
+  let { entry = $bindable(), selectedProducts = $bindable([]), editable = true }: Props = $props();
 
   let selectedProduct = $derived(
     selectedProducts.find((p) =>
@@ -27,22 +32,15 @@
   let detailsOpen = $state(false);
   let focused = $state(false);
   let footer = $state<HTMLElement | null>(null);
-  let cardSize = $state({ height: 0, width: 0 });
+  let cardWidth = $state(0);
   let cardBody = $state<HTMLElement | null>(null);
-  let loaded = $derived(cardBody !== null && footer !== null && cardSize.width > 0);
+  let loaded = $derived(cardBody !== null && cardWidth > 0);
   let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry);
   let productId = $derived(isGroupFunc(entry) ? entry.label : currentProduct.id);
   const ASPECT_RATIO = 1.5;
 
-  onMount(() => {
-    if (cardBody) {
-      const rect = cardBody.getBoundingClientRect();
-      cardSize = { height: rect.width * ASPECT_RATIO, width: rect.width };
-    }
-  });
-
   const changeGroupIndex = (index: number) => {
-    if (!isGroupFunc(entry)) return;
+    if (!isGroupFunc(entry) || !editable) return;
     // Else, we need to update the selected items when changing the selected group index
     selectedProducts = selectedProducts.map((p) => {
       if (p.product.id === entry.items[entry.activeIndex].id) {
@@ -63,7 +61,7 @@
 
 <svelte:window onclick={onWindowClick} />
 
-<div class="relative aspect-[2/3] w-full">
+<div class="relative aspect-[2/3] w-full" bind:clientWidth={cardWidth}>
   <!-- Skeleton loader -->
   {#if !loaded}
     <div
@@ -105,8 +103,8 @@
 
   <div
     data-product-id={productId}
-    class={cn('productCard relative w-full', focused ? 'z-10' : 'z-0')}
-    style="height: {cardSize ? cardSize.height + 'px' : '100%'};"
+    class={cn('productCard relative w-full', focused ? 'z-10' : 'z-0', !loaded && 'opacity-0')}
+    style="height: {cardWidth ? cardWidth * ASPECT_RATIO + 'px' : '100%'};"
   >
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -119,29 +117,32 @@
       onmousemove={() => (focused = true)}
       onmouseenter={() => (focused = true)}
       onmouseleave={() => (focused = false)}
-      style="height: {focused && !detailsOpen
-        ? `calc(${cardSize.height}px + ${footer?.getBoundingClientRect().height}px)`
-        : cardSize
-          ? cardSize.height + 'px'
-          : '100%'}; {focused && !detailsOpen
-        ? 'box-shadow: 0 0 15px var(--color-neutral-900);'
-        : ''}"
+      style={editable
+        ? 'height: ' +
+          (focused && !detailsOpen
+            ? `calc(${cardWidth * ASPECT_RATIO}px + ${footer?.getBoundingClientRect().height}px)`
+            : cardWidth
+              ? cardWidth * ASPECT_RATIO + 'px'
+              : '100%') +
+          '; ' +
+          (focused && !detailsOpen ? 'box-shadow: 0 0 15px var(--color-neutral-800);' : '')
+        : 'width: 100%; aspect-ratio: 2/3;'}
       class={cn(
         'border-card bg-background ring-primary overflow-hidden rounded-lg border transition-all duration-300',
         selected ? 'ring-2' : 'ring-0',
-        focused && !detailsOpen && 'scale-[102%]',
+        focused && !detailsOpen && editable && 'scale-[102%]',
         detailsOpen && 'scale-[102%	] rotate-2'
       )}
     >
       <!-- Opacity filter -->
-      <div
+      <!-- <div
         class={cn(
           'bg-background/50 pointer-events-none absolute inset-0 z-30 duration-300',
           selected || focused || detailsOpen
             ? 'opacity-0'
             : 'max-lg:opacity-100 lg:opacity-0 lg:group-hover/grid:opacity-100'
         )}
-      ></div>
+      ></div> -->
 
       <!-- Background pattern -->
       <div
@@ -159,7 +160,7 @@
                 <div class="flex flex-row items-center justify-between gap-1">
                   <span class="capitalize">{$t(`nutritionalValuesLabels.${k}`)}</span>
                   <span class="font-mono"
-                    >{prettyPrintNutritionalValueValue(
+                    >{NutritionalValuesUtils.prettyPrintNutritionalValueValue(
                       k as keyof Product['nutritionalValue'],
                       v
                     )}</span
@@ -174,7 +175,7 @@
       <!-- Card contents -->
       <div
         class="z-[1] flex h-full flex-col gap-2 p-6"
-        style="height: {cardSize ? cardSize.height + 'px' : '100%'}"
+        style="height: {cardWidth && editable ? cardWidth * ASPECT_RATIO + 'px' : '100%'}"
         bind:this={cardBody}
       >
         <!-- Header -->
@@ -215,65 +216,67 @@
       </div>
 
       <!-- Quantity selector -->
-      <div class="z-[2] flex flex-col gap-4 p-6" bind:this={footer}>
-        <!-- Group index selector -->
-        {#if isGroupFunc(entry)}
-          <div
-            class="border-border grid border border-r-0"
-            style="grid-template-columns: repeat({entry.items.length}, 1fr);"
-          >
-            {#each entry.items.map((i) => i.itemLabel) as label, index}
-              <button
-                class={cn(
-                  'border-border border-r py-2 font-mono text-base uppercase transition-all',
-                  entry.activeIndex === index
-                    ? 'bg-primary text-secondary'
-                    : 'text-muted bg-background'
-                )}
-                onclick={() => changeGroupIndex(index)}
-              >
-                {label}
-              </button>
-            {/each}
+      {#if editable}
+        <div class="z-[2] flex flex-col gap-4 p-6" bind:this={footer}>
+          <!-- Group index selector -->
+          {#if isGroupFunc(entry)}
+            <div
+              class="border-border grid border border-r-0"
+              style="grid-template-columns: repeat({entry.items.length}, 1fr);"
+            >
+              {#each entry.items.map((i) => i.itemLabel) as label, index}
+                <button
+                  class={cn(
+                    'border-border border-r py-2 font-mono text-base uppercase transition-all',
+                    entry.activeIndex === index
+                      ? 'bg-primary text-secondary'
+                      : 'text-muted bg-background'
+                  )}
+                  onclick={() => changeGroupIndex(index)}
+                >
+                  {label}
+                </button>
+              {/each}
+            </div>
+          {/if}
+          <div class="flex flex-row items-center justify-between">
+            <button
+              disabled={quantity === 0}
+              class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
+              onclick={(e) => {
+                e.stopPropagation();
+                if (!selectedProduct) return;
+                selectedProduct.quantity = Math.max(0, quantity - 1);
+                if (selectedProduct.quantity === 0) {
+                  selectedProducts = selectedProducts.filter(
+                    (p) => !isGroupFunc(entry) && p.product.id !== entry.id
+                  );
+                }
+              }}
+            >
+              <Minus class="size-full" />
+            </button>
+            <div
+              class="bg-primary text-secondary w-10 overflow-hidden rounded py-1 text-center font-mono text-lg font-bold text-nowrap"
+            >
+              <Counter number={quantity} class="w-full" />
+              <!-- {quantity} -->
+            </div>
+            <button
+              class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
+              onclick={() => {
+                if (selectedProduct) {
+                  selectedProduct.quantity += 1;
+                  return;
+                }
+                selectedProducts = [...selectedProducts, { product: currentProduct, quantity: 1 }];
+              }}
+            >
+              <Plus class="size-full" />
+            </button>
           </div>
-        {/if}
-        <div class="flex flex-row items-center justify-between">
-          <button
-            disabled={quantity === 0}
-            class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
-            onclick={(e) => {
-              e.stopPropagation();
-              if (!selectedProduct) return;
-              selectedProduct.quantity = Math.max(0, quantity - 1);
-              if (selectedProduct.quantity === 0) {
-                selectedProducts = selectedProducts.filter(
-                  (p) => !isGroupFunc(entry) && p.product.id !== entry.id
-                );
-              }
-            }}
-          >
-            <Minus class="size-full" />
-          </button>
-          <div
-            class="bg-primary text-secondary w-10 overflow-hidden rounded py-1 text-center font-mono text-lg font-bold text-nowrap"
-          >
-            <Counter number={quantity} class="w-full" />
-            <!-- {quantity} -->
-          </div>
-          <button
-            class="bg-primary text-secondary disabled:bg-muted disbaled:cursor-not-allowed size-10 cursor-pointer rounded-3xl p-2 transition-all duration-100 active:rounded-sm"
-            onclick={() => {
-              if (selectedProduct) {
-                selectedProduct.quantity += 1;
-                return;
-              }
-              selectedProducts = [...selectedProducts, { product: currentProduct, quantity: 1 }];
-            }}
-          >
-            <Plus class="size-full" />
-          </button>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </div>

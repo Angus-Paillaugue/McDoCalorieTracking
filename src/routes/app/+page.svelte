@@ -1,0 +1,113 @@
+<script lang="ts">
+  import { ProductCard, SEO } from '$lib/components';
+  import Result from './result.svelte';
+  import { isGroup, type ProductList, type MealItem } from '$lib/types';
+  import Filters from './filters.svelte';
+  import { sortingMethods } from './filters.svelte';
+  import { t } from '$lib/i18n';
+  import { flip } from 'svelte/animate';
+
+  const { data } = $props();
+  const { map } = data;
+
+  let products = $state(map);
+  let selectedProducts = $state<MealItem[]>([]);
+  let filteredProducts = $state<ProductList>(map);
+  let sortMethod = $state<(typeof sortingMethods)[number]>(sortingMethods[0]);
+
+  const topLevelGroups = [
+    'beef',
+    'chicken',
+    'fish',
+    'pork',
+    'veggie',
+    'salad',
+    'fries',
+    'drink',
+    'McCoffee',
+    'ice cream',
+    'fruit',
+    'others',
+  ] as const;
+
+  const getItemsInCategory = (
+    category: (typeof topLevelGroups)[number] | null,
+    products: ProductList
+  ) => {
+    if (category === null) {
+      return products;
+    }
+    if (category === 'others') {
+      return products.filter(
+        (item) =>
+          !isGroup(item) &&
+          (!item.categories ||
+            !item.categories.some((cat) =>
+              topLevelGroups.includes(cat as (typeof topLevelGroups)[number])
+            ))
+      );
+    }
+    return products.filter((item) =>
+      isGroup(item)
+        ? item.items.some((i) => i.categories.includes(category))
+        : item.categories.includes(category)
+    );
+  };
+</script>
+
+<SEO title={$t('seo.homePage.title')} description={$t('seo.homePage.description')} />
+
+{#snippet categoryOfProduct(
+  category: (typeof topLevelGroups)[number] | (typeof sortingMethods)[number] | null,
+  entries: ProductList
+)}
+  {#if entries.length > 0}
+    <div class="relative flex flex-col gap-2 md:ml-12">
+      <!-- Left bar -->
+      <div
+        class="absolute top-0 bottom-0 -left-14 w-10 bg-[image:radial-gradient(var(--pattern)_1px,_transparent_0)] bg-[size:10px_10px] bg-fixed max-md:hidden"
+        style="--pattern: color-mix(in oklab,var(--color-white) 15%,transparent);"
+      ></div>
+      <div
+        class="from-background absolute top-0 -left-14 h-10 w-10 bg-gradient-to-b to-transparent max-md:hidden"
+      ></div>
+      <div
+        class="from-background absolute bottom-0 -left-14 h-10 w-10 bg-gradient-to-t to-transparent max-md:hidden"
+      ></div>
+
+      <!-- Content -->
+      {#if category}
+        <h1 class="font-mono text-base font-bold uppercase">
+          {$t(`filter.categories.${category}`)}
+        </h1>
+      {/if}
+      <div
+        class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+      >
+        {#each entries as _entry, i (_entry.id)}
+          <div animate:flip={{ duration: 300 }}>
+            <ProductCard bind:entry={entries[i]} bind:selectedProducts />
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
+{/snippet}
+
+<section class="relative flex h-full flex-col">
+  <Filters bind:products bind:filteredProducts bind:sortMethod />
+
+  <div class="group/grid flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
+    <!-- If no sorting is applied, show items in Top Level Groups -->
+    {#if sortMethod === 'default'}
+      {#each topLevelGroups as group (group)}
+        {@render categoryOfProduct(group, getItemsInCategory(group, filteredProducts))}
+      {/each}
+    {:else}
+      <!-- Else, just show a list of products -->
+      {@render categoryOfProduct(null, getItemsInCategory(null, filteredProducts))}
+    {/if}
+  </div>
+
+  <Result bind:selectedProducts />
+</section>

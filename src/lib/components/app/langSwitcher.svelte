@@ -4,7 +4,7 @@
   import { cn } from '$lib/utils';
 
   interface Props {
-    resultOpen: boolean;
+    resultOpen?: boolean;
   }
 
   let { resultOpen = $bindable(false) }: Props = $props();
@@ -19,10 +19,10 @@
       setLocale(value as string);
     }}
   >
-    {#each locales as l}
+    {#each locales as l (l)}
       <Select.Option value={l} selected={l === $locale}>
         <Flag class="size-4" lang={l} />
-        {l}
+        <!-- {l} -->
       </Select.Option>
     {/each}
   </Select>

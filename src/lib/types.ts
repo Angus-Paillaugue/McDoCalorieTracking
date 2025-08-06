@@ -1,15 +1,16 @@
 export const nutriScoreValues = ['A', 'B', 'C', 'D', 'E'] as const;
+export type UUID = string;
 
 export interface ProductCardProductGroup {
   items: Product[];
-  key: string;
+  id: string;
   label: string;
   activeIndex: number;
 }
 
 export interface Product {
+  id: UUID;
   image: string;
-  id: string;
   name: string;
   categories: string[];
   itemLabel?: string;
@@ -28,15 +29,28 @@ export interface Product {
 
 export type NutritionMapEntry = Product | ProductCardProductGroup;
 
-export type NutritionMap = NutritionMapEntry[];
 export type ProductList = NutritionMapEntry[];
 
 export const isGroup = (item: NutritionMapEntry | undefined): item is ProductCardProductGroup => {
-  return (
-    item !== undefined &&
-    'items' in item &&
-    'key' in item &&
-    'label' in item &&
-    'activeIndex' in item
-  );
+  return item !== undefined && 'items' in item && 'label' in item && 'activeIndex' in item;
 };
+
+export interface MealItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface Meal {
+  id: UUID;
+  date: Date;
+  items: MealItem[];
+  userId: UUID;
+}
+
+export interface User {
+  id: UUID;
+  username: string;
+  passwordHash: string;
+  createdAt: Date;
+  meals: Meal[];
+}

@@ -1,39 +1,27 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import type { SelectedProduct } from './+page.svelte';
-  import { cn, nutritionalValueKeys, prettyPrintNutritionalValueValue } from '$lib/utils';
-  import { ChevronUp } from 'lucide-svelte';
+  import { cn } from '$lib/utils';
+  import { ChevronUp, Loader } from 'lucide-svelte';
   import { t } from '$lib/i18n';
-  import type { Product } from '$lib/types';
+  import type { Product, MealItem } from '$lib/types';
+  import { NutritionalValuesUtils } from '$lib/utils/nutrition';
 
   interface Props {
-    selectedProducts: SelectedProduct[];
-    infoOpen: boolean;
+    selectedProducts: MealItem[];
   }
 
-  let { selectedProducts = $bindable([]), infoOpen = $bindable(false) }: Props = $props();
+  let { selectedProducts = $bindable([]) }: Props = $props();
   let open = $state(false);
+  let isSavingMeal = $state(false);
 
   $effect(() => {
     open = selectedProducts.length > 0 && open;
-    infoOpen = nbProducts > 0;
   });
 
-  function calculateTotalCalories(products: SelectedProduct[]): number {
+  function calculateTotalCalories(products: MealItem[]): number {
     return products.reduce((total, entry) => {
       const nutrition = entry.product.nutritionalValue;
       return total + (nutrition ? nutrition.calories * entry.quantity : 0);
-    }, 0);
-  }
-
-  function calculateTotalNutritionalValue(
-    products: SelectedProduct[],
-    key: keyof Exclude<Product['nutritionalValue'], undefined>
-  ): number {
-    return products.reduce((total, entry) => {
-      const nutrition = entry.product.nutritionalValue;
-      const value = nutrition?.[key];
-      return total + (typeof value === 'number' ? value * entry.quantity : 0);
     }, 0);
   }
 
@@ -41,22 +29,44 @@
     return calories.toLocaleString('en-US', { maximumFractionDigits: 0 });
   };
 
-  const getNbProducts = (products: SelectedProduct[]): number => {
+  const getNbProducts = (products: MealItem[]): number => {
     return products.reduce((total, product) => total + product.quantity, 0);
   };
 
   let nbProducts = $derived(getNbProducts(selectedProducts));
+  let infoOpen = $derived(nbProducts > 0);
 
   const onWindowKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && open) {
       open = false;
     }
   };
+
+  async function createMeal() {
+    if (selectedProducts.length === 0) return;
+
+    isSavingMeal = true;
+    const items = selectedProducts.map((p) => ({ productId: p.product.id, quantity: p.quantity }));
+    const response = await fetch('/api/meal/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(items),
+    });
+
+    if (response.ok) {
+      // Handle success, e.g., show a success message or redirect
+      console.log('Meal created successfully');
+    } else {
+      // Handle error, e.g., show an error message
+      console.error('Failed to create meal');
+    }
+    isSavingMeal = false;
+  }
 </script>
 
 <svelte:window onkeydown={onWindowKeyDown} />
 
-{#snippet receipt(products: SelectedProduct[])}
+{#snippet receipt(products: MealItem[])}
   <div class="flex w-full flex-col">
     <svg class="text-primary h-4 w-full" viewBox="0 0 100 10" preserveAspectRatio="none">
       <polygon
@@ -68,9 +78,9 @@
     <ul class="bg-primary text-secondary list-none space-y-4 rounded-b-none p-4">
       {#each products as entry (entry.product.id)}
         <li class="flex items-center justify-between">
-          <span>x{entry.quantity} {$t(`products.${entry.product.id}`)}</span>
+          <span>x{entry.quantity} {entry.product.name}</span>
           <span class="font-mono"
-            >{prettyPrintNutritionalValueValue(
+            >{NutritionalValuesUtils.prettyPrintNutritionalValueValue(
               'calories',
               entry.product.nutritionalValue?.calories * entry.quantity || 0
             )}</span
@@ -83,9 +93,9 @@
       <div class="mt-4 text-lg">
         {$t('total.label')}:
         <b
-          >{prettyPrintNutritionalValueValue(
+          >{NutritionalValuesUtils.prettyPrintNutritionalValueValue(
             'calories',
-            calculateTotalNutritionalValue(selectedProducts, 'calories')
+            NutritionalValuesUtils.calculateTotalNutritionalValue(selectedProducts, 'calories')
           )}</b
         >
       </div>
@@ -102,7 +112,7 @@
 
 {#if open}
   <div
-    class="bg-background fixed top-0 right-0 bottom-16 left-0 z-40 overflow-y-auto"
+    class="bg-background absolute top-0 right-0 bottom-16 left-0 z-40 overflow-y-auto"
     transition:slide={{ duration: 300, axis: 'y' }}
   >
     <div class="mx-auto grid w-full max-w-[1000px] grid-cols-1 gap-6 p-4 lg:grid-cols-2">
@@ -113,14 +123,14 @@
           {$t('total.otherNutritionalValues')}
         </h2>
         <ul class="list-none space-y-2">
-          {#each nutritionalValueKeys as k (k)}
+          {#each NutritionalValuesUtils.nutritionalValueKeys as k (k)}
             {#if k !== 'nutriScore'}
               <li class="flex flex-row items-center justify-between gap-1">
                 <span class="capitalize">{$t(`nutritionalValuesLabels.${k}`)}</span>
                 <span class="font-mono"
-                  >{prettyPrintNutritionalValueValue(
+                  >{NutritionalValuesUtils.prettyPrintNutritionalValueValue(
                     k as keyof Product['nutritionalValue'],
-                    calculateTotalNutritionalValue(
+                    NutritionalValuesUtils.calculateTotalNutritionalValue(
                       selectedProducts,
                       k as keyof Exclude<Product['nutritionalValue'], undefined>
                     )
@@ -130,6 +140,18 @@
             {/if}
           {/each}
         </ul>
+      </div>
+
+      <div class="bg-card flex h-fit w-full flex-col gap-2 rounded-lg p-4 lg:col-span-2">
+        <button
+          class="bg-primary text-secondary rounded-3xl px-2 py-1 active:rounded"
+          onclick={createMeal}
+        >
+          {#if isSavingMeal}
+            <Loader class="size-4 animate-spin" />
+          {/if}
+          Save meal for today
+        </button>
       </div>
     </div>
   </div>

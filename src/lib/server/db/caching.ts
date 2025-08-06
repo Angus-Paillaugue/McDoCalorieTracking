@@ -12,10 +12,10 @@ export class PgCaching {
     return this.client;
   }
 
-  static async get(key: string) {
+  static async get<T = unknown>(key: string): Promise<T | null> {
     const client = await this.getClient();
     const value = await client.get(key);
-    return value ? JSON.parse(value) : null;
+    return value ? (JSON.parse(value) as T) : null;
   }
 
   static async set(key: string, value: unknown, ttl: number = 3600) {
@@ -24,5 +24,10 @@ export class PgCaching {
       EX: ttl,
       condition: 'NX', // Only set if the key does not already exist
     });
+  }
+
+  static async del(key: string) {
+    const client = await this.getClient();
+    await client.del(key);
   }
 }
