@@ -55,7 +55,7 @@
   };
 </script>
 
-<SEO title={$t('seo.homePage.title')} description={$t('seo.homePage.description')} />
+<SEO title={$t('seo.homePage.title')} />
 
 {#snippet categoryOfProduct(
   category: (typeof topLevelGroups)[number] | (typeof sortingMethods)[number] | null,
@@ -97,7 +97,7 @@
 <section class="relative flex h-full flex-col">
   <Filters bind:products bind:filteredProducts bind:sortMethod />
 
-  <div class="group/grid flex grow flex-col gap-10 overflow-y-auto p-2 !pb-0 md:p-4">
+  <div class="group/grid flex grow flex-col gap-10 overflow-y-auto p-2 md:p-4">
     <!-- If no sorting is applied, show items in Top Level Groups -->
     {#if sortMethod === 'default'}
       {#each topLevelGroups as group (group)}

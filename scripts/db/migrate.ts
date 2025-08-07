@@ -38,9 +38,10 @@ async function main() {
     console.log('No previous migrations found.');
   }
 
-  const availableMigrations = await readdir(join(HERE, '../sql'));
+  const availableMigrations = (await readdir(join(HERE, '../sql'))).filter((f) =>
+    f.match(/migration\.(\d+)\.sql/)
+  );
   const newMigrations = availableMigrations.filter((file) => {
-    if (!file.endsWith('.sql')) return false;
     const timeStamp = file.match(/migration\.(\d+)\.sql/);
     if (!timeStamp) return false;
     const migrationTime = new Date(parseInt(timeStamp[1], 10));

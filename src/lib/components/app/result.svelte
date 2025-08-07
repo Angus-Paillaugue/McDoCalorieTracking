@@ -6,11 +6,13 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
   import { cn } from '$lib/utils';
-  import { ChevronUp, Loader } from 'lucide-svelte';
+  import { ChevronUp } from 'lucide-svelte';
   import { t } from '$lib/i18n';
-  import type { Product, MealItem } from '$lib/types';
+  import type { Product, MealItem, Meal } from '$lib/types';
   import { NutritionalValuesUtils } from '$lib/utils/nutrition';
   import { Toaster } from '$lib/components/Toast/toast';
+  import { Button } from '$lib/components';
+  import { page } from '$app/state';
 
   interface Props {
     selectedProducts: MealItem[];
@@ -58,12 +60,15 @@
       body: JSON.stringify(items),
     });
 
-    if (response.ok) {
-      Toaster.success($t('successes.createMeal'));
-    } else {
-      Toaster.error($t('errors.createMeal'));
-    }
+    const data = await response.json();
+    Toaster[response.ok ? 'success' : 'error']($t(data.message));
     isSavingMeal = false;
+    if (response.ok) {
+      selectedProducts = [];
+      open = false;
+      const newMeal: Meal = data.meal;
+      page.data.user.meals.unshift(newMeal);
+    }
   }
 </script>
 
@@ -115,7 +120,7 @@
 
 {#if open}
   <div
-    class="bg-background absolute top-0 right-0 bottom-16 left-0 z-40 overflow-y-auto"
+    class="bg-background absolute top-0 right-0 bottom-16 left-0 z-20 overflow-y-auto"
     transition:slide={{ duration: 300, axis: 'y' }}
   >
     <div class="mx-auto grid w-full max-w-[1000px] grid-cols-1 gap-6 p-4 lg:grid-cols-2">
@@ -145,17 +150,9 @@
         </ul>
       </div>
 
-      <div class="bg-card flex h-fit w-full flex-col gap-2 rounded-lg p-4 lg:col-span-2">
-        <button
-          class="bg-primary text-secondary rounded-3xl px-2 py-1 active:rounded"
-          onclick={createMeal}
-        >
-          {#if isSavingMeal}
-            <Loader class="size-4 animate-spin" />
-          {/if}
-          Save meal for today
-        </button>
-      </div>
+      <Button class="lg:col-span-2" onclick={createMeal} loading={isSavingMeal}>
+        Save meal for today
+      </Button>
     </div>
   </div>
 {/if}

@@ -3,6 +3,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { defaultLocale, config as i18nConfig, locales, origin } from '$lib/i18n';
 import { urlStartsWith } from '$lib/utils';
 import { auth } from '$lib/server/auth';
+import { logger } from '$lib/utils/logger';
 
 const NEED_AUTH_ROUTES: string[] = ['/app', '/api'];
 
@@ -25,7 +26,7 @@ const authHandler: Handle = async ({ event, resolve }) => {
         delete locals?.user;
       }
     } catch (error) {
-      console.error('Error verifying token:', error);
+      logger.error('Error verifying token:', error);
       delete locals.user;
       cookies.delete('token', { path: '/' });
     }

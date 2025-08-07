@@ -3,11 +3,19 @@ import bcrypt from 'bcryptjs';
 import type { Actions } from './$types';
 import { generateAccessToken } from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
+import { logger } from '$lib/utils/logger';
 
 export const actions: Actions = {
   signUp: async ({ request, cookies }) => {
-    const formData = Object.fromEntries(await request.formData());
-    const { username, password } = formData as { username: string; password: string };
+    const formData = Object.fromEntries(await request.formData()) as Record<
+      string,
+      string | undefined
+    >;
+    const { username, password } = formData as {
+      username: string;
+      password: string;
+    };
+    const rememberMe = formData.rememberMe === 'on';
 
     try {
       // Hash password
@@ -16,16 +24,16 @@ export const actions: Actions = {
       const createdUser = await UserDAO.createUser(username, hash);
       cookies.set('token', generateAccessToken(createdUser.id), {
         path: '/',
-        maxAge: 60 * 60 * 24 * 30,
+        maxAge: rememberMe ? 60 * 60 * 24 * 30 : undefined, // 30 days if rememberMe is true
       });
     } catch (error) {
-      console.error('Error creating user account :', error);
+      logger.error('Error creating user account :', error);
       return fail(400, {
         action: 'signUp',
         error: error instanceof Error ? error.message : String(error),
       });
     }
 
-    throw redirect(303, '/app');
+    redirect(303, '/app');
   },
 };

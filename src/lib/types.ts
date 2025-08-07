@@ -14,6 +14,7 @@ export interface Product {
   name: string;
   categories: string[];
   itemLabel?: string;
+  available: boolean;
   nutritionalValue: {
     calories: number;
     protein: number;

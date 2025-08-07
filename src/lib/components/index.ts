@@ -5,3 +5,6 @@ export { default as Counter } from './Counter';
 export { default as ProductCard } from './ProductCard';
 export { default as SEO } from './SEO';
 export { default as Toaster } from './Toast';
+export { default as Checkbox } from './Checkbox';
+export { default as Input } from './Input';
+export { default as Button } from './Button';

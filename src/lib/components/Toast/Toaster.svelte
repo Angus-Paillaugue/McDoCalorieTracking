@@ -8,7 +8,7 @@
   import { Toaster } from '../';
 
   const baseClasses =
-    'fixed bottom-4 z-20 flex flex-col gap-2 transition-all max-md:left-4 max-md:right-4 max-md:bottom-20 md:w-[400px]';
+    'fixed bottom-4 z-40 flex flex-col gap-2 transition-all max-md:left-4 max-md:right-4 max-md:bottom-20 md:w-[400px]';
 
   const sidePos: Record<SidebarStates | 'base', string> = {
     base: 'md:mr-4',

@@ -1,14 +1,17 @@
 <script lang="ts">
-  import { SEO } from '$lib/components';
+  import { enhance } from '$app/forms';
+  import { Button, Checkbox, Input, SEO } from '$lib/components';
   import { Toaster } from '$lib/components/Toast/toast';
   import { t } from '$lib/i18n';
+  import { logger } from '$lib/utils/logger';
   import type { PageProps } from './$types';
 
   let { form }: PageProps = $props();
+  let loading = $state(false);
 
   $effect(() => {
     if (form?.error && form?.action === 'signUp') {
-      console.error('Sig-up error:', $t(form.error));
+      logger.error('Sig-up error:', $t(form.error));
       Toaster.error($t(form.error));
     }
   });
@@ -16,8 +19,47 @@
 
 <SEO title={$t('seo.auth.signUp.title')} />
 
-<form action="?/signUp" method="POST" class="flex flex-col gap-4">
-  <input type="text" name="username" />
-  <input type="password" name="password" />
-  <button>Submit</button>
-</form>
+<div class="flex h-dvh flex-row overflow-hidden">
+  <div
+    class="border-border flex h-full w-full shrink-0 flex-col items-center justify-center p-4 lg:max-w-[700px] lg:border-r lg:p-24"
+  >
+    <form
+      action="?/signUp"
+      method="POST"
+      class="flex w-full flex-col space-y-8"
+      use:enhance={() => {
+        loading = true;
+        return async ({ update }) => {
+          await update();
+          loading = false;
+        };
+      }}
+    >
+      <img src="/logo.png" class="size-8 object-contain" alt="" />
+      <h1 class="mb-2 text-2xl font-semibold">{$t('auth.signIn.title')}</h1>
+      <p class="text-muted text-base">
+        {$t('auth.signIn.alreadyHaveAnAccount.text')}
+        <a href="/auth/log-in" class="text-primary font-medium"
+          >{$t('auth.signIn.alreadyHaveAnAccount.cta')}</a
+        >
+      </p>
+      <Input name="username" placeholder={$t('auth.username')} />
+      <Input name="password" type="password" placeholder={$t('auth.password')} />
+      <div class="flex flex-row items-center justify-between">
+        <div class="flex flex-row items-center gap-1">
+          <Checkbox name="rememberMe" id="rememberMe" checked={true} />
+          <label for="rememberMe" class="text-muted text-sm">{$t('auth.rememberMe')}</label>
+        </div>
+        <a href="/auth/forgot-password" class="text-primary text-sm font-medium"
+          >{$t('auth.forgotPassword')}</a
+        >
+      </div>
+      <Button type="submit" {loading}>Submit</Button>
+    </form>
+  </div>
+
+  <div
+    class="size-full grow bg-cover bg-center bg-no-repeat max-lg:hidden"
+    style="background-image: url(/logInImageDark.jpg);"
+  ></div>
+</div>

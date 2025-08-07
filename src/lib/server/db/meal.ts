@@ -24,6 +24,7 @@ export class MealDAO {
       userId: mealTable.user_id,
     };
   }
+
   static async createMeal(
     items: { productId: Product['id']; quantity: number }[],
     user: User
@@ -66,7 +67,7 @@ export class MealDAO {
         return meal;
       })
     );
-    return meals.sort((a, b) => a.date.getTime() - b.date.getTime());
+    return meals.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
   static async getMealById(id: Meal['id'], user: User): Promise<Meal> {

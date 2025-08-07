@@ -36,11 +36,13 @@
   let cardBody = $state<HTMLElement | null>(null);
   let loaded = $derived(cardBody !== null && cardWidth > 0);
   let currentProduct = $derived(isGroupFunc(entry) ? entry.items[entry.activeIndex] : entry);
+  let innerEditable = $derived(editable && currentProduct.available);
   let productId = $derived(isGroupFunc(entry) ? entry.label : currentProduct.id);
+  let available = $derived(currentProduct.available);
   const ASPECT_RATIO = 1.5;
 
   const changeGroupIndex = (index: number) => {
-    if (!isGroupFunc(entry) || !editable) return;
+    if (!isGroupFunc(entry) || !innerEditable) return;
     // Else, we need to update the selected items when changing the selected group index
     selectedProducts = selectedProducts.map((p) => {
       if (p.product.id === entry.items[entry.activeIndex].id) {
@@ -117,7 +119,7 @@
       onmousemove={() => (focused = true)}
       onmouseenter={() => (focused = true)}
       onmouseleave={() => (focused = false)}
-      style={editable
+      style={innerEditable
         ? 'height: ' +
           (focused && !detailsOpen
             ? `calc(${cardWidth * ASPECT_RATIO}px + ${footer?.getBoundingClientRect().height}px)`
@@ -130,7 +132,7 @@
       class={cn(
         'border-card bg-background ring-primary overflow-hidden rounded-lg border transition-all duration-300',
         selected ? 'ring-2' : 'ring-0',
-        focused && !detailsOpen && editable && 'scale-[102%]',
+        focused && !detailsOpen && innerEditable && 'scale-[102%]',
         detailsOpen && 'scale-[102%	] rotate-2'
       )}
     >
@@ -175,7 +177,7 @@
       <!-- Card contents -->
       <div
         class="z-[1] flex h-full flex-col gap-2 p-6"
-        style="height: {cardWidth && editable ? cardWidth * ASPECT_RATIO + 'px' : '100%'}"
+        style="height: {cardWidth && innerEditable ? cardWidth * ASPECT_RATIO + 'px' : '100%'}"
         bind:this={cardBody}
       >
         <!-- Header -->
@@ -216,7 +218,7 @@
       </div>
 
       <!-- Quantity selector -->
-      {#if editable}
+      {#if innerEditable}
         <div class="z-[2] flex flex-col gap-4 p-6" bind:this={footer}>
           <!-- Group index selector -->
           {#if isGroupFunc(entry)}
@@ -279,4 +281,14 @@
       {/if}
     </div>
   </div>
+
+  {#if !available}
+    <div
+      class="bg-card/50 absolute inset-0 z-10 flex flex-col items-center justify-center rounded-lg"
+    >
+      <div class="-rotate-45 rounded-xs bg-red-600 px-4 py-1">
+        <span class="font-mono text-2xl font-semibold uppercase">NOT AVAILABLE</span>
+      </div>
+    </div>
+  {/if}
 </div>

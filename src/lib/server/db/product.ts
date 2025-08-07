@@ -1,4 +1,10 @@
-import type { NutritionMapEntry, Product, ProductCardProductGroup, ProductList } from '$lib/types';
+import {
+  isGroup,
+  type NutritionMapEntry,
+  type Product,
+  type ProductCardProductGroup,
+  type ProductList,
+} from '$lib/types';
 import pool from '.';
 import { PgCaching } from './caching';
 
@@ -10,6 +16,7 @@ export class ProductDAO {
       name: row.name,
       categories: row.categories ?? [],
       itemLabel: row.item_label ?? null,
+      available: row.available ?? true,
       nutritionalValue: {
         calories: parseInt(row.calories, 10) || 0,
         protein: parseInt(row.protein, 10) || 0,
@@ -22,6 +29,31 @@ export class ProductDAO {
         nutriScore: row.nutri_score,
       },
     };
+  }
+
+  static sortByName(products: ProductList) {
+    return products.sort((a, b) => {
+      const availableA = isGroup(a)
+        ? a.items[a.activeIndex].available
+          ? 0
+          : 1
+        : a.available
+          ? 0
+          : 1;
+      const availableB = isGroup(b)
+        ? b.items[b.activeIndex].available
+          ? 0
+          : 1
+        : b.available
+          ? 0
+          : 1;
+      if (availableA !== availableB) {
+        return availableA - availableB; // Sort unavailable products last
+      }
+      const aKey = isGroup(a) ? a.items[a.activeIndex].name.toLowerCase() : a.name.toLowerCase();
+      const bKey = isGroup(b) ? b.items[b.activeIndex].name.toLowerCase() : b.name.toLowerCase();
+      return aKey.localeCompare(bKey);
+    });
   }
 
   static async createProduct(product: Product): Promise<void> {
@@ -65,7 +97,7 @@ export class ProductDAO {
         return product;
       })
     );
-    return products;
+    return ProductDAO.sortByName(products);
   }
 
   static async getAllProductGroups(): Promise<ProductCardProductGroup[]> {
@@ -76,7 +108,7 @@ export class ProductDAO {
         return group;
       })
     );
-    return groups;
+    return ProductDAO.sortByName(groups) as ProductCardProductGroup[];
   }
 
   static async getProductGroupById(id: ProductCardProductGroup['id']) {

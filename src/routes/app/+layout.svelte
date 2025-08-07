@@ -7,7 +7,7 @@
   let { children }: LayoutProps = $props();
 </script>
 
-<SEO title={$t('seo.homePage.title')} description={$t('seo.homePage.description')} />
+<SEO title={$t('seo.homePage.title')} />
 
 <div class="flex h-dvh flex-col md:flex-row">
   <main class="relative h-full grow overflow-y-auto">

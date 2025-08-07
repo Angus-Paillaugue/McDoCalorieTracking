@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { logger } from '$lib/utils/logger';
 import pg from 'pg';
 
 const { Pool } = pg;
@@ -14,7 +15,7 @@ try {
     port: parseInt(env.POSTGRES_PORT ?? '', 10) || 5432,
   });
 } catch (error) {
-  console.error('Failed to create database pool:', error);
+  logger.error('Failed to create database pool:', error);
   throw error;
 }
 

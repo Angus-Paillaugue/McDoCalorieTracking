@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Toaster } from '$lib/components';
+  import { SEO, Toaster } from '$lib/components';
+  import { t } from '$lib/i18n';
   import '../app.css';
 
   let { children } = $props();
@@ -7,4 +8,8 @@
 
 <Toaster />
 
-{@render children()}
+<SEO title={$t('seo.defaults.title')} description={$t('seo.defaults.description')} />
+
+<div class="flex min-h-dvh flex-col">
+  {@render children()}
+</div>

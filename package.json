@@ -14,7 +14,8 @@
     "prepare": "husky",
     "i18n:check": "if command -v bun >/dev/null 2>&1; then bun scripts/checkTranslations.ts; else node scripts/checkTranslations.ts; fi",
     "db:migrate": "if command -v bun >/dev/null 2>&1; then bun scripts/db/migrate.ts; else node scripts/db/migrate.ts; fi",
-    "db:create-migration": "if command -v bun >/dev/null 2>&1; then bun scripts/db/createMigration.ts; else node scripts/db/createMigration.ts; fi"
+    "db:create-migration": "if command -v bun >/dev/null 2>&1; then bun scripts/db/createMigration.ts; else node scripts/db/createMigration.ts; fi",
+    "db:make-op": "./scripts/db/makeOp.sh"
   },
   "lint-staged": {
     "*.{js,ts,svelte,json,css,md}": "prettier --write"

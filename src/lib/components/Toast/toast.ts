@@ -35,6 +35,13 @@ function newToast(type: ToastType, message: string, options: ToastOptions): stri
     return oldToast;
   });
 
+  // Automatically remove the toast after the specified timeout.
+  if (newToast.options.timeout) {
+    setTimeout(() => {
+      removeToast(newToast.id);
+    }, newToast.options.timeout);
+  }
+
   return newToast.id;
 }
 

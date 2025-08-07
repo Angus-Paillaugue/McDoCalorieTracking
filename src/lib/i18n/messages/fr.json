@@ -2,6 +2,7 @@
   "seo": {
     "titleSuffix": "McDonald's Nutrition Facts",
     "defaults": {
+      "title": "Valeurs Nutritionnelles de McDonald's",
       "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
     },
     "homePage": {
@@ -87,7 +88,8 @@
       "createUser": "Échec de la création de l'utilisateur",
       "usernameTaken": "Ce nom d'utilisateur est déjà pris",
       "userDoesNotExist": "L'utilisateur n'existe pas.",
-      "userNotFound": "Utilisateur non trouvé"
+      "userNotFound": "Utilisateur non trouvé",
+      "userIsRequired": "L'utilisateur est requis"
     },
     "meal": {
       "mealNotFound": "Repas non trouvé",
@@ -102,5 +104,37 @@
   },
   "successes": {
     "createMeal": "Repas crée avec succès !"
+  },
+  "auth": {
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "submit": "Envoyer",
+    "signIn": {
+      "title": "Créez votre compte",
+      "alreadyHaveAnAccount": {
+        "text": "Vous avez déjà un compte ?",
+        "cta": "Se connecter"
+      }
+    },
+    "logIn": {
+      "title": "Se connecter",
+      "dontHaveAnAccount": {
+        "text": "Vous n'avez pas encore un compte?",
+        "cta": "S'inscrire"
+      }
+    }
+  },
+  "comingSoon": {
+    "title": "Patience... Lancement imminent 🚦",
+    "descriptionWithDate": "Cette page ouvrira le {{date}}",
+    "descriptionWithoutDate": "Cette page n'est pas encore disponible. Veuillez revenir plus tard."
+  },
+  "errorPage": {
+    "cta": {
+      "goHome": "Accueil",
+      "goBack": "Retour"
+    }
   }
 }

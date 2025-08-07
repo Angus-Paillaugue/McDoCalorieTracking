@@ -19,7 +19,7 @@
   import type { SvelteHTMLElements } from 'svelte/elements';
   import { SvelteSet } from 'svelte/reactivity';
   import { fly, scale, slide } from 'svelte/transition';
-  import { t, translate } from '$lib/i18n';
+  import { t } from '$lib/i18n';
 
   interface Props {
     products: ProductList;
@@ -91,14 +91,14 @@
         let aKey: string;
         let bKey: string;
         if (isGroup(a)) {
-          aKey = a.id.toLowerCase();
+          aKey = a.items[a.activeIndex].name.toLowerCase();
         } else {
-          aKey = translate(`products.${a.id}`).toLowerCase();
+          aKey = a.name.toLowerCase();
         }
         if (isGroup(b)) {
-          bKey = b.id.toLowerCase();
+          bKey = b.items[b.activeIndex].name.toLowerCase();
         } else {
-          bKey = translate(`products.${b.id}`).toLowerCase();
+          bKey = b.name.toLowerCase();
         }
         return aKey.localeCompare(bKey);
       });
