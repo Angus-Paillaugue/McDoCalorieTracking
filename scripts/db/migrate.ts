@@ -5,8 +5,8 @@
 // --  already been done.                                 --
 // ---------------------------------------------------------
 
-import pool from './pool';
-import { HERE } from '../shared';
+import pool from './pool.ts';
+import { HERE } from '../shared.ts';
 import { readdir, readFile } from 'fs/promises';
 import { join } from 'path';
 
@@ -18,7 +18,7 @@ const getLastMigrationDate = async (): Promise<Date> => {
 };
 
 async function applyMigration(name: string) {
-  const migrationPath = join(HERE, `../sql/migrations/${name}`);
+  const migrationPath = join(HERE, `../sql/${name}`);
   const sql = await readFile(migrationPath, 'utf8');
   if (!sql) {
     throw new Error(`Migration file ${name} not found.`);
@@ -38,11 +38,7 @@ async function main() {
     console.log('No previous migrations found.');
   }
 
-  const availableMigrations = await readdir(join(HERE, '../sql/migrations'));
-  if (availableMigrations.length === 0) {
-    console.log('No migration files found.');
-    return;
-  }
+  const availableMigrations = await readdir(join(HERE, '../sql'));
   const newMigrations = availableMigrations.filter((file) => {
     if (!file.endsWith('.sql')) return false;
     const timeStamp = file.match(/migration\.(\d+)\.sql/);

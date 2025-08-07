@@ -12,9 +12,9 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "prepare": "husky",
-    "i18n:check": "bun scripts/checkTranslations.ts",
-    "db:migrate": "bun scripts/db/migrate.ts",
-    "db:create-migration": "bun scripts/db/createMigration.ts"
+    "i18n:check": "if command -v bun >/dev/null 2>&1; then bun scripts/checkTranslations.ts; else node scripts/checkTranslations.ts; fi",
+    "db:migrate": "if command -v bun >/dev/null 2>&1; then bun scripts/db/migrate.ts; else node scripts/db/migrate.ts; fi",
+    "db:create-migration": "if command -v bun >/dev/null 2>&1; then bun scripts/db/createMigration.ts; else node scripts/db/createMigration.ts; fi"
   },
   "lint-staged": {
     "*.{js,ts,svelte,json,css,md}": "prettier --write"

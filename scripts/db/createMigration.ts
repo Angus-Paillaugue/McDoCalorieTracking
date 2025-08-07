@@ -1,10 +1,10 @@
-import { HERE } from '../shared';
+import { HERE } from '../shared.ts';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 
 async function main() {
   const now = new Date().getTime();
-  const migrationsPath = join(HERE, `../sql/migrations`);
+  const migrationsPath = join(HERE, `../sql`);
   const fileName = `migration.${now}.sql`;
   const sql = `-- Migration created at ${new Date(now).toISOString()}\n\n`;
 

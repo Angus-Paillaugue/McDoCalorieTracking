@@ -1,11 +1,17 @@
 import { createClient } from 'redis';
+import { env } from '$env/dynamic/private';
 
 export class PgCaching {
   private static client: ReturnType<typeof createClient> | null = null;
 
   static async getClient() {
     if (!this.client) {
-      this.client = await createClient()
+      this.client = await createClient({
+        socket: {
+          host: env.REDIS_HOST || 'localhost',
+          port: env.REDIS_PORT ? parseInt(env.REDIS_PORT, 10) : 6379,
+        },
+      })
         .on('error', (err) => console.log('Redis Client Error', err))
         .connect();
     }
