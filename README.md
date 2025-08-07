@@ -33,6 +33,25 @@ A modern, SvelteKit-powered web application to explore, filter, and analyze the 
 
 ## 🛠️ Getting Started
 
+### Production
+
+Get the docker compose file and `.env` :
+
+```sh
+curl -L https://raw.githubusercontent.com/Angus-Paillaugue/McDoCalorieTracking/refs/heads/main/docker-compose.yaml -o docker-compose.yaml
+curl -L https://raw.githubusercontent.com/Angus-Paillaugue/McDoCalorieTracking/refs/heads/main/.env.example -o .env
+```
+
+Fill in the required `.env` file values.
+
+Start the containers
+
+```sh
+docker compose up -d
+```
+
+You can now go to [http://localhost:4173](http://localhost:4173) and see the result!
+
 ### Development
 
 #### 1. Clone & Install

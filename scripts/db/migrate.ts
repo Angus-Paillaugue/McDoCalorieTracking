@@ -18,7 +18,7 @@ const getLastMigrationDate = async (): Promise<Date> => {
 };
 
 async function applyMigration(name: string) {
-  const migrationPath = join(HERE, `../sql/${name}`);
+  const migrationPath = join(HERE, `../sql/migrations/${name}`);
   const sql = await readFile(migrationPath, 'utf8');
   if (!sql) {
     throw new Error(`Migration file ${name} not found.`);
@@ -38,7 +38,7 @@ async function main() {
     console.log('No previous migrations found.');
   }
 
-  const availableMigrations = (await readdir(join(HERE, '../sql'))).filter((f) =>
+  const availableMigrations = (await readdir(join(HERE, '../sql/migrations'))).filter((f) =>
     f.match(/migration\.(\d+)\.sql/)
   );
   const newMigrations = availableMigrations.filter((file) => {

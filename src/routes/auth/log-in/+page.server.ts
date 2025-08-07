@@ -33,7 +33,10 @@ export const actions: Actions = {
       logger.error('Error logging user :', error);
       return fail(400, {
         action: 'logIn',
-        error: error instanceof Error ? error.message : String(error),
+        error:
+          error instanceof Error
+            ? error.message || 'errors.server.connectionRefused'
+            : String(error),
       });
     }
     redirect(303, '/app');

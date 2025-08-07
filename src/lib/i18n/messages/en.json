@@ -99,7 +99,11 @@
       "create": "Failed to create product",
       "groupNotFound": "Product group not found",
       "notFound": "Product not found",
-      "notInAGroup": "Product is not in a group"
+      "notInAGroup": "Product is not in a group",
+      "notAvailable": "not available"
+    },
+    "server": {
+      "connectionRefused": "Connection refused. Please try again later."
     }
   },
   "successes": {

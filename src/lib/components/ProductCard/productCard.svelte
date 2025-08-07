@@ -287,7 +287,9 @@
       class="bg-card/50 absolute inset-0 z-10 flex flex-col items-center justify-center rounded-lg"
     >
       <div class="-rotate-45 rounded-xs bg-red-600 px-4 py-1">
-        <span class="font-mono text-2xl font-semibold uppercase">NOT AVAILABLE</span>
+        <span class="font-mono text-2xl font-semibold uppercase"
+          >{$t('errors.product.notAvailable')}</span
+        >
       </div>
     </div>
   {/if}

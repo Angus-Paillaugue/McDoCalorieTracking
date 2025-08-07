@@ -1,6 +1,6 @@
 import { get, readable, writable } from 'svelte/store';
 import { config } from './config';
-import { logger } from '$lib/utils/logger';
+import { i18nLogger } from '$lib/utils/logger';
 
 type Required<T> = {
   [P in keyof T]-?: T[P];
@@ -31,7 +31,7 @@ export class i18n {
   constructor(config: Config) {
     this._config = this.normalizeConfig(config);
     this._locale.set(config.defaultLocale);
-    logger.debug(`i18n initialized with default locale "${config.defaultLocale}"`);
+    i18nLogger.debug(`i18n initialized with default locale "${config.defaultLocale}"`);
   }
 
   private normalizeConfig(config: Config): InternalConfig {
@@ -69,7 +69,7 @@ export class i18n {
   }
 
   setOrigin(origin: string) {
-    logger.debug(`Setting origin to "${origin}"`);
+    i18nLogger.debug(`Setting origin to "${origin}"`);
     this._origin.set(origin);
   }
 
@@ -77,7 +77,7 @@ export class i18n {
     if (!locale) {
       return;
     }
-    logger.debug(`Setting locale to "${locale}"`);
+    i18nLogger.debug(`Setting locale to "${locale}"`);
     if (this.isLocaleSupported(locale)) {
       this.loadTranslations(locale);
       if (locale !== get(this._locale)) {
@@ -85,7 +85,7 @@ export class i18n {
         this._dir.set(config.loaders.find((l) => l.locale === locale)?.dir as Dir);
       }
     } else {
-      logger.error(`Locale ${locale} not supported`);
+      i18nLogger.error(`Locale ${locale} not supported`);
       throw new Error(`Locale ${locale} not supported`);
     }
 
@@ -131,11 +131,11 @@ export class i18n {
     if (loader) {
       this._currentPageTranslations = this.flattenTranslations(await loader.loader());
     } else {
-      logger.error(`Loader for locale ${locale} not found`);
+      i18nLogger.error(`Loader for locale ${locale} not found`);
       throw new Error(`Loader for locale ${locale} not found`);
     }
 
-    logger.debug(
+    i18nLogger.debug(
       `${Object.keys(this._currentPageTranslations).length} "${locale}" translations loaded`
     );
   }
@@ -158,7 +158,7 @@ export class i18n {
           String(params?.[index] || '')
         );
       } else {
-        logger.warn(`Translation for key "${key}" not found`);
+        i18nLogger.warn(`Translation for key "${key}" not found`);
       }
       return key;
     });

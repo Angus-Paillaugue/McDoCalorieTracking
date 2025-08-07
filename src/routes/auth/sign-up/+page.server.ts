@@ -30,7 +30,10 @@ export const actions: Actions = {
       logger.error('Error creating user account :', error);
       return fail(400, {
         action: 'signUp',
-        error: error instanceof Error ? error.message : String(error),
+        error:
+          error instanceof Error
+            ? error.message || 'errors.server.connectionRefused'
+            : String(error),
       });
     }
 

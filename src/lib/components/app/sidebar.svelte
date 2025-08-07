@@ -143,7 +143,7 @@
   </div>
 
   <!-- Footer (Lang switcher) -->
-  <div class="hidden w-full flex-col px-2 md:flex">
+  <div class="hidden w-full flex-col md:flex">
     <!-- <LangSwitcher /> -->
 
     {@render navEntry(

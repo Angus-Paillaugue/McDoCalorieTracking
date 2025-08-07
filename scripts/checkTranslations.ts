@@ -1,18 +1,10 @@
 import { join } from 'path';
-import { type Product } from '../src/lib/types.ts';
 import { readdir, readFile } from 'fs/promises';
+import chalk from 'chalk';
+import { TRANSLATIONS_FILES_DIR } from './shared.ts';
 
-const HERE = import.meta.url.startsWith('file:')
-  ? new URL('.', import.meta.url).pathname
-  : process.cwd();
-export const TRANSLATIONS_FILES_DIR = join(HERE, '../src/lib/i18n/messages');
-export const PRODUCT_DATA_PATH = join(HERE, '../src/data/map.json');
-
-export async function loadProductData() {
-  const fileContent = await readFile(PRODUCT_DATA_PATH, 'utf-8');
-  const map = JSON.parse(fileContent) as Product[];
-  return map;
-}
+const GREEN = chalk.green;
+const RED = chalk.red;
 
 export async function loadTranslationMaps() {
   const languages = await readdir(TRANSLATIONS_FILES_DIR);
@@ -27,27 +19,6 @@ export async function loadTranslationMaps() {
   return translationMaps;
 }
 
-// export async function getMissingProductTranslations() {
-//   const products = await loadProductData();
-//   const translations = await loadTranslationMaps();
-//   const missingTranslations: { lang: string; key: string }[] = [];
-//   for (const product of products) {
-//     const producti18nKey = 'group' in product ? product.group : product.id;
-//     const flatKey = 'products.' + producti18nKey;
-//     if (!producti18nKey) continue;
-
-//     for (const translation of translations) {
-//       if (!translation.translations.products[producti18nKey]) {
-//         missingTranslations.push({
-//           lang: translation.lang,
-//           key: flatKey,
-//         });
-//       }
-//     }
-//   }
-//   return missingTranslations;
-// }
-
 export const flattenTranslations = (translations, prefix = '') => {
   return Object.entries(translations).reduce((acc, [key, value]) => {
     if (typeof value === 'object' && value !== null) {
@@ -60,11 +31,6 @@ export const flattenTranslations = (translations, prefix = '') => {
     return acc;
   }, {});
 };
-
-import chalk from 'chalk';
-
-const GREEN = chalk.green;
-const RED = chalk.red;
 
 async function checkTranslations() {
   const hasErrors: { type: string; file: string; message: string }[] = [];
@@ -104,10 +70,6 @@ async function checkTranslations() {
 }
 
 async function main() {
-  // const missingProductsTranslations = await getMissingProductTranslations();
-
-  // if (missingProductsTranslations.length === 0) {
-  // console.log(GREEN('✓') + ' All products have translations.');
   const missingTranslations = await checkTranslations();
   if (missingTranslations.length === 0) {
     console.log(GREEN('✓') + ' All translations are OK!');
@@ -118,13 +80,6 @@ async function main() {
     });
     process.exit(1);
   }
-  // } else {
-  //   console.log(RED('✖') + ` Missing translations found:`);
-  //   for (const { lang, key } of missingProductsTranslations) {
-  //     console.warn(`${RED('✖')} - ${key} in ${lang}`);
-  //   }
-  //   process.exit(1);
-  // }
   process.exit(0);
 }
 

@@ -4,7 +4,7 @@ import { join } from 'path';
 
 async function main() {
   const now = new Date().getTime();
-  const migrationsPath = join(HERE, `../sql`);
+  const migrationsPath = join(HERE, `../sql/migrations`);
   const fileName = `migration.${now}.sql`;
   const sql = `-- Migration created at ${new Date(now).toISOString()}\n\n`;
 
