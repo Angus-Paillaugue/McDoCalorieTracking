@@ -19,4 +19,4 @@ export const loadTranslations = (locale: string) => i18nInstance.loadTranslation
 export const setLocale = (locale: string, hook?: boolean) => i18nInstance.setLocale(locale, hook);
 export const setOrigin = (origin: string) => i18nInstance.setOrigin(origin);
 export const translate = (key: string, params?: Record<string, unknown>) =>
-	i18nInstance.translate(key, params);
+  i18nInstance.translate(key, params);

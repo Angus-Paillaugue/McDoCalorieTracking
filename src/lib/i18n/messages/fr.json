@@ -1,129 +1,140 @@
 {
-	"seo": {
-		"homePage": {
-			"title": "McDonald's Nutrition Facts",
-			"description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
-		}
-	},
-	"nutritionalValuesLabels": {
-		"calories": "Calories",
-		"protein": "Protéines",
-		"carbohydrates": "Glucides",
-		"carbohydratesSugars": "Glucides (sucres)",
-		"lipids": "Lipides",
-		"lipidsSaturated": "Lipides saturés",
-		"fibers": "Fibres",
-		"salt": "Sel",
-		"nutriScore": "Nutri-Score"
-	},
-	"sorting": {
-		"label": "Trier par",
-		"methods": {
-			"default": "Par défaut",
-			"name": "Nom"
-		}
-	},
-	"search": {
-		"label": "Rechercher",
-		"placeholder": "Rechercher un produit"
-	},
-	"total": {
-		"label": "Total",
-		"otherNutritionalValues": "Autres valeurs nutritionnelles :",
-		"nbSelectedProducts": "{{nbProducts}} product{{plural}} selected"
-	},
-	"filter": {
-		"categories": {
-			"others": "Autres",
-			"beef": "Boeuf",
-			"burger": "Burger",
-			"chicken": "Poulet",
-			"desert": "Desert",
-			"drink": "Boisson",
-			"egg": "Oeuf",
-			"fish": "Poisson",
-			"fries": "Frites",
-			"fruit": "Fruit",
-			"ice cream": "Glace",
-			"McCoffee": "McCoffee",
-			"milk shake": "Milk Shake",
-			"nuggets": "Nuggets",
-			"pork": "Porc",
-			"salad": "Salads",
-			"veggie": "Végétarien",
-			"wrap": "Wrap"
-		}
-	},
-	"products": {
-		"280": "280™ Original",
-		"cesarSalad": "Salade César",
-		"veggieCesarSalad": "Salade César Végétarienne",
-		"smallSalad": "Petite Salade",
-		"smallRanchWrap": "P’tit Wrap Ranch",
-		"smallFries": "Petite Frites",
-		"sugarDonut": "Donut Nature",
-		"crispy": "McCrispy",
-		"bigArch": "Big Arch",
-		"doubleCheeseBacon": "Double Cheese Bacon",
-		"doubleBigTasty": "Big Tasty™ - 2 Steaks Hachés",
-		"bigTasty": "Big Tasty™ - 1 Steak Haché",
-		"royalBacon": "Royal™ Bacon",
-		"eggBaconMuffin": "Egg & Bacon McMuffin",
-		"doubleCheese": "Double Cheeseburger",
-		"royalDeluxe": "Royal™ Deluxe",
-		"nuggets": "Nuggets",
-		"royalCheese": "Royal Cheese™",
-		"cbo": "CBO",
-		"hamburger": "Hamburger",
-		"newYorkWrap": "McWrap™ New York & Poulet Bacon",
-		"eggCheese": "Egg & Cheese McMuffin",
-		"croque": "Croque McDo",
-		"smallChicken": "P'tit Chicken",
-		"cheeseburger": "Cheeseburger",
-		"mcChicken": "McChicken",
-		"mcFishMayo": "McFish™ Mayo",
-		"veggieWrap": "McWrap® Veggie",
-		"filetFish": "Filet-O-Fish",
-		"deluxeFiletFish": "Filet-O-Fish™ Deluxe",
-		"mcFish": "McFish",
-		"mcVeggie": "McVeggie",
-		"bigMac": "Big Mac",
-		"maple": "Maple BBQ Quarter Pounder",
-		"doubleMaple": "Double Maple BBQ Quarter Pounder",
-		"steakhouse": "Steakhouse",
-		"teriyakiChicken": "Teriyaki Chicken",
-		"shrimpFilet": "Shrimp Filet",
-		"appleJuice": "Nectar De Pomme Bio",
-		"hawai": "Hawaï® Saveur Tropical",
-		"capriSun": "Capri-Sun® Tropical",
-		"macFlurryMango": "McFlurry™ Mangue Bobba",
-		"mcFloatSakura": "McFloat® Sakura",
-		"sundaeMango": "Sundae coulis mangue",
-		"smallVanillaIceCream": "P'tit Glacé Saveur Vanille",
-		"smallVanillaShake": "P'tit Milkshake Saveur Vanille",
-		"bigVanillaShake": "Grand Milkshake Saveur Vanille",
-		"appleSlices": "P'tite Pomme",
-		"bigStrawberryShake": "Grand Milkshake Saveur Fraise",
-		"smallStrawberryShake": "P'tit Milkshake Saveur Fraise",
-		"applesauce": "Berlingo' Fruits",
-		"chocolateMuffin": "Muffin Saveur Chocolat Noisette",
-		"cucumbers": "P'tits Concombres",
-		"ananas": "P'tit Ananas",
-		"chocolateCookie": "Cookie Fourré Choconuts",
-		"macaroonsDuo": "Duo De Macarons",
-		"mcChocoNuts": "McChocoNuts Nappage Choconuts",
-		"brownie": "Brownie Chocolat-Noisettes",
-		"mediumPotatoes": "Moyenne Portion de Deluxe Potatoes",
-		"bigPotatoes": "Grande Portion de Deluxe Potatoes",
-		"cheesePotatoes": "Potatoes Double Cheddar Fondu",
-		"baconPotatoes": "Potatoes Cheddar Fondu - Bacon",
-		"blueberryMuffin": "Muffin Aux Myrtilles",
-		"chocolateDonut": "Donut Saveur Chocolat",
-		"quebecFries": "Frites à la Québécoise",
-		"mediumFries": "Moyenne Portion de Frites",
-		"bigFries": "Grande Portion de Frites",
-		"chedarFries": "McFlavor® Fries Double Cheddar Fondu",
-		"baconFries": "McFlavor® Fries Cheddar Fondu - Bacon",
-		"bioABoire": "Le Bio à Boire"
-	}
+  "seo": {
+    "titleSuffix": "McDonald's Nutrition Facts",
+    "defaults": {
+      "title": "Valeurs Nutritionnelles de McDonald's",
+      "description": "Discover the nutritional values of McDonald's products, including calories, proteins, carbohydrates, and more."
+    },
+    "homePage": {
+      "title": "Accueil"
+    },
+    "meals": {
+      "title": "Mes Repas"
+    },
+    "auth": {
+      "logIn": {
+        "title": "Se connecter"
+      },
+      "signUp": {
+        "title": "S'inscrire"
+      }
+    }
+  },
+  "nutritionalValuesLabels": {
+    "calories": "Calories",
+    "protein": "Protéines",
+    "carbohydrates": "Glucides",
+    "carbohydratesSugars": "Glucides (sucres)",
+    "lipids": "Lipides",
+    "lipidsSaturated": "Lipides saturés",
+    "fibers": "Fibres",
+    "salt": "Sel",
+    "nutriScore": "Nutri-Score"
+  },
+  "sorting": {
+    "label": "Trier par",
+    "methods": {
+      "default": "Par défaut",
+      "name": "Nom"
+    }
+  },
+  "search": {
+    "label": "Rechercher",
+    "placeholder": "Rechercher un produit"
+  },
+  "total": {
+    "label": "Total",
+    "otherNutritionalValues": "Autres valeurs nutritionnelles :",
+    "nbSelectedProducts": "{{nbProducts}} product{{plural}} selected"
+  },
+  "filter": {
+    "categories": {
+      "others": "Autres",
+      "beef": "Boeuf",
+      "burger": "Burger",
+      "chicken": "Poulet",
+      "desert": "Desert",
+      "drink": "Boisson",
+      "egg": "Oeuf",
+      "fish": "Poisson",
+      "fries": "Frites",
+      "fruit": "Fruit",
+      "ice cream": "Glace",
+      "McCoffee": "McCoffee",
+      "milk shake": "Milk Shake",
+      "nuggets": "Nuggets",
+      "pork": "Porc",
+      "salad": "Salade",
+      "veggie": "Végétarien",
+      "wrap": "Wrap"
+    }
+  },
+  "date": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier"
+  },
+  "sidebar": {
+    "navEntries": {
+      "home": "Accueil",
+      "meals": "Mes repas",
+      "logOut": "Se déconnecter"
+    }
+  },
+  "errors": {
+    "createMeal": "Un problème est survenu lors de la création du repas",
+    "auth": {
+      "badUsername": "Aucun utilisateur trouvé avec ce nom d'utilisateur",
+      "invalidCredentials": "Identifiants invalides. Veuillez réessayer.",
+      "createUser": "Échec de la création de l'utilisateur",
+      "usernameTaken": "Ce nom d'utilisateur est déjà pris",
+      "userDoesNotExist": "L'utilisateur n'existe pas.",
+      "userNotFound": "Utilisateur non trouvé",
+      "userIsRequired": "L'utilisateur est requis"
+    },
+    "meal": {
+      "mealNotFound": "Repas non trouvé",
+      "mealDoesNotBelongToUser": "Ce repas ne vous appartient pas"
+    },
+    "product": {
+      "create": "Erreur lors de la création du produit",
+      "groupNotFound": "Groupe de produit non trouvé",
+      "notFound": "Produit non trouvé",
+      "notInAGroup": "Le produit n'est pas dans un groupe"
+    }
+  },
+  "successes": {
+    "createMeal": "Repas crée avec succès !"
+  },
+  "auth": {
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "submit": "Envoyer",
+    "signIn": {
+      "title": "Créez votre compte",
+      "alreadyHaveAnAccount": {
+        "text": "Vous avez déjà un compte ?",
+        "cta": "Se connecter"
+      }
+    },
+    "logIn": {
+      "title": "Se connecter",
+      "dontHaveAnAccount": {
+        "text": "Vous n'avez pas encore un compte?",
+        "cta": "S'inscrire"
+      }
+    }
+  },
+  "comingSoon": {
+    "title": "Patience... Lancement imminent 🚦",
+    "descriptionWithDate": "Cette page ouvrira le {{date}}",
+    "descriptionWithoutDate": "Cette page n'est pas encore disponible. Veuillez revenir plus tard."
+  },
+  "errorPage": {
+    "cta": {
+      "goHome": "Accueil",
+      "goBack": "Retour"
+    }
+  }
 }
